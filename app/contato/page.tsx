@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { Phone, Mail, MapPin, Clock } from "lucide-react"
+import { ContatoForm } from "@/components/forms/contato-form"
 
 export const metadata: Metadata = {
   title: "Contato | Escola Terra Terrinha",
@@ -97,7 +98,7 @@ export default function ContatoPage() {
               </div>
 
               {/* Form */}
-              
+              <ContatoForm />
             </div>
           </div>
         </section>
