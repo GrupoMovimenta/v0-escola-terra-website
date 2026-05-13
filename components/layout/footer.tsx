@@ -86,14 +86,18 @@ export function Footer() {
             <h3 className="font-semibold text-lg mb-4">Redes Sociais</h3>
             <div className="flex gap-4">
               <a
-                href="#"
+                href="https://www.instagram.com/terra.terrinha/"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Instagram"
                 className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
               >
                 <Instagram className="h-6 w-6" />
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/escola.terraterrinha/"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Facebook"
                 className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
               >
