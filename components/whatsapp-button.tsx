@@ -25,7 +25,7 @@ export function WhatsAppButton() {
         href="https://api.whatsapp.com/send?phone=5519992015263&text=Ol%C3%A1,%20vim%20do%20site%20e%20gostaria%20de%20tirar%20algumas%20d%C3%BAvidas..."
         target="_blank"
         rel="noopener noreferrer"
-        className="md:hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40 w-[90%] max-w-sm flex items-center justify-center gap-2 bg-[#0dc152] text-white px-4 py-3 rounded-full shadow-lg hover:bg-[#0ba84a] transition-colors"
+        className="md:hidden fixed bottom-6 inset-x-0 mx-auto z-40 w-[calc(100%-2rem)] max-w-sm flex items-center justify-center gap-2 bg-[#0dc152] text-white px-4 py-3 rounded-full shadow-lg hover:bg-[#0ba84a] transition-colors"
       >
         <Image
           src="/images/whatsapp-icon.png"
