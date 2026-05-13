@@ -17,7 +17,7 @@ const posts = [
     excerpt: "Desde 1998, a Terra Terrinha cultiva uma forma de educar que respeita a infância, valoriza os vínculos e coloca a criança no centro de tudo. Em 2025, vivemos uma nova fase: a evolução e a ampliação de um legado construído com famílias, educadores e crianças.",
     date: "Janeiro de 2026",
     categoria: "Novidades",
-    imagem: "/images/blog-nova-fase.jpg"
+    imagem: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-celebra-o-inicio-de-uma-nova-fase-HHH9RQS8g8EGOH26qOgvMOwNgKy9kj.jpg"
   },
   {
     id: "educacao-construtivista",
@@ -25,7 +25,7 @@ const posts = [
     excerpt: "Na Terra Terrinha, acreditamos que a criança é protagonista do próprio processo de aprendizagem. É ela quem investiga, formula hipóteses, testa caminhos, observa, erra, recomeça e descobre. Essa é a essência do construtivismo: aprender fazendo.",
     date: "Janeiro de 2026",
     categoria: "Pedagogia",
-    imagem: "/images/blog-construtivismo.jpg"
+    imagem: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/educacao-construtivista-nossa-metodologia-na-pratica-MmisJxqV9uweaZbavoKi5cq8CzT06R.jpg"
   },
   {
     id: "conexao-natureza",
@@ -33,7 +33,7 @@ const posts = [
     excerpt: "Na Escola Terra Terrinha, a natureza não é apenas cenário: ela é parte viva do cotidiano, um território de descobertas, encantamento e aprendizado que amplia os sentidos e favorece um desenvolvimento mais completo, integral e humano.",
     date: "Janeiro de 2026",
     categoria: "Pedagogia",
-    imagem: "/images/blog-natureza.jpg"
+    imagem: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/conexao-com-a-natureza-um-diferencial-pedagogico-mIrU9WekGLDpcvfVMj2Qnx6pBywmeG.jpg"
   },
 ]
 
@@ -66,7 +66,7 @@ export default function BlogPage() {
                   key={post.id}
                   className="bg-muted rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
                 >
-                  <div className="aspect-video relative overflow-hidden rounded-t-xl">
+                  <div className="aspect-[3/4] relative overflow-hidden rounded-t-xl">
                     <Image
                       src={post.imagem}
                       alt={post.title}
