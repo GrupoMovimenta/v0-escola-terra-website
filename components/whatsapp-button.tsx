@@ -5,7 +5,7 @@ export function WhatsAppButton() {
     <>
       {/* Desktop Version */}
       <a
-        href="https://wa.me/?text=Olá, gostaria de mais informações"
+        href="https://api.whatsapp.com/send?phone=5519992015263&text=Ol%C3%A1,%20vim%20do%20site%20e%20gostaria%20de%20tirar%20algumas%20d%C3%BAvidas..."
         target="_blank"
         rel="noopener noreferrer"
         className="hidden md:flex fixed bottom-8 right-8 z-40 items-center gap-3 bg-[#0dc152] text-white px-6 py-4 rounded-full shadow-lg hover:bg-[#0ba84a] transition-colors"
