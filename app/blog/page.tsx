@@ -4,38 +4,12 @@ import Link from "next/link"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { Calendar, ArrowRight } from "lucide-react"
+import { blogPosts } from "@/lib/blog-posts"
 
 export const metadata: Metadata = {
   title: "Blog | Escola Terra Terrinha",
   description: "Artigos, comunicados e conteúdos sobre educação e família da Escola Terra Terrinha.",
 }
-
-const posts = [
-  {
-    id: "nova-fase",
-    title: "Escola Terra Terrinha celebra o início de uma nova fase",
-    excerpt: "Desde 1998, a Terra Terrinha cultiva uma forma de educar que respeita a infância, valoriza os vínculos e coloca a criança no centro de tudo. Em 2025, vivemos uma nova fase: a evolução e a ampliação de um legado construído com famílias, educadores e crianças.",
-    date: "Janeiro de 2026",
-    categoria: "Novidades",
-    imagem: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-celebra-o-inicio-de-uma-nova-fase-HHH9RQS8g8EGOH26qOgvMOwNgKy9kj.jpg"
-  },
-  {
-    id: "educacao-construtivista",
-    title: "Educação construtivista: nossa metodologia na prática",
-    excerpt: "Na Terra Terrinha, acreditamos que a criança é protagonista do próprio processo de aprendizagem. É ela quem investiga, formula hipóteses, testa caminhos, observa, erra, recomeça e descobre. Essa é a essência do construtivismo: aprender fazendo.",
-    date: "Janeiro de 2026",
-    categoria: "Pedagogia",
-    imagem: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/educacao-construtivista-nossa-metodologia-na-pratica-MmisJxqV9uweaZbavoKi5cq8CzT06R.jpg"
-  },
-  {
-    id: "conexao-natureza",
-    title: "Conexão com a natureza: um diferencial pedagógico",
-    excerpt: "Na Escola Terra Terrinha, a natureza não é apenas cenário: ela é parte viva do cotidiano, um território de descobertas, encantamento e aprendizado que amplia os sentidos e favorece um desenvolvimento mais completo, integral e humano.",
-    date: "Janeiro de 2026",
-    categoria: "Pedagogia",
-    imagem: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/conexao-com-a-natureza-um-diferencial-pedagogico-mIrU9WekGLDpcvfVMj2Qnx6pBywmeG.jpg"
-  },
-]
 
 export default function BlogPage() {
   return (
@@ -61,7 +35,7 @@ export default function BlogPage() {
         <section className="py-16 lg:py-24 bg-background">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
+              {blogPosts.map((post) => (
                 <article 
                   key={post.id}
                   className="bg-muted rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
@@ -92,7 +66,7 @@ export default function BlogPage() {
                       {post.excerpt}
                     </p>
                     <Link 
-                      href={`/blog/${post.id}`}
+                      href={`/blog/${post.slug}`}
                       className="inline-flex items-center gap-2 text-primary font-medium text-sm hover:gap-3 transition-all"
                     >
                       Ler mais
