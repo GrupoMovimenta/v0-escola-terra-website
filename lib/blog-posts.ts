@@ -15,6 +15,92 @@ export type ContentBlock =
 
 export const blogPosts: BlogPost[] = [
   {
+    id: "conexao-natureza",
+    slug: "conexao-com-a-natureza-um-diferencial-pedagogico",
+    title: "Conexão com a natureza: um diferencial pedagógico",
+    excerpt:
+      "Na Escola Terra Terrinha, a natureza não é apenas cenário: ela é parte viva do cotidiano, um território de descobertas, encantamento e aprendizado que amplia os sentidos e favorece um desenvolvimento mais completo, integral e humano.",
+    date: "Março de 2026",
+    categoria: "Pedagogia",
+    imagem:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/conexao-com-a-natureza-um-diferencial-pedagogico-mIrU9WekGLDpcvfVMj2Qnx6pBywmeG.jpg",
+    content: [
+      {
+        type: "paragraph",
+        text: "Na Escola Terra Terrinha, a natureza não é apenas cenário: ela é parte viva do cotidiano, um território de descobertas, encantamento e aprendizado. Desde os primeiros anos da infância, o contato com o mundo natural amplia os sentidos, desperta curiosidade e favorece um desenvolvimento mais completo, integral e humano.",
+      },
+      {
+        type: "paragraph",
+        text: "Quando a criança explora a grama com os pés, observa insetos, sente o cheiro das plantas, experimenta diferentes texturas e brinca ao ar livre, ela está aprendendo com o corpo todo. Cada experiência sensorial ajuda a construir repertório, desenvolver autonomia e fortalecer vínculos afetivos com o ambiente. A natureza se torna uma espécie de laboratório aberto, onde tudo convida à investigação.",
+      },
+      {
+        type: "paragraph",
+        text: "Estudos mostram que crianças que convivem diariamente com ambientes naturais apresentam maior capacidade de concentração, criatividade, segurança emocional e habilidade para resolver problemas. Isso acontece porque a natureza oferece estímulos genuínos, variados e imprevisíveis, elementos que favorecem o pensamento crítico e a construção do conhecimento.",
+      },
+      {
+        type: "paragraph",
+        text: "No brincar ao ar livre, elas desenvolvem coordenação, equilíbrio, coragem e imaginação. Nas interações com o espaço, aprendem sobre ciclos, diversidade, cuidado e responsabilidade. Em situações coletivas, descobrem formas de cooperar, dividir, organizar e criar juntos. A natureza ensina, inspira e transforma.",
+      },
+      {
+        type: "heading",
+        text: "O ambiente como terceiro educador",
+      },
+      {
+        type: "paragraph",
+        text: "Na Terra Terrinha, essa relação é intencional. Acreditamos que o ambiente é o terceiro educador, ao lado do professor e dos colegas. Por isso, nossos espaços são planejados para integrar o verde ao cotidiano escolar: jardins, árvores, sombras, áreas sensoriais e ambientes externos que acolhem brincadeiras, projetos e experiências de convivência.",
+      },
+      {
+        type: "paragraph",
+        text: "Mais do que benefícios pedagógicos, o contato com a natureza desde cedo desenvolve um senso de pertencimento ao mundo. Ensina a criança a respeitar, cuidar e se responsabilizar pelo planeta, construindo uma consciência ambiental que fará diferença ao longo de toda a vida.",
+      },
+      {
+        type: "paragraph",
+        text: "Crescer em contato com a natureza é crescer com liberdade, curiosidade e encantamento. E é por isso que, na Terra Terrinha, ela é parte essencial daquilo que somos e da educação que acreditamos.",
+      },
+    ],
+  },
+  {
+    id: "educacao-construtivista",
+    slug: "educacao-construtivista-nossa-metodologia-na-pratica",
+    title: "Educação construtivista: nossa metodologia na prática",
+    excerpt:
+      "Na Terra Terrinha, acreditamos que a criança é protagonista do próprio processo de aprendizagem. É ela quem investiga, formula hipóteses, testa caminhos, observa, erra, recomeça e descobre. Essa é a essência do construtivismo: aprender fazendo.",
+    date: "Fevereiro de 2026",
+    categoria: "Pedagogia",
+    imagem:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/educacao-construtivista-nossa-metodologia-na-pratica-MmisJxqV9uweaZbavoKi5cq8CzT06R.jpg",
+    content: [
+      {
+        type: "paragraph",
+        text: "Na Terra Terrinha, acreditamos que a criança é protagonista do próprio processo de aprendizagem. É ela quem investiga, formula hipóteses, testa caminhos, observa, erra, recomeça, descobre… E é justamente nesse movimento vivo que o aprendizado se consolida. Essa é a essência da educação construtivista: aprender fazendo, em um ambiente que acolhe, provoca e possibilita novas experiências todos os dias.",
+      },
+      {
+        type: "paragraph",
+        text: "Mais do que transmitir conteúdos, o construtivismo propõe que a escola ofereça situações reais para que a criança pense, questione e construa conhecimento de forma significativa. Quando ela participa ativamente, quando manipula objetos, quando conversa com os colegas, quando se relaciona com o ambiente, ela compreende o mundo de forma profunda e duradoura.",
+      },
+      {
+        type: "paragraph",
+        text: "Na prática, isso acontece de maneiras simples e poderosas: na roda de conversa que estimula a escuta e a argumentação; na atividade de investigação que desperta a curiosidade; nas propostas artísticas que ampliam a expressão; nas brincadeiras ao ar livre que conectam corpo, natureza e criatividade; nos projetos coletivos que convidam à cooperação e ao pensamento crítico.",
+      },
+      {
+        type: "heading",
+        text: "O erro como parte do aprendizado",
+      },
+      {
+        type: "paragraph",
+        text: "O erro, nessa perspectiva, não é uma falha. É parte fundamental do processo. Ele mostra caminhos, gera perguntas e abre espaço para novas tentativas. É assim que a criança aprende a resolver problemas, a desenvolver autonomia e a fortalecer sua confiança.",
+      },
+      {
+        type: "paragraph",
+        text: "Ao vivenciar experiências concretas, relacioná-las ao seu repertório e compartilhá-las com o grupo, ela constrói não apenas conhecimento acadêmico, mas também social, emocional e humano. Aprende a respeitar o outro, a fazer escolhas, a argumentar, a criar, a se expressar.",
+      },
+      {
+        type: "paragraph",
+        text: "Aqui na Terra Terrinha, o construtivismo é vivido no cotidiano, de forma sensível, intencional e integrada. Porque educar não é apenas ensinar conteúdos, é formar pessoas curiosas, críticas, criativas e preparadas para os desafios do mundo. E isso se faz com uma infância verdadeira, ambiente acolhedor e um aprendizado que nasce da experiência e do encantamento.",
+      },
+    ],
+  },
+  {
     id: "nova-fase",
     slug: "escola-terra-terrinha-celebra-o-inicio-de-uma-nova-fase",
     title: "Escola Terra Terrinha celebra o início de uma nova fase",
@@ -68,92 +154,6 @@ export const blogPosts: BlogPost[] = [
       {
         type: "paragraph",
         text: "Muito mais do que uma nova fase, inauguramos um novo capítulo, construído com o mesmo cuidado de sempre, mas cheio de novas possibilidades para as crianças viverem, descobrirem, criarem e crescerem.",
-      },
-    ],
-  },
-  {
-    id: "educacao-construtivista",
-    slug: "educacao-construtivista-nossa-metodologia-na-pratica",
-    title: "Educação construtivista: nossa metodologia na prática",
-    excerpt:
-      "Na Terra Terrinha, acreditamos que a criança é protagonista do próprio processo de aprendizagem. É ela quem investiga, formula hipóteses, testa caminhos, observa, erra, recomeça e descobre. Essa é a essência do construtivismo: aprender fazendo.",
-    date: "Janeiro de 2026",
-    categoria: "Pedagogia",
-    imagem:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/educacao-construtivista-nossa-metodologia-na-pratica-MmisJxqV9uweaZbavoKi5cq8CzT06R.jpg",
-    content: [
-      {
-        type: "paragraph",
-        text: "Na Terra Terrinha, acreditamos que a criança é protagonista do próprio processo de aprendizagem. É ela quem investiga, formula hipóteses, testa caminhos, observa, erra, recomeça, descobre… E é justamente nesse movimento vivo que o aprendizado se consolida. Essa é a essência da educação construtivista: aprender fazendo, em um ambiente que acolhe, provoca e possibilita novas experiências todos os dias.",
-      },
-      {
-        type: "paragraph",
-        text: "Mais do que transmitir conteúdos, o construtivismo propõe que a escola ofereça situações reais para que a criança pense, questione e construa conhecimento de forma significativa. Quando ela participa ativamente, quando manipula objetos, quando conversa com os colegas, quando se relaciona com o ambiente, ela compreende o mundo de forma profunda e duradoura.",
-      },
-      {
-        type: "paragraph",
-        text: "Na prática, isso acontece de maneiras simples e poderosas: na roda de conversa que estimula a escuta e a argumentação; na atividade de investigação que desperta a curiosidade; nas propostas artísticas que ampliam a expressão; nas brincadeiras ao ar livre que conectam corpo, natureza e criatividade; nos projetos coletivos que convidam à cooperação e ao pensamento crítico.",
-      },
-      {
-        type: "heading",
-        text: "O erro como parte do aprendizado",
-      },
-      {
-        type: "paragraph",
-        text: "O erro, nessa perspectiva, não é uma falha. É parte fundamental do processo. Ele mostra caminhos, gera perguntas e abre espaço para novas tentativas. É assim que a criança aprende a resolver problemas, a desenvolver autonomia e a fortalecer sua confiança.",
-      },
-      {
-        type: "paragraph",
-        text: "Ao vivenciar experiências concretas, relacioná-las ao seu repertório e compartilhá-las com o grupo, ela constrói não apenas conhecimento acadêmico, mas também social, emocional e humano. Aprende a respeitar o outro, a fazer escolhas, a argumentar, a criar, a se expressar.",
-      },
-      {
-        type: "paragraph",
-        text: "Aqui na Terra Terrinha, o construtivismo é vivido no cotidiano, de forma sensível, intencional e integrada. Porque educar não é apenas ensinar conteúdos, é formar pessoas curiosas, críticas, criativas e preparadas para os desafios do mundo. E isso se faz com uma infância verdadeira, ambiente acolhedor e um aprendizado que nasce da experiência e do encantamento.",
-      },
-    ],
-  },
-  {
-    id: "conexao-natureza",
-    slug: "conexao-com-a-natureza-um-diferencial-pedagogico",
-    title: "Conexão com a natureza: um diferencial pedagógico",
-    excerpt:
-      "Na Escola Terra Terrinha, a natureza não é apenas cenário: ela é parte viva do cotidiano, um território de descobertas, encantamento e aprendizado que amplia os sentidos e favorece um desenvolvimento mais completo, integral e humano.",
-    date: "Janeiro de 2026",
-    categoria: "Pedagogia",
-    imagem:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/conexao-com-a-natureza-um-diferencial-pedagogico-mIrU9WekGLDpcvfVMj2Qnx6pBywmeG.jpg",
-    content: [
-      {
-        type: "paragraph",
-        text: "Na Escola Terra Terrinha, a natureza não é apenas cenário: ela é parte viva do cotidiano, um território de descobertas, encantamento e aprendizado. Desde os primeiros anos da infância, o contato com o mundo natural amplia os sentidos, desperta curiosidade e favorece um desenvolvimento mais completo, integral e humano.",
-      },
-      {
-        type: "paragraph",
-        text: "Quando a criança explora a grama com os pés, observa insetos, sente o cheiro das plantas, experimenta diferentes texturas e brinca ao ar livre, ela está aprendendo com o corpo todo. Cada experiência sensorial ajuda a construir repertório, desenvolver autonomia e fortalecer vínculos afetivos com o ambiente. A natureza se torna uma espécie de laboratório aberto, onde tudo convida à investigação.",
-      },
-      {
-        type: "paragraph",
-        text: "Estudos mostram que crianças que convivem diariamente com ambientes naturais apresentam maior capacidade de concentração, criatividade, segurança emocional e habilidade para resolver problemas. Isso acontece porque a natureza oferece estímulos genuínos, variados e imprevisíveis, elementos que favorecem o pensamento crítico e a construção do conhecimento.",
-      },
-      {
-        type: "paragraph",
-        text: "No brincar ao ar livre, elas desenvolvem coordenação, equilíbrio, coragem e imaginação. Nas interações com o espaço, aprendem sobre ciclos, diversidade, cuidado e responsabilidade. Em situações coletivas, descobrem formas de cooperar, dividir, organizar e criar juntos. A natureza ensina, inspira e transforma.",
-      },
-      {
-        type: "heading",
-        text: "O ambiente como terceiro educador",
-      },
-      {
-        type: "paragraph",
-        text: "Na Terra Terrinha, essa relação é intencional. Acreditamos que o ambiente é o terceiro educador, ao lado do professor e dos colegas. Por isso, nossos espaços são planejados para integrar o verde ao cotidiano escolar: jardins, árvores, sombras, áreas sensoriais e ambientes externos que acolhem brincadeiras, projetos e experiências de convivência.",
-      },
-      {
-        type: "paragraph",
-        text: "Mais do que benefícios pedagógicos, o contato com a natureza desde cedo desenvolve um senso de pertencimento ao mundo. Ensina a criança a respeitar, cuidar e se responsabilizar pelo planeta, construindo uma consciência ambiental que fará diferença ao longo de toda a vida.",
-      },
-      {
-        type: "paragraph",
-        text: "Crescer em contato com a natureza é crescer com liberdade, curiosidade e encantamento. E é por isso que, na Terra Terrinha, ela é parte essencial daquilo que somos e da educação que acreditamos.",
       },
     ],
   },
