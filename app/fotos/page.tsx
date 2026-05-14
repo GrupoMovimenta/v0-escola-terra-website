@@ -52,7 +52,7 @@ const categorias = [
   {
     id: "ambientes",
     label: "Ambientes",
-    fotos: 21
+    fotos: 20
   },
   {
     id: "atividades",
