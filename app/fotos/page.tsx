@@ -19,7 +19,6 @@ const galeria = {
     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-area-ambiente-12-bXvPCERVrH2aYwWBwtmezhbJedO168.jpg",
     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-area-ambiente-13-pDgfTtBTXOeIiq7ssNCIHulv3dztwr.jpg",
     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-area-ambiente-14-ZfHsKQBRhBXIxrjTb4m4opAYjvLGK5.jpg",
-    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-area-ambiente-15-ATBAX5T6BEASqAzyKDrdybsRsRAagt.jpg",
     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-area-ambiente-16-ApiBubhu80LQql8smcNQehzsflstie.jpg",
     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-area-ambiente-17-Z5OOxOnbCVM0ubgJjuDh6aFaJPM01C.jpg",
     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-area-ambiente-18-JXQwgk6asF4l7m1iyGAiF0OeV6Prlp.jpg",
