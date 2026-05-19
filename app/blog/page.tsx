@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { Calendar, ArrowRight } from "lucide-react"
 import { blogPosts } from "@/lib/blog-posts"
+import { NewsletterForm } from "@/components/forms/newsletter-form"
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -95,31 +96,7 @@ export default function BlogPage() {
         </section>
 
         {/* Newsletter CTA */}
-        <section className="py-16 bg-[rgba(196,123,45,1)]">
-          <div className="container mx-auto px-4">
-            <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-2xl md:text-3xl font-bold text-balance text-background">
-                Receba nossos conteúdos
-              </h2>
-              <p className="mt-4 text-background">
-                Cadastre-se para receber artigos, dicas e novidades sobre educação e família.
-              </p>
-              <form className="mt-8 flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Seu melhor e-mail"
-                  className="flex-1 px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-                <button
-                  type="submit"
-                  className="px-6 py-3 text-accent-foreground font-semibold rounded-lg hover:bg-accent/90 transition-colors bg-primary"
-                >
-                  Cadastrar
-                </button>
-              </form>
-            </div>
-          </div>
-        </section>
+        <NewsletterForm />
       </main>
       <Footer />
     </>

@@ -1,9 +1,11 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export function TrabalheConoscoForm() {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+  const router = useRouter()
+  const [status, setStatus] = useState<"idle" | "loading" | "error">("idle")
   const [errorMsg, setErrorMsg] = useState("")
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -36,8 +38,7 @@ export function TrabalheConoscoForm() {
       })
 
       if (res.ok) {
-        setStatus("success")
-        form.reset()
+        router.push("/obrigado-trabalhe-conosco")
       } else {
         const json = await res.json()
         setErrorMsg(json.error || "Erro ao enviar candidatura.")
@@ -55,24 +56,7 @@ export function TrabalheConoscoForm() {
         Envie sua candidatura
       </h3>
 
-      {status === "success" ? (
-        <div className="text-center py-12">
-          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-            <svg className="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <h3 className="text-xl font-semibold text-foreground mb-2">Candidatura enviada!</h3>
-          <p className="text-muted-foreground">Entraremos em contato em breve.</p>
-          <button
-            onClick={() => setStatus("idle")}
-            className="mt-6 text-sm text-primary underline"
-          >
-            Enviar outra candidatura
-          </button>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="nome" className="block text-sm font-medium text-foreground mb-2">
               Nome completo *
@@ -237,7 +221,6 @@ export function TrabalheConoscoForm() {
             {status === "loading" ? "Enviando..." : "Enviar candidatura"}
           </button>
         </form>
-      )}
     </div>
   )
 }

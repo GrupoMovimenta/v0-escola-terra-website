@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 
 const BREVO_API_KEY = process.env.BREVO_API_KEY!
-const DESTINO = "contato@escolaterra.com.br"
+const DESTINO = "mile.mrdg@gmail.com"
 
 export async function POST(req: Request) {
   try {
