@@ -5,8 +5,10 @@ import { Footer } from "@/components/layout/footer"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Política de Privacidade | Escola Terra Terrinha",
-  description: "Política de Privacidade da Escola Terra Terrinha — informações sobre coleta, uso, armazenamento e proteção de dados pessoais.",
+  title: "Política de Privacidade",
+  description: "Política de Privacidade da Escola Terra Terrinha. Informações sobre coleta, uso, armazenamento e proteção de dados pessoais conforme a LGPD (Lei 13.709/18).",
+  robots: { index: false, follow: false },
+  alternates: { canonical: 'https://www.escolaterra.com.br/politica' },
 }
 
 const sections = [

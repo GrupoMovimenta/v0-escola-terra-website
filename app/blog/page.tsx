@@ -7,8 +7,23 @@ import { Calendar, ArrowRight } from "lucide-react"
 import { blogPosts } from "@/lib/blog-posts"
 
 export const metadata: Metadata = {
-  title: "Blog | Escola Terra Terrinha",
-  description: "Artigos, comunicados e conteúdos sobre educação e família da Escola Terra Terrinha.",
+  title: "Blog",
+  description: "Artigos, reflexões e conteúdos sobre educação infantil, metodologia construtivista, família e desenvolvimento da criança. Blog da Escola Terra Terrinha em Vinhedo-SP.",
+  keywords: [
+    'blog educação infantil',
+    'artigos pedagogia construtivista',
+    'educação infantil família',
+    'desenvolvimento infantil',
+    'dicas educação filhos',
+    'Escola Terra Terrinha blog',
+  ],
+  alternates: { canonical: 'https://www.escolaterra.com.br/blog' },
+  openGraph: {
+    title: 'Blog | Escola Terra Terrinha',
+    description: 'Artigos e reflexões sobre educação infantil, metodologia construtivista e desenvolvimento da criança.',
+    url: 'https://www.escolaterra.com.br/blog',
+    images: [{ url: '/images/og-image.png', width: 1200, height: 630, alt: 'Blog - Escola Terra Terrinha' }],
+  },
 }
 
 export default function BlogPage() {

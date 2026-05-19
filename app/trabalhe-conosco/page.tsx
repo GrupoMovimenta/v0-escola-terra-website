@@ -5,8 +5,23 @@ import { Footer } from "@/components/layout/footer"
 import { TrabalheConoscoForm } from "@/components/forms/trabalhe-conosco-form"
 
 export const metadata: Metadata = {
-  title: "Trabalhe Conosco | Escola Terra Terrinha",
-  description: "Faça parte da equipe Terra Terrinha. Envie seu currículo e venha crescer com a gente!",
+  title: "Trabalhe Conosco",
+  description: "Faça parte da equipe da Escola Terra Terrinha em Vinhedo-SP. Buscamos educadores apaixonados por uma educação humanizada, construtivista e conectada à natureza. Envie seu currículo.",
+  keywords: [
+    'vagas professor educação infantil Vinhedo',
+    'trabalhar escola Vinhedo',
+    'emprego professor Vinhedo SP',
+    'vagas escola infantil',
+    'educador construtivista vaga',
+    'Escola Terra Terrinha vagas',
+  ],
+  alternates: { canonical: 'https://www.escolaterra.com.br/trabalhe-conosco' },
+  openGraph: {
+    title: 'Trabalhe Conosco | Escola Terra Terrinha',
+    description: 'Junte-se à equipe da Escola Terra Terrinha em Vinhedo-SP. Buscamos educadores apaixonados por educação humanizada e construtivista.',
+    url: 'https://www.escolaterra.com.br/trabalhe-conosco',
+    images: [{ url: '/images/og-image.png', width: 1200, height: 630, alt: 'Trabalhe Conosco - Escola Terra Terrinha' }],
+  },
 }
 
 export default function TrabalheConoscoPage() {

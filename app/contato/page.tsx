@@ -5,8 +5,22 @@ import { Phone, Mail, MapPin, Clock } from "lucide-react"
 import { ContatoForm } from "@/components/forms/contato-form"
 
 export const metadata: Metadata = {
-  title: "Contato | Escola Terra Terrinha",
-  description: "Entre em contato com a Escola Terra Terrinha. Telefone, WhatsApp, e-mail e formulário de contato.",
+  title: "Contato",
+  description: "Entre em contato com a Escola Terra Terrinha em Vinhedo-SP. Telefone (19) 3886-3898, WhatsApp (19) 99201-5263, e-mail e formulário de contato. Rua Arnaldo Biagioli, 723.",
+  keywords: [
+    'contato Escola Terra Terrinha',
+    'telefone escola Vinhedo',
+    'WhatsApp escola Vinhedo',
+    'endereço Escola Terra Terrinha',
+    'matrícula escola Vinhedo',
+  ],
+  alternates: { canonical: 'https://www.escolaterra.com.br/contato' },
+  openGraph: {
+    title: 'Contato | Escola Terra Terrinha',
+    description: 'Fale com a Escola Terra Terrinha em Vinhedo-SP. Telefone, WhatsApp, e-mail e formulário de contato.',
+    url: 'https://www.escolaterra.com.br/contato',
+    images: [{ url: '/images/og-image.png', width: 1200, height: 630, alt: 'Contato - Escola Terra Terrinha' }],
+  },
 }
 
 export default function ContatoPage() {

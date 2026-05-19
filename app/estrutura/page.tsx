@@ -4,8 +4,24 @@ import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 
 export const metadata: Metadata = {
-  title: "Estrutura | Escola Terra Terrinha",
-  description: "Conheça a estrutura da Escola Terra Terrinha: salas de aula, espaços externos, quadra, biblioteca, refeitório e muito mais.",
+  title: "Nossa Estrutura",
+  description: "Conheça a estrutura completa da Escola Terra Terrinha em Vinhedo-SP: biblioteca, ateliê, refeitório, quadra, espaços naturais, horta e ambientes pensados para o desenvolvimento integral da criança.",
+  keywords: [
+    'estrutura escola infantil Vinhedo',
+    'instalações Escola Terra Terrinha',
+    'biblioteca escolar infantil',
+    'ateliê educação infantil',
+    'espaço natureza escola',
+    'quadra escola Vinhedo',
+    'escola bem estruturada Vinhedo',
+  ],
+  alternates: { canonical: 'https://www.escolaterra.com.br/estrutura' },
+  openGraph: {
+    title: 'Nossa Estrutura | Escola Terra Terrinha',
+    description: 'Biblioteca, ateliê, refeitório, quadra e espaços naturais. Uma estrutura completa pensada para o desenvolvimento integral das crianças em Vinhedo-SP.',
+    url: 'https://www.escolaterra.com.br/estrutura',
+    images: [{ url: '/images/og-image.png', width: 1200, height: 630, alt: 'Estrutura - Escola Terra Terrinha' }],
+  },
 }
 
 const espacos = [

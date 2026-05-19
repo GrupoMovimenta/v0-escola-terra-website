@@ -16,8 +16,24 @@ import {
 } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Pedagogia | Escola Terra Terrinha",
-  description: "Conheça a metodologia construtivista, proposta curricular, programa de inglês e projetos especiais da Escola Terra Terrinha.",
+  title: "Nossa Pedagogia",
+  description: "Conheça a metodologia construtivista, proposta curricular integrada, inglês diário e projetos especiais da Escola Terra Terrinha em Vinhedo-SP. Uma educação que respeita o ritmo e o protagonismo da criança.",
+  keywords: [
+    'metodologia construtivista Vinhedo',
+    'educação construtivista',
+    'inglês infantil Vinhedo',
+    'proposta curricular educação infantil',
+    'projetos pedagógicos escolares',
+    'formação professores educação infantil',
+    'pedagogia Escola Terra Terrinha',
+  ],
+  alternates: { canonical: 'https://www.escolaterra.com.br/pedagogia' },
+  openGraph: {
+    title: 'Nossa Pedagogia | Escola Terra Terrinha',
+    description: 'Metodologia construtivista, inglês diário e projetos especiais. Uma educação que respeita o ritmo e o protagonismo de cada criança.',
+    url: 'https://www.escolaterra.com.br/pedagogia',
+    images: [{ url: '/images/og-image.png', width: 1200, height: 630, alt: 'Pedagogia - Escola Terra Terrinha' }],
+  },
 }
 
 const propostaPedagogica = [

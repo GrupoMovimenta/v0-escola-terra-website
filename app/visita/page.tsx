@@ -5,8 +5,22 @@ import { Footer } from "@/components/layout/footer"
 import { Phone, MapPin, Clock, CheckCircle } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Agende uma Visita | Escola Terra Terrinha",
-  description: "Agende uma visita e conheça de perto a estrutura, metodologia e equipe da Escola Terra Terrinha em Vinhedo.",
+  title: "Agende uma Visita",
+  description: "Agende uma visita à Escola Terra Terrinha em Vinhedo-SP e conheça de perto nossa estrutura, metodologia construtivista e equipe pedagógica. Entre em contato pelo WhatsApp (19) 99201-5263.",
+  keywords: [
+    'agendar visita escola Vinhedo',
+    'conhecer escola infantil Vinhedo',
+    'visita escola Terra Terrinha',
+    'matrícula educação infantil Vinhedo',
+    'escola infantil perto de mim Vinhedo',
+  ],
+  alternates: { canonical: 'https://www.escolaterra.com.br/visita' },
+  openGraph: {
+    title: 'Agende uma Visita | Escola Terra Terrinha',
+    description: 'Venha conhecer a Escola Terra Terrinha em Vinhedo-SP. Estrutura completa, metodologia construtivista e equipe apaixonada por educação.',
+    url: 'https://www.escolaterra.com.br/visita',
+    images: [{ url: '/images/og-image.png', width: 1200, height: 630, alt: 'Agende uma Visita - Escola Terra Terrinha' }],
+  },
 }
 
 const beneficios = [
