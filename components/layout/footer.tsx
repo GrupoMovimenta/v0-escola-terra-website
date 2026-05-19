@@ -129,12 +129,23 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center">
+        <div className="border-t border-primary-foreground/20 mt-8 pt-8 pb-28 md:pb-8 text-center">
           <p className="text-sm text-primary-foreground/60">
             © {new Date().getFullYear()} Escola Terra Terrinha. Todos os direitos reservados.
           </p>
           <p className="text-xs text-primary-foreground/40 mt-2">
             Integrante do Grupo Movimenta
+          </p>
+          <p className="text-xs text-primary-foreground/30 mt-2">
+            Site desenvolvido por:{" "}
+            <a
+              href="https://klicksaudavel.com.br/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary-foreground/50 transition-colors underline underline-offset-2"
+            >
+              Klick Saudável Criação de Sites para Profissionais da Saúde
+            </a>
           </p>
         </div>
       </div>
