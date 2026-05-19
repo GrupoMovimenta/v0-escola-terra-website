@@ -145,7 +145,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="hover:text-primary-foreground/50 transition-colors underline underline-offset-2"
             >
-              Klick Saudável Criação de Sites para Profissionais da Saúde
+              Klick Saudável
             </a>
           </p>
           <p className="text-xs text-primary-foreground/25 mt-2">
