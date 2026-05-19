@@ -11,6 +11,7 @@ const quickLinks = [
   { label: "Trabalhe Conosco", href: "/trabalhe-conosco" },
   { label: "Agende uma Visita", href: "/visita" },
   { label: "Contato", href: "/contato" },
+  { label: "Política de Privacidade", href: "/politica" },
 ]
 
 export function Footer() {
