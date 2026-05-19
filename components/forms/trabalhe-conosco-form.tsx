@@ -2,9 +2,11 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
 
 export function TrabalheConoscoForm() {
   const router = useRouter()
+  const { executeRecaptcha } = useGoogleReCaptcha()
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle")
   const [errorMsg, setErrorMsg] = useState("")
 
@@ -17,6 +19,10 @@ export function TrabalheConoscoForm() {
     const getValue = (name: string) =>
       (form.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement)?.value ?? ""
 
+    const recaptchaToken = executeRecaptcha
+      ? await executeRecaptcha("trabalhe_conosco")
+      : ""
+
     const data = {
       nome: getValue("nome"),
       email: getValue("email"),
@@ -28,6 +34,7 @@ export function TrabalheConoscoForm() {
       ano: getValue("ano"),
       motivacao: getValue("motivacao"),
       portfolio: getValue("portfolio"),
+      recaptchaToken,
     }
 
     try {

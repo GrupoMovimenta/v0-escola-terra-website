@@ -1,15 +1,25 @@
 import { NextResponse } from "next/server"
+import { verifyRecaptcha } from "@/lib/verify-recaptcha"
 
 const BREVO_API_KEY = process.env.BREVO_API_KEY!
-const DESTINO = "mile.mrdg@gmail.com"
+const DESTINO = "contato@escolaterra.com.br"
 
 export async function POST(req: Request) {
   try {
     const body = await req.json()
-    const { email } = body
+    const { email, recaptchaToken } = body
 
     if (!email) {
       return NextResponse.json({ error: "E-mail obrigatório." }, { status: 400 })
+    }
+
+    if (!recaptchaToken) {
+      return NextResponse.json({ error: "Token de segurança ausente." }, { status: 400 })
+    }
+
+    const isHuman = await verifyRecaptcha(recaptchaToken)
+    if (!isHuman) {
+      return NextResponse.json({ error: "Verificação de segurança falhou. Tente novamente." }, { status: 403 })
     }
 
     const res = await fetch("https://api.brevo.com/v3/smtp/email", {

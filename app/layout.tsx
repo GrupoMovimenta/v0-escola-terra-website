@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Questrial } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { WhatsAppButton } from '@/components/whatsapp-button'
+import { RecaptchaProvider } from '@/components/recaptcha-provider'
 import './globals.css'
 
 const _questrial = Questrial({ weight: "400", subsets: ["latin"], variable: "--font-questrial" });
@@ -81,8 +82,10 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`font-sans antialiased`}>
-        {children}
-        <WhatsAppButton />
+        <RecaptchaProvider>
+          {children}
+          <WhatsAppButton />
+        </RecaptchaProvider>
         <Analytics />
       </body>
     </html>

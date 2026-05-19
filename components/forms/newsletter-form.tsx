@@ -2,9 +2,11 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
 
 export function NewsletterForm() {
   const router = useRouter()
+  const { executeRecaptcha } = useGoogleReCaptcha()
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle")
   const [errorMsg, setErrorMsg] = useState("")
 
@@ -16,11 +18,15 @@ export function NewsletterForm() {
     const form = e.currentTarget
     const email = (form.elements.namedItem("email") as HTMLInputElement).value
 
+    const recaptchaToken = executeRecaptcha
+      ? await executeRecaptcha("newsletter")
+      : ""
+
     try {
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, recaptchaToken }),
       })
 
       if (res.ok) {
