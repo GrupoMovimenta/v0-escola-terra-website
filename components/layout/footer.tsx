@@ -148,6 +148,27 @@ export function Footer() {
               Klick Saudável Criação de Sites para Profissionais da Saúde
             </a>
           </p>
+          <p className="text-xs text-primary-foreground/25 mt-2">
+            Este site é protegido pelo reCAPTCHA e pela{" "}
+            <a
+              href="https://policies.google.com/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-primary-foreground/40 transition-colors"
+            >
+              Política de Privacidade
+            </a>{" "}
+            e{" "}
+            <a
+              href="https://policies.google.com/terms"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-primary-foreground/40 transition-colors"
+            >
+              Termos de Serviço
+            </a>{" "}
+            do Google.
+          </p>
         </div>
       </div>
     </footer>

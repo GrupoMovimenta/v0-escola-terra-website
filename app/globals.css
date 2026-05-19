@@ -205,3 +205,10 @@
     overflow-x: hidden;
   }
 }
+
+/* Oculta visualmente o badge do reCAPTCHA v3 mantendo a funcionalidade */
+.grecaptcha-badge {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
