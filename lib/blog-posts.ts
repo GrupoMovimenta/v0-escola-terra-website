@@ -15,6 +15,55 @@ export type ContentBlock =
 
 export const blogPosts: BlogPost[] = [
   {
+    id: "reggio-emilia",
+    slug: "terra-terrinha-em-reggio-emilia-um-encontro-com-as-origens-da-nossa-inspiracao-pedagogica",
+    title: "Terra Terrinha em Reggio Emilia: um encontro com as origens da nossa inspiração pedagógica",
+    excerpt:
+      "No mês de maio, a Escola Terra Terrinha esteve representada em Reggio Emilia, na Itália, por Ana Cláudia Rocha e Susy Vieira, que participaram do Grupo de Aprofundamento da América Latina, uma experiência formativa realizada em colaboração com a Reggio Children.",
+    date: "Junho de 2026",
+    categoria: "Novidades",
+    imagem:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/foto-reggio-fgk7dpLEOUMPRdXsQ4KufKhXLRaR5E.webp",
+    content: [
+      {
+        type: "paragraph",
+        text: "No mês de maio, a Escola Terra Terrinha esteve representada em Reggio Emilia, na Itália, por Ana Cláudia Rocha e Susy Vieira, que participaram do Grupo de Aprofundamento da América Latina, uma experiência formativa realizada em colaboração com a Reggio Children e promovida pela RedSOLARE Brasil.",
+      },
+      {
+        type: "paragraph",
+        text: "Reconhecida mundialmente por sua abordagem educacional voltada à escuta, à investigação e ao protagonismo das crianças, Reggio Emilia é uma referência para educadores de diversos países e uma importante inspiração para o projeto pedagógico da Terra Terrinha.",
+      },
+      {
+        type: "paragraph",
+        text: "Durante a imersão, realizada no Centro Internacional Loris Malaguzzi, educadores de diferentes países da América Latina compartilharam experiências, estudos e reflexões sobre infância, ambientes de aprendizagem, documentação pedagógica, processos investigativos e a construção de conhecimento nas relações entre crianças, adultos e comunidade.",
+      },
+      {
+        type: "paragraph",
+        text: "Mais do que conhecer práticas e espaços educativos, a experiência proporcionou um tempo de presença, observação e aprofundamento. Um convite a olhar a infância com ainda mais sensibilidade, reconhecendo as crianças como sujeitos potentes, curiosos, criativos e capazes de construir conhecimentos a partir de suas próprias perguntas e descobertas.",
+      },
+      {
+        type: "paragraph",
+        text: "A programação incluiu visitas, estudos, diálogos e momentos de troca com profissionais que atuam diretamente na construção da cultura educativa de Reggio Emilia. Foram dias intensos de aprendizagem, em que teoria e prática se encontraram para ampliar reflexões sobre o papel da escola na formação humana.",
+      },
+      {
+        type: "heading",
+        text: "Novos olhares para a Terra Terrinha",
+      },
+      {
+        type: "paragraph",
+        text: "Para a Terra Terrinha, participar desse movimento internacional de estudo e pesquisa significa fortalecer um compromisso que faz parte da nossa essência: construir uma educação que respeita os tempos da infância, valoriza as múltiplas linguagens das crianças e transforma a aprendizagem em uma experiência viva, significativa e conectada com o mundo.",
+      },
+      {
+        type: "paragraph",
+        text: "Ao retornar dessa experiência, Ana Cláudia e Susy trazem novos olhares, reflexões e inspirações que dialogam diretamente com o trabalho desenvolvido diariamente em nossa escola. Mais do que respostas prontas, trazem perguntas, possibilidades e a certeza de que a educação se fortalece quando permanece aberta à investigação, à escuta e à construção coletiva.",
+      },
+      {
+        type: "paragraph",
+        text: "Seguimos acreditando que educar é um processo contínuo de aprendizagem. E que, quando ampliamos nossos horizontes, fortalecemos ainda mais a nossa capacidade de oferecer às crianças experiências educativas profundas, respeitosas e verdadeiramente transformadoras.",
+      },
+    ],
+  },
+  {
     id: "conexao-natureza",
     slug: "conexao-com-a-natureza-um-diferencial-pedagogico",
     title: "Conexão com a natureza: um diferencial pedagógico",
