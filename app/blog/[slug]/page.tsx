@@ -126,6 +126,23 @@ export default async function BlogPostPage({ params }: Props) {
                   </h2>
                 )
               }
+              if (block.type === "image") {
+                if (!block.url) {
+                  return null
+                }
+
+                return (
+                  <figure key={index} className="mb-6 overflow-hidden rounded-xl">
+                    <Image
+                      src={block.url}
+                      alt={block.alt ?? ""}
+                      width={1200}
+                      height={675}
+                      className="h-auto w-full object-cover"
+                    />
+                  </figure>
+                )
+              }
               return (
                 <p
                   key={index}

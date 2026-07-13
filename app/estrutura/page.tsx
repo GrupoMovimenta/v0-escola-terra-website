@@ -38,8 +38,8 @@ const espacos = [
     description: "Ambiente reservado para o planejamento, a troca e o cuidado com os educadores. Um espaço que valoriza o trabalho docente, promovendo colaboração, reflexão pedagógica e o bem-estar de quem faz a educação acontecer todos os dias.",
     imagens: 2,
     urls: [
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-sala-dos-professores-1-6TBwjTgI2DmghKlYNcXmL6o8ZJVQS8.jpg",
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-sala-dos-professores-2-3yyJLW3kQoP7QRwp1FDu5p4bDR7ymC.jpg",
+      "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Sala%20dos%20professores5.jpg.jpeg",
+      "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Sala%20dos%20professores4.jpg.jpeg",
     ],
   },
   {
@@ -120,7 +120,7 @@ export default function EstruturaPage() {
           <div className="container mx-auto px-4">
             <div className="space-y-20">
               {espacos.map((espaco, index) => {
-                const Icon = espaco.icon
+                // const Icon = espaco.icon
                 const isReverse = index % 2 === 1
                 return (
                   <div 

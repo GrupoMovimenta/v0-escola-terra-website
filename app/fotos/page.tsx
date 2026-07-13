@@ -27,7 +27,6 @@ const galeria = {
     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-area-ambiente-21-2WfFzymb1IhWSTWP6d7z7IoFf4w5Uy.jpg",
   ],
   atividades: [
-    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-atividades-1-e5EegkDY5PZ2QyUEmVedXlHtZgxzZz.jpg",
     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-atividades-2-JUOeswQfKbQTWqTFluAiIEwlcGQhjE.jpg",
     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-atividades-3-vKEn7YLbARi54h6g21tIZdX5EdXLn5.jpg",
     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-atividades-4-5cWRFvrlIaLq4LWaHGTdiBRuFRGZcq.jpg",
@@ -136,7 +135,7 @@ export default function FotosPage() {
             <p className="mt-4 max-w-2xl mx-auto text-background">
               Agende uma visita e conheça pessoalmente todos os espaços e a equipe da Terra Terrinha.
             </p>
-            <a 
+            <a
               href="/visita"
               className="inline-flex mt-6 px-8 py-3 text-white font-semibold rounded-lg hover:opacity-90 transition-opacity bg-[#E75722]"
             >
