@@ -52,6 +52,15 @@ const espacos = [
     ],
   },
   {
+    title: "Sala de aula",
+    description: "Cada sala foi planejada para acolher, inspirar e estimular a aprendizagem. Com materiais acessíveis, mobiliário adequado e espaços organizados para diferentes experiências, as crianças aprendem por meio da investigação, da brincadeira e das relações que constroem diariamente.",
+    imagens: 2,
+    urls: [
+      "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Sala%20de%20aula.jpg",
+      "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Sala%20de%20aula..jpg",
+    ],
+  },
+  {
     title: "Biblioteca",
     description: "Acervo diversificado com livros infantis, literatura e materiais de pesquisa, em um ambiente acolhedor que incentiva o prazer pela leitura, a imaginação e o gosto pela descoberta.",
     imagens: 2,
