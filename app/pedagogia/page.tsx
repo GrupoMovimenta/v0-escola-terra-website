@@ -2,11 +2,11 @@ import { Metadata } from "next"
 import Image from "next/image"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
-import { 
-  Lightbulb, 
-  BookOpen, 
-  Globe, 
-  Sparkles, 
+import {
+  Lightbulb,
+  BookOpen,
+  Globe,
+  Sparkles,
   GraduationCap,
   Leaf,
   Brain,
@@ -14,6 +14,7 @@ import {
   Users,
   Target
 } from "lucide-react"
+import { renderBoldText } from "@/lib/formatter"
 
 export const metadata: Metadata = {
   title: "Nossa Pedagogia",
@@ -67,32 +68,43 @@ const secoes = [
   {
     id: "metodologia",
     icon: Lightbulb,
-    title: "Metodologia Construtivista",
-    content: `Nossa metodologia é fundamentada nos princípios do construtivismo, onde a criança é protagonista de seu próprio aprendizado. Acreditamos que o conhecimento é construído ativamente através da interação com o ambiente, com os colegas e com os educadores.
-
-As propostas pedagógicas são planejadas para estimular a investigação, a experimentação e o pensamento crítico. Cada criança é respeitada em seu ritmo e em seu percurso individual, sendo encorajada a fazer perguntas, levantar hipóteses e buscar respostas.
-
-O aprender fazendo é um princípio central da nossa prática: as crianças participam de projetos, vivências e experiências que dão sentido ao conhecimento e o conectam com a vida real.`
+    title: "Proposta Pedagógica",
+    content: `Nossa proposta pedagógica transforma o aprendizado em uma experiência 
+    viva, participativa e significativa. Aqui, a sala de aula vai muito além das 
+    quatro paredes: a aprendizagem acontece nas brincadeiras, nas conversas, 
+    nos projetos, nas experiências e no contato permanente com a natureza.
+    \n
+    O professor atua como mediador desse processo, incentivando a observação, a 
+    investigação, a experimentação e a resolução de problemas. Assim, cada criança 
+    é protagonista da própria aprendizagem, desenvolvendo autonomia, criatividade, 
+    pensamento crítico e senso de pertencimento.`
   },
   {
     id: "curricular",
     icon: BookOpen,
     title: "Proposta Curricular",
-    content: `O currículo da Terra Terrinha é organizado de forma integrada, conectando diferentes áreas do conhecimento através de projetos e vivências significativas. Trabalhamos com:
-
-- Linguagem oral e escrita
-- Raciocínio lógico-matemático
-- Ciências naturais e sociais
-- Arte e expressão
-- Educação física e corporeidade
-- Inglês diário
-
-Todas as áreas são trabalhadas de forma contextualizada, respeitando a faixa etária e os interesses das crianças, sempre com foco no desenvolvimento integral.`
+    content: `Nossa proposta curricular integra diferentes recursos pedagógicos 
+    que enriquecem a experiência de aprendizagem e contribuem para o desenvolvimento 
+    integral dos estudantes.
+    \n
+    **Arandu – Caixa de Saberes:** conjunto de projetos educacionais exclusivos da 
+    Movimenta Educação que amplia a aprendizagem por meio de propostas integradas 
+    em Alfabetização, Matemática, Literatura, Arte e outras áreas do conhecimento, 
+    sempre de forma contextualizada, investigativa e significativa.
+    \n
+    **Projeto Motriz:** desenvolve o pensamento computacional desde a Educação Infantil, 
+    estimulando o raciocínio lógico, a criatividade, a resolução de problemas e 
+    competências essenciais para os desafios do século XXI.
+    \n
+    **Sistema de Ensino Pitágoras:** alinhado à Base Nacional Comum Curricular (BNCC), 
+    oferece uma estrutura sólida para o planejamento pedagógico, apoiando o trabalho 
+    dos educadores e garantindo a progressão das aprendizagens
+    `
   },
   {
     id: "ingles",
     icon: Globe,
-    title: "Inglês e Bilinguismo",
+    title: "Inglês",
     content: `O inglês faz parte do cotidiano das crianças na Terra Terrinha. Com aulas diárias, a língua é incorporada de forma natural e lúdica, ampliando repertórios e desenvolvendo novas formas de expressão.
 
 Nossa abordagem vai além do ensino tradicional de idiomas: o inglês é vivenciado em diferentes contextos - nas brincadeiras, nas histórias, nas músicas, nas atividades artísticas e nas interações do dia a dia.
@@ -143,7 +155,7 @@ export default function PedagogiaPage() {
                 Nossa Pedagogia
               </h1>
               <p className="mt-4 text-lg text-primary-foreground/90 leading-relaxed">
-                Uma educação que considera a criança em sua totalidade, promovendo experiências 
+                Uma educação que considera a criança em sua totalidade, promovendo experiências
                 transformadoras e significativas.
               </p>
             </div>
@@ -153,7 +165,7 @@ export default function PedagogiaPage() {
         {/* Proposta Educacional */}
         <section className="py-16 lg:py-24 bg-background">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               <div>
                 <span className="text-accent font-semibold text-sm uppercase tracking-wider">
                   Nosso Propósito
@@ -161,11 +173,15 @@ export default function PedagogiaPage() {
                 <h2 className="mt-2 text-3xl md:text-4xl font-bold text-balance text-primary">
                   Propósito Educacional
                 </h2>
-                <p className="mt-4 text-muted-foreground leading-relaxed">
-                  A Terra Terrinha acredita que aprender é uma experiência viva. Por isso, nossa 
-                  proposta pedagógica:
+                <p className="mt-4 text-foreground leading-relaxed">
+                  Na Escola Terra Terrinha, acreditamos que a aprendizagem acontece
+                  quando a criança participa, explora, experimenta e faz suas
+                  próprias descobertas. Nossa proposta respeita a individualidade
+                  e o ritmo de desenvolvimento de cada aluno, valorizando a construção
+                  coletiva do conhecimento e as experiências que despertam a curiosidade,
+                  a criatividade e a autonomia.
                 </p>
-                <ul className="mt-6 space-y-4">
+                {/* <ul className="mt-6 space-y-4">
                   {propostaPedagogica.map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
@@ -174,10 +190,12 @@ export default function PedagogiaPage() {
                       <span className="text-muted-foreground">{item.text}</span>
                     </li>
                   ))}
-                </ul>
+                </ul> */}
                 <p className="mt-6 text-foreground font-medium">
-                  Mais do que preparar crianças para o futuro, a escola ensina a viver plenamente no 
-                  presente, com sensibilidade, autonomia, ética e propósito.
+                  Mais do que ensinar conteúdos, buscamos formar crianças capazes
+                  de pensar, investigar, criar e construir sentidos para aquilo
+                  que aprendem, desenvolvendo-se de forma integral nos aspectos
+                  cognitivo, emocional, social e ético
                 </p>
               </div>
               <div>
@@ -199,11 +217,10 @@ export default function PedagogiaPage() {
           <div className="container mx-auto px-4">
             <div className="space-y-16">
               {secoes.map((secao, index) => (
-                <div 
+                <div
                   key={secao.id}
-                  className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-start ${
-                    index % 2 === 1 ? "" : ""
-                  }`}
+                  className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-start ${index % 2 === 1 ? "" : ""
+                    }`}
                 >
                   <div className={index % 2 === 1 ? "lg:order-2" : ""}>
                     <div className="flex items-center gap-3 mb-4">
@@ -217,7 +234,7 @@ export default function PedagogiaPage() {
                     <div className="prose prose-gray max-w-none">
                       {secao.content.split('\n\n').map((paragraph, pIndex) => (
                         <p key={pIndex} className="text-muted-foreground leading-relaxed mb-4">
-                          {paragraph}
+                          {renderBoldText(paragraph.trim())}
                         </p>
                       ))}
                     </div>
@@ -226,10 +243,10 @@ export default function PedagogiaPage() {
                     <Image
                       src={
                         secao.id === "metodologia" ? "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/metodologia-construtivista-e2yFTrx4uGoiA0ektFYtqZGf9Maimr.jpg" :
-                        secao.id === "curricular" ? "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/proposta-curricular-J4bg8voMvDiq02phwdt5u4l7XinGP4.jpg" :
-                        secao.id === "ingles" ? "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ingles-e-bilinguismo-NVJP6hdMC7sd7y6ghKvlRGEhntynlr.jpeg" :
-                        secao.id === "projetos" ? "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/projetos-especiais-A5pt3gHzT0z1j1zWkTmN7HErJe4HbT.jpeg" :
-                        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/formacao-dos-professores-Y51v9OP1SBBpAsmFQpCDOzD7JnJobY.jpg"
+                          secao.id === "curricular" ? "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/proposta-curricular-J4bg8voMvDiq02phwdt5u4l7XinGP4.jpg" :
+                            secao.id === "ingles" ? "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ingles-e-bilinguismo-NVJP6hdMC7sd7y6ghKvlRGEhntynlr.jpeg" :
+                              secao.id === "projetos" ? "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/projetos-especiais-A5pt3gHzT0z1j1zWkTmN7HErJe4HbT.jpeg" :
+                                "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/formacao-dos-professores-Y51v9OP1SBBpAsmFQpCDOzD7JnJobY.jpg"
                       }
                       alt={secao.title}
                       width={600}
@@ -250,10 +267,10 @@ export default function PedagogiaPage() {
               Quer saber mais sobre nossa proposta pedagógica?
             </h2>
             <p className="mt-4 text-accent-foreground/90 max-w-2xl mx-auto">
-              Agende uma visita e converse com nossa equipe pedagógica. Teremos prazer em apresentar 
+              Agende uma visita e converse com nossa equipe pedagógica. Teremos prazer em apresentar
               nossa metodologia e responder suas dúvidas.
             </p>
-            <a 
+            <a
               href="/visita"
               className="inline-flex mt-6 px-8 py-3 text-white font-semibold rounded-lg hover:opacity-90 transition-opacity bg-[#E75722]"
             >
