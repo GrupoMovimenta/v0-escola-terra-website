@@ -14,7 +14,7 @@ import {
   Users,
   Target
 } from "lucide-react"
-import { renderBoldText } from "@/lib/formatter"
+import { renderFormattedContent } from "@/lib/formatter"
 
 export const metadata: Metadata = {
   title: "Nossa Pedagogia",
@@ -69,63 +69,63 @@ const secoes = [
     id: "metodologia",
     icon: Lightbulb,
     title: "Proposta Pedagógica",
-    content: `Nossa proposta pedagógica transforma o aprendizado em uma experiência 
-    viva, participativa e significativa. Aqui, a sala de aula vai muito além das 
-    quatro paredes: a aprendizagem acontece nas brincadeiras, nas conversas, 
+    content: `Nossa proposta pedagógica transforma o aprendizado em uma experiência
+    viva, participativa e significativa. Aqui, a sala de aula vai muito além das
+    quatro paredes: a aprendizagem acontece nas brincadeiras, nas conversas,
     nos projetos, nas experiências e no contato permanente com a natureza.
-    \n
-    O professor atua como mediador desse processo, incentivando a observação, a 
-    investigação, a experimentação e a resolução de problemas. Assim, cada criança 
-    é protagonista da própria aprendizagem, desenvolvendo autonomia, criatividade, 
-    pensamento crítico e senso de pertencimento.`
+
+    O professor atua como mediador desse processo, incentivando a observação, a
+    investigação, a experimentação e a resolução de problemas. Assim, cada criança
+    é protagonista da própria aprendizagem, desenvolvendo autonomia, criatividade,
+    pensamento crítico e senso de pertencimento.`,
   },
   {
     id: "curricular",
     icon: BookOpen,
     title: "Proposta Curricular",
-    content: `Nossa proposta curricular integra diferentes recursos pedagógicos 
-    que enriquecem a experiência de aprendizagem e contribuem para o desenvolvimento 
+    content: `Nossa proposta curricular integra diferentes recursos pedagógicos
+    que enriquecem a experiência de aprendizagem e contribuem para o desenvolvimento
     integral dos estudantes.
-    \n
-    **Arandu – Caixa de Saberes:** conjunto de projetos educacionais exclusivos da 
-    Movimenta Educação que amplia a aprendizagem por meio de propostas integradas 
-    em Alfabetização, Matemática, Literatura, Arte e outras áreas do conhecimento, 
+
+    **Arandu – Caixa de Saberes:** conjunto de projetos educacionais exclusivos da
+    Movimenta Educação que amplia a aprendizagem por meio de propostas integradas
+    em Alfabetização, Matemática, Literatura, Arte e outras áreas do conhecimento,
     sempre de forma contextualizada, investigativa e significativa.
-    \n
-    **Projeto Motriz:** desenvolve o pensamento computacional desde a Educação Infantil, 
-    estimulando o raciocínio lógico, a criatividade, a resolução de problemas e 
+
+    **Projeto Motriz:** desenvolve o pensamento computacional desde a Educação Infantil,
+    estimulando o raciocínio lógico, a criatividade, a resolução de problemas e
     competências essenciais para os desafios do século XXI.
-    \n
-    **Sistema de Ensino Pitágoras:** alinhado à Base Nacional Comum Curricular (BNCC), 
-    oferece uma estrutura sólida para o planejamento pedagógico, apoiando o trabalho 
-    dos educadores e garantindo a progressão das aprendizagens
-    `
+
+    **Sistema de Ensino Pitágoras:** alinhado à Base Nacional Comum Curricular (BNCC),
+    oferece uma estrutura sólida para o planejamento pedagógico, apoiando o trabalho
+    dos educadores e garantindo a progressão das aprendizagens.`,
   },
   {
     id: "ingles",
     icon: Globe,
-    title: "Inglês",
+    title: "Programa de Linguagem Inglesa",
     content: `O inglês faz parte do cotidiano das crianças na Terra Terrinha. Com aulas diárias, a língua é incorporada de forma natural e lúdica, ampliando repertórios e desenvolvendo novas formas de expressão.
 
-Nossa abordagem vai além do ensino tradicional de idiomas: o inglês é vivenciado em diferentes contextos - nas brincadeiras, nas histórias, nas músicas, nas atividades artísticas e nas interações do dia a dia.
+    Nossa abordagem vai além do ensino tradicional de idiomas. O inglês é vivenciado em diferentes contextos: nas brincadeiras, nas histórias, nas músicas, nas atividades artísticas e nas interações do dia a dia.
 
-Com professores especializados e uma metodologia que respeita o processo de aquisição de linguagem, as crianças desenvolvem fluência, confiança e uma relação positiva com o idioma.`
+    Com professores especializados e uma metodologia que respeita o processo de aquisição de linguagem, as crianças desenvolvem fluência, confiança e uma relação positiva com o idioma.`,
   },
   {
     id: "projetos",
     icon: Sparkles,
     title: "Projetos Especiais",
-    content: `Os projetos especiais são uma marca da Terra Terrinha. Através deles, as crianças investigam temas de seu interesse de forma aprofundada, desenvolvendo habilidades de pesquisa, colaboração e comunicação.
+    content: `Os projetos especiais são uma marca da Terra Terrinha. Por meio deles, as crianças investigam temas de seu interesse de forma aprofundada, desenvolvendo habilidades de pesquisa, colaboração e comunicação.
 
-Alguns dos nossos projetos incluem:
-- Horta e educação ambiental
-- Projetos de arte e cultura
-- Feiras de ciências e mostras de conhecimento
-- Projetos literários
-- Celebrações culturais e datas comemorativas
-- Atividades comunitárias e de responsabilidade social
+    Alguns dos nossos projetos incluem:
 
-Cada projeto é uma oportunidade de aprendizado significativo, que conecta o conhecimento acadêmico com experiências reais e memoráveis.`
+    - Horta e educação ambiental;
+    - Projetos de arte e cultura;
+    - Feiras de ciências e mostras de conhecimento;
+    - Projetos literários;
+    - Celebrações culturais e datas comemorativas;
+    - Atividades comunitárias e de responsabilidade social.
+
+    Cada projeto é uma oportunidade de aprendizado significativo, que conecta o conhecimento acadêmico com experiências reais e memoráveis.`,
   },
   {
     id: "formacao",
@@ -133,14 +133,14 @@ Cada projeto é uma oportunidade de aprendizado significativo, que conecta o con
     title: "Formação dos Professores",
     content: `Investimos continuamente na formação da nossa equipe pedagógica. Nossos professores participam regularmente de:
 
-- Encontros de formação continuada
-- Grupos de estudo e reflexão sobre a prática
-- Cursos de atualização e especialização
-- Congressos e eventos na área de educação
+    - Encontros de formação continuada;
+    - Grupos de estudo e reflexão sobre a prática;
+    - Cursos de atualização e especialização;
+    - Congressos e eventos na área de educação.
 
-Acreditamos que educadores em constante desenvolvimento são fundamentais para uma educação de qualidade. Nossa equipe é comprometida, sensível e preparada para oferecer o melhor para cada criança.`
+    Acreditamos que educadores em constante desenvolvimento são fundamentais para uma educação de qualidade. Nossa equipe é comprometida, sensível e preparada para oferecer o melhor para cada criança.`,
   },
-]
+];
 
 export default function PedagogiaPage() {
   return (
@@ -195,7 +195,7 @@ export default function PedagogiaPage() {
                   Mais do que ensinar conteúdos, buscamos formar crianças capazes
                   de pensar, investigar, criar e construir sentidos para aquilo
                   que aprendem, desenvolvendo-se de forma integral nos aspectos
-                  cognitivo, emocional, social e ético
+                  cognitivo, emocional, social e ético.
                 </p>
               </div>
               <div>
@@ -232,11 +232,7 @@ export default function PedagogiaPage() {
                       </h2>
                     </div>
                     <div className="prose prose-gray max-w-none">
-                      {secao.content.split('\n\n').map((paragraph, pIndex) => (
-                        <p key={pIndex} className="text-muted-foreground leading-relaxed mb-4">
-                          {renderBoldText(paragraph.trim())}
-                        </p>
-                      ))}
+                      {renderFormattedContent(secao.content)}
                     </div>
                   </div>
                   <div className={index % 2 === 1 ? "lg:order-1" : ""}>
