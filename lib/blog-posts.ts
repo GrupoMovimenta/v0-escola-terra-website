@@ -16,6 +16,47 @@ export type ContentBlock =
 
 export const blogPosts: BlogPost[] = [
   {
+    id: "alegria-do-reencontro-volta-as-aulas",
+    slug: "a-alegria-do-reencontro-marca-a-volta-as-aulas",
+    title: "A alegria do reencontro marca a volta às aulas",
+    excerpt:
+      "Depois de um período de descanso, brincadeiras e novas experiências em família, é hora de reencontrar os amigos, os professores e a escola. É com muita alegria que damos as boas-vindas às nossas crianças e famílias para o segundo semestre letivo!",
+    date: "Agosto de 2026",
+    categoria: "Novidades",
+    imagem:
+      "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Bem%20vindos%20de%20volta_ETT%20Blog%202.jpg.jpeg",
+    content: [
+      {
+        type: "heading",
+        text: "A alegria do reencontro marca a volta às aulas",
+      },
+      {
+        type: "paragraph",
+        text: "Depois de um período de descanso, brincadeiras e novas experiências em família, é hora de reencontrar os amigos, os professores e a escola. É com muita alegria que damos as boas-vindas às nossas crianças e famílias para o segundo semestre letivo!",
+      },
+      {
+        type: "paragraph",
+        text: "Na Terra Terrinha, acreditamos que aprender vai muito além da sala de aula. A aprendizagem se constrói nas relações, nas descobertas, nas brincadeiras, nas investigações e nas experiências vividas ao longo do dia. Por isso, nossos espaços foram preparados com muito carinho para acolher os estudantes e inspirar novas conquistas.",
+      },
+      {
+        type: "paragraph",
+        text: "Será mais uma oportunidade para fortalecer vínculos, ampliar conhecimentos e respeitar o tempo, a curiosidade e a singularidade de cada criança.",
+      },
+      {
+        type: "paragraph",
+        text: "Seguimos contando com a parceria das famílias, que caminham ao nosso lado na construção de uma educação significativa e transformadora.",
+      },
+      {
+        type: "paragraph",
+        text: "Que este novo semestre letivo seja leve, inspirador e repleto de descobertas. Estamos muito felizes em receber nossas crianças e suas famílias para mais um capítulo dessa jornada.",
+      },
+      {
+        type: "paragraph",
+        text: "Sejam todos muito bem-vindos!",
+      },
+    ],
+  },
+  {
     id: "sexto-ano-terra-terrinha",
     slug: "o-6-ano-e-nosso-a-terra-terrinha-segue-crescendo-com-voce",
     title: "O 6º ano é nosso: a Terra Terrinha segue crescendo com você",
