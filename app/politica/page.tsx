@@ -95,7 +95,7 @@ const sections = [
     title: "Seção 9 – Consentimento",
     content: [
       "Ao utilizar os serviços e fornecer as informações pessoais na plataforma, o usuário está consentindo com a presente Política de Privacidade.",
-      "O usuário tem direito de retirar o seu consentimento a qualquer tempo, para tanto deve entrar em contato através do telefone (19) 3886-3898.",
+      "O usuário tem direito de retirar o seu consentimento a qualquer tempo, para tanto deve entrar em contato através do telefone (19) 99201-5263.",
     ],
   },
   {

@@ -56,11 +56,17 @@ export function Footer() {
             <ul className="flex flex-col gap-3">
               <li className="flex items-center gap-2 text-sm text-primary-foreground/80">
                 <Phone className="h-4 w-4 shrink-0" />
-                <span>(19) 3886-3898</span>
+                <div className="flex flex-col">
+                  <span>(19) 99201-5263</span>
+                  <span>(Secretaria Escolar)</span>
+                </div>
               </li>
               <li className="flex items-center gap-2 text-sm text-primary-foreground/80">
                 <Phone className="h-4 w-4 shrink-0" />
-                <span>(19) 99201-5263 (WhatsApp)</span>
+                <div className="flex flex-col">
+                  <span>(11) 94772-4725</span>
+                  <span>(Matrículas e Agendamento de Visitas)</span>
+                </div>
               </li>
               <li className="flex items-center gap-2 text-sm text-primary-foreground/80">
                 <Mail className="h-4 w-4 shrink-0" />

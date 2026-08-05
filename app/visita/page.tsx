@@ -103,8 +103,7 @@ export default function VisitaPage() {
                     <div>
                       <p className="font-medium text-foreground">Contato</p>
                       <p className="text-muted-foreground text-sm">
-                        (19) 3886-3898<br />
-                        (19) 99201-5263 (WhatsApp)
+                        (11) 94772-4725 
                       </p>
                     </div>
                   </div>
@@ -145,7 +144,7 @@ export default function VisitaPage() {
                   Quero conhecer a escola!
                 </a>
                 <p className="mt-4 text-sm text-muted-foreground">
-                  Ou ligue: (19) 3886-3898
+                  Ou ligue: (11) 94772-4725
                 </p>
               </div>
             </div>

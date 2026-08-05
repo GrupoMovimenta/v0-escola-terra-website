@@ -6,7 +6,7 @@ import { ContatoForm } from "@/components/forms/contato-form"
 
 export const metadata: Metadata = {
   title: "Contato",
-  description: "Entre em contato com a Escola Terra Terrinha em Vinhedo-SP. Telefone (19) 3886-3898, WhatsApp (19) 99201-5263, e-mail e formulário de contato. Rua Arnaldo Biagioli, 723.",
+  description: "Entre em contato com a Escola Terra Terrinha em Vinhedo-SP. WhatsApp (19) 99201-5263, e-mail e formulário de contato. Rua Arnaldo Biagioli, 723.",
   keywords: [
     'contato Escola Terra Terrinha',
     'telefone escola Vinhedo',
@@ -53,23 +53,24 @@ export default function ContatoPage() {
                 </h2>
 
                 <div className="space-y-6">
+                  
                   <div className="flex items-start gap-4 p-4 bg-muted rounded-xl">
                     <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                       <Phone className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-primary">Telefone</h3>
-                      <p className="text-muted-foreground">(19) 3886-3898</p>
+                      <h3 className="font-semibold text-primary">Secretaria Escolar</h3>
+                      <p className="text-muted-foreground">(19) 99201-5263</p>
                     </div>
                   </div>
-
+                  
                   <div className="flex items-start gap-4 p-4 bg-muted rounded-xl">
                     <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                       <Phone className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-primary">WhatsApp</h3>
-                      <p className="text-muted-foreground">(19) 99201-5263</p>
+                      <h3 className="font-semibold text-primary">Matrículas e Agendamento de Visitas</h3>
+                      <p className="text-muted-foreground">(11) 94772-4725</p>
                     </div>
                   </div>
 
