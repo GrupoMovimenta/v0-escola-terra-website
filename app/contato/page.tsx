@@ -80,7 +80,7 @@ export default function ContatoPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-primary">E-mail</h3>
-                      <p className="text-muted-foreground">contato@terrinha.com.br</p>
+                      <p className="text-muted-foreground">secretaria@escolaterra.com.br</p>
                     </div>
                   </div>
 
@@ -105,7 +105,7 @@ export default function ContatoPage() {
                       <h3 className="font-semibold text-primary">Horário de Atendimento</h3>
                       <p className="text-muted-foreground">
                         Segunda a sexta<br />
-                        7h às 18h30
+                        7h às 18h
                       </p>
                     </div>
                   </div>

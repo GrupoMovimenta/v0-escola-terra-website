@@ -70,7 +70,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2 text-sm text-primary-foreground/80">
                 <Mail className="h-4 w-4 shrink-0" />
-                <span>contato@escolaterra.com.br</span>
+                <span>secretaria@escolaterra.com.br</span>
               </li>
               <li className="flex items-start gap-2 text-sm text-primary-foreground/80">
                 <MapPin className="h-4 w-4 shrink-0 mt-0.5" />
@@ -86,7 +86,7 @@ export function Footer() {
               <Clock className="h-4 w-4 shrink-0 mt-0.5" />
               <div>
                 <p>Segunda a sexta</p>
-                <p>7h às 18h30</p>
+                <p>7h às 18h</p>
               </div>
             </div>
             

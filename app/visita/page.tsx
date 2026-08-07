@@ -93,7 +93,7 @@ export default function VisitaPage() {
                       <p className="font-medium text-foreground">Horário de atendimento</p>
                       <p className="text-muted-foreground text-sm">
                         Segunda a sexta<br />
-                        7h às 18h30
+                        7h às 18h
                       </p>
                     </div>
                   </div>

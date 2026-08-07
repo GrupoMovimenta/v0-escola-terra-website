@@ -92,10 +92,6 @@ const secoes = [
     em Alfabetização, Matemática, Literatura, Arte e outras áreas do conhecimento,
     sempre de forma contextualizada, investigativa e significativa.
 
-    **Projeto Motriz:** desenvolve o pensamento computacional desde a Educação Infantil,
-    estimulando o raciocínio lógico, a criatividade, a resolução de problemas e
-    competências essenciais para os desafios do século XXI.
-
     **Sistema de Ensino Pitágoras:** alinhado à Base Nacional Comum Curricular (BNCC),
     oferece uma estrutura sólida para o planejamento pedagógico, apoiando o trabalho
     dos educadores e garantindo a progressão das aprendizagens.`,
