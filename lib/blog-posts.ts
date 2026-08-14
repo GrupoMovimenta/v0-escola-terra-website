@@ -16,6 +16,66 @@ export type ContentBlock =
 
 export const blogPosts: BlogPost[] = [
   {
+    id: "corrida-meu-primeiro-super-heroi",
+    slug: "corrida-com-meu-primeiro-super-heroi-reune-familias-na-terra-terrinha",
+    title: "Corrida com Meu Primeiro Super-Herói reúne famílias na Terra Terrinha",
+    excerpt:
+      "A Terra Terrinha viveu uma manhã muito especial com a Corrida com Meu Primeiro Super-Herói, reunindo as turmas da Educação Infantil e do Ensino Fundamental em um momento cheio de diversão, carinho e alegria.",
+    date: "Agosto de 2026",
+    categoria: "Eventos",
+    imagem: "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Dia-dos-Pais.png",
+    content: [
+      {
+        type: "heading",
+        text: "Corrida com Meu Primeiro Super-Herói reúne famílias na Terra Terrinha",
+      },
+      {
+        type: "paragraph",
+        text: "A Terra Terrinha viveu uma manhã muito especial com a Corrida com Meu Primeiro Super-Herói. O encontro reuniu as turmas da Educação Infantil e do Ensino Fundamental em um momento cheio de diversão, carinho e alegria.",
+      },
+      {
+        type: "paragraph",
+        text: "Pais, mães, crianças e familiares ocuparam a quadra e outros espaços da escola para correr, brincar e aproveitar o tempo juntos. A manhã teve corrida, torcida, abraços e muitos sorrisos.",
+      },
+      {
+        type: "paragraph",
+        text: "Mais do que uma atividade esportiva, a corrida foi uma oportunidade para fortalecer os vínculos entre as crianças e suas famílias. Cada momento foi vivido com entusiasmo, desde a preparação para a corrida até a comemoração ao lado de quem estava ali para participar e torcer.",
+      },
+      {
+        type: "heading",
+        text: "Um momento para estar junto",
+      },
+      {
+        type: "paragraph",
+        text: "Na Terra Terrinha, acreditamos que estar presente na vida das crianças faz toda a diferença. Por isso, encontros como esse são tão importantes.",
+      },
+      {
+        type: "paragraph",
+        text: "Brincar, correr, explorar e compartilhar experiências são formas simples e muito especiais de criar memórias. Quando esses momentos acontecem ao lado de quem amamos, eles se tornam ainda mais significativos.",
+      },
+      {
+        type: "paragraph",
+        text: "A Corrida com Meu Primeiro Super-Herói também mostrou que a infância pode ser vivida com movimento, afeto e muita diversão. Cada família participou à sua maneira e ajudou a tornar a manhã ainda mais bonita.",
+      },
+      {
+        type: "heading",
+        text: "Memórias que ficam",
+      },
+      {
+        type: "paragraph",
+        text: "As melhores lembranças da infância muitas vezes nascem de momentos simples. Uma corrida de mãos dadas, uma torcida animada, um abraço apertado ou uma brincadeira em família podem ficar guardados para sempre.",
+      },
+      {
+        type: "paragraph",
+        text: "Foi muito bom receber as famílias na Terra Terrinha e compartilhar uma manhã tão alegre. Agradecemos a todos os pais e familiares que estiveram conosco e fizeram parte desse encontro.",
+      },
+      {
+        type: "paragraph",
+        text: "Que essa seja uma das muitas experiências especiais vividas em família na escola!",
+      },
+    ],
+  },
+  {
     id: "alegria-do-reencontro-volta-as-aulas",
     slug: "a-alegria-do-reencontro-marca-a-volta-as-aulas",
     title: "A alegria do reencontro marca a volta às aulas",
