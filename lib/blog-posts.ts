@@ -6,6 +6,7 @@ export type BlogPost = {
   date: string
   categoria: string
   imagem: string
+  imagemOrientation?: "landscape" | "portrait"
   content: ContentBlock[]
 }
 
@@ -15,6 +16,284 @@ export type ContentBlock =
   | { type: "image"; url: string; alt: string }
 
 export const blogPosts: BlogPost[] = [
+  {
+    id: "sergio-merli-entrevista",
+    slug: "sergio-merli-fala-sobre-literatura-infancia-e-experiencias-para-alem-das-telas",
+    title: "Sergio Merli fala sobre literatura, infância e experiências para além das telas",
+    excerpt:
+      "Uma conversa sobre leitura, imaginação, contato com as crianças e reflexão sobre o uso das tecnologias digitais com o autor de A Coruja, o Urso e o Celular, lançado na Escola Terra Terrinha.",
+    date: "Setembro de 2026",
+    categoria: "Educação",
+    imagem:
+      "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Sergio%20Merli%20fala%20sobre%20literatura%2C%20inf%C3%A2ncia%20e%20experi%C3%AAncias%20para%20al%C3%A9m%20das%20telas/11.jpeg",
+    content: [
+      {
+        type: "heading",
+        text: "Sergio Merli fala sobre literatura, infância e experiências para além das telas",
+      },
+      {
+        type: "paragraph",
+        text: "O lançamento de A Coruja, o Urso e o Celular foi um momento especial na Escola Terra Terrinha. Diante de crianças, famílias e educadores, o escritor e ilustrador Sergio Merli apresentou uma obra que convida leitores de diferentes idades a observar, imaginar e refletir sobre a relação com as telas.",
+      },
+      {
+        type: "paragraph",
+        text: "Em entrevista, o autor fala sobre a importância de lançar um livro em uma escola, a relação da literatura com a infância, o contato próximo com as crianças e as famílias e as experiências que ajudam a ampliar o olhar para além das telas.",
+      },
+      {
+        type: "heading",
+        text: "Literatura como encontro e experiência",
+      },
+      {
+        type: "image",
+        url: "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Sergio%20Merli%20fala%20sobre%20literatura%2C%20inf%C3%A2ncia%20e%20experi%C3%AAncias%20para%20al%C3%A9m%20das%20telas/8.png",
+        alt: "A Coruja, o Urso e o Celular, de Sérgio Merli",
+      },
+      {
+        type: "paragraph",
+        text: "\"Para um autor, a chegada de um novo livro é sempre um momento especial. Quando esse lançamento acontece em uma escola, cercado por crianças, educadores e famílias, ele ganha um significado ainda maior. É a oportunidade de ver a obra encontrar seus primeiros leitores e de transformar a leitura em uma experiência de troca, conversa e descoberta\", conta Sergio Merli.",
+      },
+      {
+        type: "paragraph",
+        text: "\"O lançamento de A Coruja, o Urso e o Celular foi um encontro muito proveitoso, que despertou boas conversas entre alunos, educadores e famílias sobre um tema tão presente no cotidiano de todos nós.\"",
+      },
+      {
+        type: "paragraph",
+        text: "Sobre a relação entre literatura e infância, o autor destaca que a literatura cria espaços de imaginação, escuta e troca. \"Quando converso com as crianças, percebo que cada uma se relaciona com a história de uma maneira diferente. Suas perguntas, interpretações e comentários mostram como a leitura pode estimular a curiosidade e ampliar a forma de observar o mundo.\"",
+      },
+      {
+        type: "heading",
+        text: "Um livro para observar e conversar",
+      },
+      {
+        type: "image",
+        url: "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Sergio%20Merli%20fala%20sobre%20literatura%2C%20inf%C3%A2ncia%20e%20experi%C3%AAncias%20para%20al%C3%A9m%20das%20telas/9.png",
+        alt: "Trecho do livro A Coruja, o Urso e o Celular, de Sérgio Merli",
+      },
+      {
+        type: "paragraph",
+        text: "Construído apenas com imagens, o livro convida o leitor a participar da construção da narrativa. \"Cada pessoa observa detalhes diferentes, interpreta as cenas a partir de suas próprias experiências e, muitas vezes, percebe elementos que passaram despercebidos por outros leitores. Essa participação torna a leitura mais ativa e muito rica\", explica.",
+      },
+      {
+        type: "paragraph",
+        text: "\"Espero que A Coruja, o Urso e o Celular estimule conversas sobre nossos hábitos com as tecnologias digitais, sem transformar o celular em um vilão. A intenção é que leitores de diferentes idades possam observar as escolhas feitas pelos personagens, comparar suas atitudes e refletir sobre como usamos esses recursos em nosso dia a dia.\"",
+      },
+      {
+        type: "paragraph",
+        text: "Sobre o título, o autor conta que ele surgiu durante o desenvolvimento da narrativa visual. \"A coruja e o urso foram ganhando personalidade ao longo do processo, e o celular acabou se tornando o terceiro elemento indispensável do título, porque representa o tema que aproxima e, ao mesmo tempo, diferencia os dois personagens.\"",
+      },
+      {
+        type: "image",
+        url: "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Sergio%20Merli%20fala%20sobre%20literatura%2C%20inf%C3%A2ncia%20e%20experi%C3%AAncias%20para%20al%C3%A9m%20das%20telas/10.png",
+        alt: "O autor Sérgio Merli durante o desenvolvimento da narrativa visual",
+      },
+      {
+        type: "paragraph",
+        text: "Ao ser perguntado sobre qual reflexão espera que permaneça depois que o leitor fechar o livro, Sergio responde: \"Gostaria que o leitor fechasse o livro se perguntando: 'Como é a minha relação com o celular e com as outras telas?' Não espero que todos cheguem à mesma conclusão. Meu desejo é apenas que essa pergunta continue acompanhando o leitor e gere boas conversas em casa, na escola e entre amigos.\"",
+      },
+      {
+        type: "paragraph",
+        text: "\"A literatura nem sempre existe para oferecer respostas. Muitas vezes, ela nos ajuda a fazer perguntas melhores. Se o livro conseguir despertar essa reflexão de maneira leve, sensível e sem julgamentos, acredito que ele terá cumprido seu papel.\"",
+      },
+      {
+        type: "paragraph",
+        text: "Na Escola Terra Terrinha, o encontro com Sergio Merli reforçou que a literatura pode abrir espaço para a imaginação, a conversa e a reflexão. Uma experiência construída com presença, afeto e participação, para além das telas.",
+      },
+      {
+        type: "heading",
+        text: "Matrículas e rematrículas para 2027",
+      },
+      {
+        type: "paragraph",
+        text: "As rematrículas para 2027 já estão abertas, assim como as matrículas para novas famílias. O Programa de Indicação oferece 10% de desconto em uma mensalidade quando a indicação resulta em uma nova matrícula. Para saber mais, fale com a equipe da escola.",
+      },
+    ],
+  },
+  {
+    id: "dia-da-familia-2026",
+    slug: "dia-da-familia-na-escola-terra-terrinha-celebra-encontros-e-descobertas",
+    title: "Dia da Família na Escola Terra Terrinha celebra encontros e descobertas",
+    excerpt:
+      "No sábado, 29 de agosto, a Escola Terra Terrinha recebeu crianças, famílias e educadores para uma manhã de convivência, literatura, brincadeiras e descobertas.",
+    date: "Setembro de 2026",
+    categoria: "Eventos",
+    imagem:
+      "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Dia%20da%20Fam%C3%ADlia%20na%20Escola%20Terra%20Terrinha%20celebra%20encontros%20e%20descobertas/6.png",
+    imagemOrientation: "landscape",
+    content: [
+      {
+        type: "heading",
+        text: "Dia da Família na Escola Terra Terrinha celebra encontros e descobertas",
+      },
+      {
+        type: "paragraph",
+        text: "No sábado, 29 de agosto, a Escola Terra Terrinha recebeu crianças, famílias e educadores para uma manhã de convivência, literatura, brincadeiras e descobertas.",
+      },
+      {
+        type: "paragraph",
+        text: "O encontro aproximou as famílias do cotidiano escolar e reforçou uma proposta baseada no acolhimento, na escuta, na curiosidade e na participação das crianças.",
+      },
+      {
+        type: "heading",
+        text: "Literatura, conversa e conquistas",
+      },
+      {
+        type: "image",
+        url: "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Sergio%20Merli%20fala%20sobre%20literatura%2C%20inf%C3%A2ncia%20e%20experi%C3%AAncias%20para%20al%C3%A9m%20das%20telas/11.jpeg",
+        alt: "A Coruja, o Urso e o Celular, do escritor e ilustrador Sergio Merli",
+      },
+      {
+        type: "paragraph",
+        text: "A programação contou com o lançamento do livro A Coruja, o Urso e o Celular, do escritor e ilustrador Sergio Merli. O autor conversou com as famílias, participou de uma oficina de desenho e autografou exemplares.",
+      },
+      {
+        type: "paragraph",
+        text: "Construído apenas com imagens, o livro convida crianças e adultos a observar, imaginar e refletir sobre a relação com as telas e a tecnologia.",
+      },
+      {
+        type: "paragraph",
+        text: "As famílias também participaram de um bate papo com a psicopedagoga Priscila Sollito, que abordou temas como presença, escuta, autonomia e vínculos.",
+      },
+      {
+        type: "paragraph",
+        text: "A manhã contou ainda com a cerimônia de Mudança de Faixa no Kung Fu. As crianças celebraram suas conquistas e demonstraram os resultados de sua dedicação, disciplina e perseverança.",
+      },
+      {
+        type: "heading",
+        text: "A visita especial da Luna",
+      },
+      {
+        type: "image",
+        url: "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Dia%20da%20Fam%C3%ADlia%20na%20Escola%20Terra%20Terrinha%20celebra%20encontros%20e%20descobertas/7.png",
+        alt: "As crianças puderam conhecer a Luna, do O Show da Luna",
+      },
+      {
+        type: "paragraph",
+        text: "Outro destaque foi a presença da Luna, de \"O Show da Luna!\". As crianças puderam conhecer a personagem, tirar fotos e viver um momento de alegria e encantamento.",
+      },
+      {
+        type: "paragraph",
+        text: "A visita também reforçou a importância de observar, perguntar, investigar e compartilhar descobertas, valores presentes no cotidiano da Terra Terrinha.",
+      },
+      {
+        type: "heading",
+        text: "Matrículas e rematrículas para 2027",
+      },
+      {
+        type: "paragraph",
+        text: "As rematrículas para 2027 já estão abertas, assim como as matrículas para novas famílias. O Programa de Indicação oferece 10% de desconto em uma mensalidade quando a indicação resulta em uma nova matrícula. Para saber mais, fale com a equipe da escola.",
+      },
+      {
+        type: "paragraph",
+        text: "O Dia da Família fortaleceu os vínculos entre crianças, famílias e educadores. Foi uma alegria celebrar a infância com presença, afeto, literatura, curiosidade e novas conquistas.",
+      },
+    ],
+  },
+  {
+    id: "luna-terra-terrinha",
+    slug: "terra-terrinha-recebe-luna-em-um-encontro-cheio-de-alegria-e-descobertas",
+    title: "Terra Terrinha recebe Luna em um encontro cheio de alegria e descobertas",
+    excerpt:
+      "A Escola Terra Terrinha recebeu uma visita muito especial: Luna, personagem de O Show da Luna!. Conhecida por sua curiosidade, ela encantou as crianças e trouxe ainda mais alegria para a rotina escolar.",
+    date: "Setembro de 2026",
+    categoria: "Eventos",
+    imagem:
+      "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Terra%20Terrinha%20recebe%20Luna%20em%20um%20encontro%20cheio%20de%20alegria%20e%20descobertas/1.png",
+    imagemOrientation: "landscape",
+    content: [
+      {
+        type: "heading",
+        text: "Terra Terrinha recebe Luna em um encontro cheio de alegria e descobertas",
+      },
+      {
+        type: "paragraph",
+        text: "A Escola Terra Terrinha recebeu uma visita muito especial: Luna, personagem de O Show da Luna!. Conhecida por sua curiosidade e pelo entusiasmo em descobrir como as coisas funcionam, Luna encantou as crianças e trouxe ainda mais alegria para a rotina escolar.",
+      },
+      {
+        type: "paragraph",
+        text: "Com olhares atentos, sorrisos e muita animação, os alunos observaram cada detalhe e participaram do encontro de maneira espontânea e afetiva. A visita proporcionou uma experiência diferente e significativa, repleta de encantamento e descobertas.",
+      },
+      {
+        type: "heading",
+        text: "A curiosidade como ponto de partida",
+      },
+      {
+        type: "image",
+        url: "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Terra%20Terrinha%20recebe%20Luna%20em%20um%20encontro%20cheio%20de%20alegria%20e%20descobertas/2.png",
+        alt: "Conhecida por sua curiosidade, Luna despertou o interesse das crianças durante a visita à Terra Terrinha",
+      },
+      {
+        type: "paragraph",
+        text: "As crianças aprendem quando observam, questionam e buscam compreender o mundo ao seu redor. Cada pergunta pode abrir novos caminhos para a descoberta e estimular a imaginação, a interação e o desejo de aprender.",
+      },
+      {
+        type: "paragraph",
+        text: "Ao vivenciarem uma situação nova, os alunos tiveram a oportunidade de observar, conversar e expressar suas percepções. Os olhares atentos, os comentários e os sorrisos revelaram o envolvimento das crianças com aquele momento especial.",
+      },
+      {
+        type: "heading",
+        text: "Luna e o encantamento da infância",
+      },
+      {
+        type: "image",
+        url: "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Terra%20Terrinha%20recebe%20Luna%20em%20um%20encontro%20cheio%20de%20alegria%20e%20descobertas/3.png",
+        alt: "A presença da personagem aproximou o universo da imaginação das experiências vividas na escola",
+      },
+      {
+        type: "paragraph",
+        text: "Luna é uma personagem que valoriza a curiosidade e o desejo de descobrir. Sua visita à Terra Terrinha criou uma atmosfera de encantamento e permitiu que as crianças se aproximassem de um universo que faz parte do imaginário infantil.",
+      },
+      {
+        type: "paragraph",
+        text: "Mais do que uma presença diferente no ambiente escolar, o encontro foi uma oportunidade de celebrar a infância e valorizar experiências que despertam emoções, perguntas e novas possibilidades.",
+      },
+      {
+        type: "heading",
+        text: "Uma experiência vivida com alegria",
+      },
+      {
+        type: "image",
+        url: "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Terra%20Terrinha%20recebe%20Luna%20em%20um%20encontro%20cheio%20de%20alegria%20e%20descobertas/4.png",
+        alt: "Crianças e educadores compartilharam um momento de interação, afeto e muitas descobertas",
+      },
+      {
+        type: "paragraph",
+        text: "A alegria dos alunos tornou a visita ainda mais especial. Entre sorrisos, olhares curiosos e muita animação, as crianças aproveitaram cada instante da experiência.",
+      },
+      {
+        type: "paragraph",
+        text: "Momentos como esse mostram que aprender também pode envolver surpresa, brincadeira, afeto e encantamento. Quando as crianças participam de vivências significativas, elas ampliam sua percepção e constroem memórias que permanecem.",
+      },
+      {
+        type: "heading",
+        text: "Um encontro para guardar na memória",
+      },
+      {
+        type: "image",
+        url: "https://k4lk5awaf7aaancs.public.blob.vercel-storage.com/Terra%20Terrinha%20recebe%20Luna%20em%20um%20encontro%20cheio%20de%20alegria%20e%20descobertas/5.png",
+        alt: "A coordenadora de Marketing do Grupo Movimenta, Luciana Ribeiro, ao lado de Luna",
+      },
+      {
+        type: "paragraph",
+        text: "A visita de Luna deixou uma lembrança especial na Terra Terrinha. Foi um encontro marcado pela curiosidade, pela imaginação e pela alegria das crianças.",
+      },
+      {
+        type: "paragraph",
+        text: "Na escola, cada experiência pode se transformar em uma oportunidade de observar, interagir e descobrir. E, naquele dia, a presença de Luna mostrou que a curiosidade pode começar com um simples olhar e se transformar em muitas novas perguntas.",
+      },
+      {
+        type: "heading",
+        text: "Matrículas e rematrículas para 2027",
+      },
+      {
+        type: "paragraph",
+        text: "As rematrículas para 2027 estão abertas para as famílias que desejam continuar essa história na Escola Terra Terrinha. Para quem busca uma escola para começar uma nova jornada, a equipe também está disponível para apresentar as condições de matrícula.",
+      },
+      {
+        type: "paragraph",
+        text: "O Programa de Indicação ainda oferece 10% de desconto em uma mensalidade quando uma indicação resulta em uma nova matrícula. Para conhecer as regras, entre em contato com a escola.",
+      },
+    ],
+  },
   {
     id: "corrida-meu-primeiro-super-heroi",
     slug: "corrida-com-meu-primeiro-super-heroi-reune-familias-na-terra-terrinha",

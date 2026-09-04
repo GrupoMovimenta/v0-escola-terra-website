@@ -98,18 +98,31 @@ export default async function BlogPostPage({ params }: Props) {
 
         {/* Featured image */}
         <div className="container mx-auto px-4 max-w-3xl mt-8">
-          <div className="mx-auto w-full max-w-[525px]">
-            <div className="relative w-full aspect-[525/700] overflow-hidden rounded-2xl shadow-lg">
+          {post.imagemOrientation === "landscape" ? (
+            <div className="relative w-full aspect-video overflow-hidden rounded-2xl shadow-lg">
               <Image
                 src={post.imagem}
                 alt={post.title}
                 fill
                 priority
                 className="object-cover object-center"
-                sizes="(max-width: 768px) 100vw, 525px"
+                sizes="(max-width: 768px) 100vw, 768px"
               />
             </div>
-          </div>
+          ) : (
+            <div className="mx-auto w-full max-w-[525px]">
+              <div className="relative w-full aspect-[525/700] overflow-hidden rounded-2xl shadow-lg">
+                <Image
+                  src={post.imagem}
+                  alt={post.title}
+                  fill
+                  priority
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 525px"
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Article content */}
