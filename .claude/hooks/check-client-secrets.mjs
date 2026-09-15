@@ -44,7 +44,7 @@ const rel = file.replace(process.env.CLAUDE_PROJECT_DIR + "/", "")
 const problems = []
 
 const isClient = /^\s*["']use client["']/m.test(src)
-const isServerRoute = /^app\/api\//.test(rel)
+const isServerRoute = /^(?:src\/)?app\/api\//.test(rel)
 
 // 1. Env var de servidor em código client.
 if (isClient) {
@@ -53,7 +53,7 @@ if (isClient) {
   if (leaked.length) {
     problems.push(
       `${rel} é um client component e lê ${[...new Set(leaked)].join(", ")}. ` +
-        `No client só existe NEXT_PUBLIC_*. Mova a leitura para um Server Component ou para app/api/.`,
+        `No client só existe NEXT_PUBLIC_*. Mova a leitura para um Server Component ou para src/app/api/.`,
     )
   }
 }

@@ -19,7 +19,7 @@
  */
 // admin-core (não admin.ts): este script roda via tsx/Node puro, onde
 // `import "server-only"` sempre lança — ver o comentário em admin-core.ts.
-import { getAdminAuth, getAdminDb } from "../lib/firebase/admin-core"
+import { getAdminAuth, getAdminDb } from "../src/lib/firebase/admin-core"
 
 const CLAIM = { editor: true } as const
 

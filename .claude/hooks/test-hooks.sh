@@ -30,7 +30,7 @@ caso() {
 
 echo "guard-secrets.mjs"
 caso "comando comum passa"            0 guard-secrets.mjs '{"tool_name":"Bash","tool_input":{"command":"pnpm build"}}'
-caso "grep comum passa"               0 guard-secrets.mjs '{"tool_name":"Bash","tool_input":{"command":"grep -rn zod app/api"}}'
+caso "grep comum passa"               0 guard-secrets.mjs '{"tool_name":"Bash","tool_input":{"command":"grep -rn zod src/app/api"}}'
 caso "leitura de .env bloqueia"       2 guard-secrets.mjs '{"tool_name":"Bash","tool_input":{"command":"cat .env.local"}}'
 caso "sed em .env bloqueia"           2 guard-secrets.mjs '{"tool_name":"Bash","tool_input":{"command":"sed -n 1,5p .env"}}'
 caso "leitura de .env.example passa"  0 guard-secrets.mjs '{"tool_name":"Bash","tool_input":{"command":"cat .env.example"}}'
@@ -41,20 +41,20 @@ caso "git add .env bloqueia"          2 guard-secrets.mjs '{"tool_name":"Bash","
 caso "Read de .env bloqueia"          2 guard-secrets.mjs '{"tool_name":"Read","tool_input":{"file_path":"/p/.env.local"}}'
 caso "Read de .env.example passa"     0 guard-secrets.mjs '{"tool_name":"Read","tool_input":{"file_path":"/p/.env.example"}}'
 caso "Read de .pem bloqueia"          2 guard-secrets.mjs '{"tool_name":"Read","tool_input":{"file_path":"/p/cert.pem"}}'
-caso "Edit de rota passa"             0 guard-secrets.mjs '{"tool_name":"Edit","tool_input":{"file_path":"/p/app/api/contato/route.ts"}}'
+caso "Edit de rota passa"             0 guard-secrets.mjs '{"tool_name":"Edit","tool_input":{"file_path":"/p/src/app/api/contato/route.ts"}}'
 caso "heredoc citando .env passa"     0 guard-secrets.mjs '{"tool_name":"Bash","tool_input":{"command":"cat > doc.md <<EOF\nnunca commite o .env\nEOF"}}'
 
 # check-client-secrets.mjs lê o arquivo do DISCO (via file_path), não do
 # stdin — por isso precisa de fixtures reais. As de rota (isServerRoute)
-# precisam viver sob app/api/ de verdade, porque o hook deriva isso do
+# precisam viver sob src/app/api/ de verdade, porque o hook deriva isso do
 # caminho relativo ao CLAUDE_PROJECT_DIR; criadas e apagadas neste run.
 FIXTURES="$DIR/.test-fixtures"
-mkdir -p "$FIXTURES" "$DIR/../../app/api/__hooktest__"
+mkdir -p "$FIXTURES" "$DIR/../../src/app/api/__hooktest__"
 # Precisa ser um caminho canônico (sem ".."): o hook tira o prefixo com
 # `.replace(CLAUDE_PROJECT_DIR + "/", "")`, uma string-replace simples que
 # não resolve ".." — com ".." no meio do caminho, o prefixo nunca bate e
 # `isServerRoute` dá falso negativo silencioso.
-ROTA_FIXTURE_DIR="$(cd "$DIR/../../app/api/__hooktest__" && pwd)"
+ROTA_FIXTURE_DIR="$(cd "$DIR/../../src/app/api/__hooktest__" && pwd)"
 trap 'rm -rf "$FIXTURES" "$ROTA_FIXTURE_DIR"' EXIT
 
 casoArquivo() {
@@ -94,7 +94,7 @@ EOF
 casoArquivo "dangerouslySetInnerHTML real bloqueia" 2 "$FIXTURES/inner-html-sem-sanitize.tsx"
 
 # Regressão: um comentário só MENCIONANDO a string não pode disparar o aviso
-# (bug real, encontrado ao escrever components/blog/content-blocks.tsx).
+# (bug real, encontrado ao escrever src/components/blog/content-blocks.tsx).
 cat > "$FIXTURES/inner-html-so-comentario.tsx" <<'EOF'
 // Este componente não usa dangerouslySetInnerHTML: tudo é filho de JSX,
 // que o React escapa por padrão.

@@ -1,6 +1,6 @@
 ---
 name: revisor-frontend
-description: Revisa acessibilidade, SEO e performance de páginas e componentes do site. Use após criar ou alterar páginas em app/, seções em components/home/ ou o layout/metadata.
+description: Revisa acessibilidade, SEO e performance de páginas e componentes do site. Use após criar ou alterar páginas em src/app/, seções em src/components/home/ ou o layout/metadata.
 tools: Read, Grep, Glob, Bash
 model: sonnet
 ---
@@ -28,11 +28,11 @@ para contexto.
 
 ## SEO
 
-- Cada página em `app/` exporta `metadata` com `title` e `description` próprios
-  — o `template` global em [app/layout.tsx](app/layout.tsx) já cuida do sufixo.
+- Cada página em `src/app/` exporta `metadata` com `title` e `description` próprios
+  — o `template` global em [src/app/layout.tsx](src/app/layout.tsx) já cuida do sufixo.
 - `description` entre ~120 e 160 caracteres, mencionando Vinhedo-SP quando fizer
   sentido.
-- Página nova foi adicionada a [app/sitemap.ts](app/sitemap.ts).
+- Página nova foi adicionada a [src/app/sitemap.ts](src/app/sitemap.ts).
 - Links internos usam `next/link`; links externos têm `rel="noopener noreferrer"`.
 - Posts de blog têm `openGraph` coerente com o conteúdo.
 

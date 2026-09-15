@@ -4,7 +4,7 @@ allowed-tools: Read, Grep, Glob, Bash(npx tsc --noEmit)
 ---
 
 Faça uma auditoria de segurança deste projeto Next.js. Escopo: `$ARGUMENTS`
-(se vazio, audite `app/api/`, `components/forms/`, `lib/` e os arquivos de config).
+(se vazio, audite `src/app/api/`, `src/components/forms/`, `src/lib/` e os arquivos de config).
 
 Verifique item por item e reporte apenas o que estiver **realmente** errado,
 com caminho e linha:
@@ -27,7 +27,7 @@ com caminho e linha:
 8. **XSS no client** — `dangerouslySetInnerHTML` sem sanitização; `href` vindo
    de input do usuário (`portfolio`) sem validação de protocolo.
 9. **LGPD** — campos de dado pessoal novos sem cobertura na política de
-   privacidade em [app/politica/](app/politica/); trackers de terceiros.
+   privacidade em [src/app/politica/](src/app/politica/); trackers de terceiros.
 10. **Config e supply chain** — `ignoreBuildErrors`, `@ts-ignore`, dependências
     fora do `pnpm-lock.yaml`, segredos embutidos em `Dockerfile` ou
     `docker-compose.yml`.

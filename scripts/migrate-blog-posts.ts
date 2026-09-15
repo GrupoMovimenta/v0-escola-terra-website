@@ -19,8 +19,8 @@ import { createHash } from "node:crypto"
 import { FieldValue, Timestamp } from "firebase-admin/firestore"
 // admin-core (não admin.ts): este script roda via tsx/Node puro, onde
 // `import "server-only"` sempre lança — ver o comentário em admin-core.ts.
-import { getAdminDb, getAdminBucket } from "../lib/firebase/admin-core"
-import { CATEGORIAS, type Categoria } from "../lib/blog/types"
+import { getAdminDb, getAdminBucket } from "../src/lib/firebase/admin-core"
+import { CATEGORIAS, type Categoria } from "../src/lib/blog/types"
 import { legacyBlogPosts, type LegacyBlogPost, type LegacyContentBlock } from "./seed-data/legacy-blog-posts"
 
 type Bucket = ReturnType<typeof getAdminBucket>

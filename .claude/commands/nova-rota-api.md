@@ -3,9 +3,9 @@ description: Cria uma rota de API seguindo o padrão seguro do projeto
 argument-hint: <nome-da-rota> (ex: matricula)
 ---
 
-Crie a rota de API `app/api/$1/route.ts` seguindo o padrão seguro deste projeto.
-Antes de escrever, leia [app/api/contato/route.ts](app/api/contato/route.ts)
-para herdar o estilo e [lib/verify-recaptcha.ts](lib/verify-recaptcha.ts).
+Crie a rota de API `src/app/api/$1/route.ts` seguindo o padrão seguro deste projeto.
+Antes de escrever, leia [src/app/api/contato/route.ts](src/app/api/contato/route.ts)
+para herdar o estilo e [src/lib/verify-recaptcha.ts](src/lib/verify-recaptcha.ts).
 
 A rota **deve**:
 

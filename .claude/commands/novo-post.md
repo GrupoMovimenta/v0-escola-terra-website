@@ -1,12 +1,12 @@
 ---
-description: Adiciona um post ao blog em lib/blog-posts.ts
+description: Adiciona um post ao blog em src/lib/blog-posts.ts
 argument-hint: <título do post>
 ---
 
 Adicione o post "$ARGUMENTS" ao blog.
 
 O blog não tem CMS: os posts são um array tipado em
-[lib/blog-posts.ts](lib/blog-posts.ts). Leia o arquivo primeiro e siga
+[src/lib/blog-posts.ts](src/lib/blog-posts.ts). Leia o arquivo primeiro e siga
 exatamente os tipos `BlogPost` e `ContentBlock` já definidos.
 
 Regras:

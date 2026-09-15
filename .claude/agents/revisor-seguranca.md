@@ -1,6 +1,6 @@
 ---
 name: revisor-seguranca
-description: Revisa mudanças em rotas de API, formulários, validação de entrada, tratamento de segredos ou configuração de deploy deste site. Use proativamente após editar qualquer arquivo em app/api/, components/forms/, lib/ ou os arquivos de config (next.config.mjs, Dockerfile, docker-compose.yml, vercel.json).
+description: Revisa mudanças em rotas de API, formulários, validação de entrada, tratamento de segredos ou configuração de deploy deste site. Use proativamente após editar qualquer arquivo em src/app/api/, src/components/forms/, src/lib/ ou os arquivos de config (next.config.mjs, Dockerfile, docker-compose.yml, vercel.json).
 tools: Read, Grep, Glob, Bash
 model: sonnet
 ---
@@ -51,8 +51,8 @@ Ordene do mais grave ao menos grave. Não aplique correções — apenas reporte
 
 ## Falsos positivos a evitar
 
-- Conteúdo estático do site (textos, posts do blog em `lib/blog-posts.ts`) não é
+- Conteúdo estático do site (textos, posts do blog em `src/lib/blog-posts.ts`) não é
   entrada de atacante.
-- Componentes de `components/ui/` são gerados pelo shadcn/ui; não os audite
+- Componentes de `src/components/ui/` são gerados pelo shadcn/ui; não os audite
   linha a linha salvo se o diff os tiver alterado de fato.
 - `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` é pública por definição — não é vazamento.
