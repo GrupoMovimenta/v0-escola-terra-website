@@ -8,9 +8,15 @@ __v0_jsx-dev-runtime.ts
 
 # Environment variables
 .env*.local
+.env
+!.env.example
+
+# Claude Code — a config versionada fica em .claude/; o override local, não
+.claude/settings.local.json
 
 # Common ignores
 node_modules
 .next/
 .DS_Store
 .vercel
+tsconfig.tsbuildinfo
