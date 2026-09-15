@@ -1,9 +1,11 @@
+import { writeFileSync } from "node:fs"
+import { join } from "node:path"
+import { tmpdir } from "node:os"
 import { applicationDefault, cert, getApps, initializeApp, type App, type Credential } from "firebase-admin/app"
 import { getAuth } from "firebase-admin/auth"
 import { getFirestore } from "firebase-admin/firestore"
 import { getStorage } from "firebase-admin/storage"
-import { getVercelOidcToken } from "@vercel/oidc"
-import { ExternalAccountClient } from "google-auth-library"
+import { getVercelOidcTokenSync } from "@vercel/oidc"
 
 // Sem `import "server-only"`: scripts CLI (tsx/Node puro) importam este
 // arquivo diretamente, e `server-only` sempre lança fora do bundler Next.js.
@@ -49,56 +51,90 @@ function loadServiceAccountFromB64(raw: string) {
   }
 }
 
-// Credencial via Workload Identity Federation: a Vercel injeta VERCEL_OIDC_TOKEN
-// (lido por getVercelOidcToken) quando "OIDC Federation" está habilitada no
-// projeto; trocamos esse token por um access token do service account
-// `vercel@escola-terra-terrinha.iam.gserviceaccount.com` via STS + impersonation.
-// Ver GCP_* em .env.example para a configuração do pool/provider.
-function resolveVercelOidcCredential(): Credential | null {
+const OIDC_TOKEN_PATH = join(tmpdir(), "vercel-oidc-token")
+const ADC_CONFIG_PATH = join(tmpdir(), "gcp-wif-credentials.json")
+
+/**
+ * Materializa a credencial de Workload Identity Federation em disco e aponta
+ * GOOGLE_APPLICATION_CREDENTIALS para ela.
+ *
+ * Por que arquivo em vez de um ExternalAccountClient em memória: firebase-admin
+ * só aceita `cert()` ou ADC de verdade — um objeto `Credential` customizado é
+ * recusado pelo cliente do Firestore ("Must initialize the SDK with a
+ * certificate credential or application default credentials"). Além disso
+ * @google-cloud/firestore e @google-cloud/storage carregam versões diferentes
+ * do google-auth-library, então um client construído aqui não serve para as
+ * duas. Com o arquivo de config `external_account`, cada biblioteca resolve a
+ * credencial com a própria versão.
+ *
+ * O token OIDC é reescrito a cada chamada porque em funções ele vive no
+ * contexto da request (header `x-vercel-oidc-token`), não no ambiente, e expira
+ * em 2h — instância reciclada precisa do token da request atual.
+ */
+function prepareVercelWifCredentials(): boolean {
   const projectNumber = process.env.GCP_PROJECT_NUMBER
   const poolId = process.env.GCP_WORKLOAD_IDENTITY_POOL_ID
   const providerId = process.env.GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID
   const serviceAccountEmail = process.env.GCP_SERVICE_ACCOUNT_EMAIL
-  if (!projectNumber || !poolId || !providerId || !serviceAccountEmail) return null
-
-  const providerPath = `projects/${projectNumber}/locations/global/workloadIdentityPools/${poolId}/providers/${providerId}`
-  const audience = `https://iam.googleapis.com/${providerPath}`
-
-  const authClient = ExternalAccountClient.fromJSON({
-    type: "external_account",
-    audience: `//iam.googleapis.com/${providerPath}`,
-    subject_token_type: "urn:ietf:params:oauth:token-type:jwt",
-    token_url: "https://sts.googleapis.com/v1/token",
-    service_account_impersonation_url: `https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/${serviceAccountEmail}:generateAccessToken`,
-    subject_token_supplier: {
-      getSubjectToken: () => getVercelOidcToken({ audience }),
-    },
-  })
-  if (!authClient) return null
-
-  return {
-    async getAccessToken() {
-      const { token } = await authClient.getAccessToken()
-      if (!token) throw new Error("[firebase-admin] Falha ao trocar o token OIDC da Vercel por um access token (WIF).")
-      const expiryDate = authClient.credentials.expiry_date
-      const expires_in = expiryDate ? Math.max(60, Math.floor((expiryDate - Date.now()) / 1000)) : 3600
-      return { access_token: token, expires_in }
-    },
+  if (!projectNumber || !poolId || !providerId || !serviceAccountEmail) {
+    if (process.env.VERCEL) {
+      console.error(
+        "[firebase-admin] Rodando na Vercel sem as GCP_* de Workload Identity Federation " +
+          "(GCP_PROJECT_NUMBER, GCP_SERVICE_ACCOUNT_EMAIL, GCP_WORKLOAD_IDENTITY_POOL_ID, " +
+          "GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID); o Firestore vai falhar por falta de credencial.",
+      )
+    }
+    return false
   }
+
+  let token: string
+  try {
+    token = getVercelOidcTokenSync()
+  } catch (err) {
+    // Fora da Vercel (ou sem OIDC habilitado) não há token: cai para o ADC local.
+    if (process.env.VERCEL) {
+      console.error(
+        "[firebase-admin] Token OIDC da Vercel indisponível; o Firestore vai falhar por falta de credencial:",
+        err instanceof Error ? err.message : err,
+      )
+    }
+    return false
+  }
+
+  writeFileSync(OIDC_TOKEN_PATH, token, { mode: 0o600 })
+  writeFileSync(
+    ADC_CONFIG_PATH,
+    JSON.stringify({
+      type: "external_account",
+      audience: `//iam.googleapis.com/projects/${projectNumber}/locations/global/workloadIdentityPools/${poolId}/providers/${providerId}`,
+      subject_token_type: "urn:ietf:params:oauth:token-type:jwt",
+      token_url: "https://sts.googleapis.com/v1/token",
+      service_account_impersonation_url: `https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/${serviceAccountEmail}:generateAccessToken`,
+      credential_source: { file: OIDC_TOKEN_PATH },
+    }),
+    { mode: 0o600 },
+  )
+  process.env.GOOGLE_APPLICATION_CREDENTIALS = ADC_CONFIG_PATH
+  return true
 }
 
 // FIREBASE_SERVICE_ACCOUNT_B64 é opcional: a política da organização
 // (`iam.disableServiceAccountKeyCreation`) impede gerar chave JSON para a
-// service account. Sem ela, tenta Workload Identity Federation (Vercel) e,
-// por fim, applicationDefault() (gcloud ADC local).
+// service account. Sem ela, usa Application Default Credentials — que na Vercel
+// são o arquivo de WIF escrito por prepareVercelWifCredentials() e, localmente,
+// o `gcloud auth application-default login`.
 function resolveCredential(): Credential {
   const raw = process.env.FIREBASE_SERVICE_ACCOUNT_B64
   if (raw) return cert(loadServiceAccountFromB64(raw))
-  return resolveVercelOidcCredential() ?? applicationDefault()
+  return applicationDefault()
 }
 
 function getAdminApp(): App {
   assertNoEmulatorInProduction()
+
+  // Antes do memo: o app é reaproveitado entre invocações, mas o token OIDC
+  // que está no disco não — ele precisa ser o da request atual.
+  if (!process.env.FIREBASE_SERVICE_ACCOUNT_B64) prepareVercelWifCredentials()
 
   if (globalThis.__firebaseAdminApp) return globalThis.__firebaseAdminApp
   if (getApps().length > 0) {
