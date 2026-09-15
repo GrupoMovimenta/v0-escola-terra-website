@@ -3,3 +3,12 @@ allowBuilds:
   esbuild: true
   protobufjs: true
   sharp: true
+
+# jwks-rsa@4 pede jose@^6, que é ESM puro. firebase-admin/auth é carregado por
+# require() na função da Vercel (o Next externaliza o pacote), e ali o require
+# de ESM falha com ERR_REQUIRE_ESM — derrubando TODA rota que importa o
+# firebase-admin, no carregamento do módulo. jose@5 tem build dual com condição
+# `require`, então resolve. Ver também o mesmo override em package.json, para o
+# caso do build rodar com pnpm < 11 (que lê as configurações de lá).
+overrides:
+  'jwks-rsa>jose': '^5.10.0'
