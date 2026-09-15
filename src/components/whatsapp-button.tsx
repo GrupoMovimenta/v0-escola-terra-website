@@ -1,6 +1,15 @@
+"use client"
+
 import Image from "next/image"
+import { usePathname } from "next/navigation"
 
 export function WhatsAppButton() {
+  const pathname = usePathname()
+
+  if (pathname?.startsWith("/admin")) {
+    return null
+  }
+
   return (
     <>
       {/* Desktop Version */}
