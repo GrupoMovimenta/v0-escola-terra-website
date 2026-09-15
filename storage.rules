@@ -1,0 +1,15 @@
+rules_version = '2';
+
+// Nega todo acesso via SDK client do Storage. A leitura pública das
+// imagens do blog vem da permissão IAM `allUsers → Storage Object Viewer`
+// concedida no bucket (Fase 0), não destas regras. A escrita acontece só
+// por signed URL v4 emitida pelo servidor (app/api/admin/uploads) — uma
+// signed URL é uma autorização assinada pela API do GCS e NÃO passa por
+// estas Security Rules, que só governam o SDK client do Firebase.
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

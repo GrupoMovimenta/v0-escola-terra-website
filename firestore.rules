@@ -1,0 +1,19 @@
+rules_version = '2';
+
+// Nega TODO acesso direto de um SDK client. Todo acesso a este banco passa
+// pelo Admin SDK, no servidor (lib/firebase/admin.ts), que ignora estas
+// regras por autenticar com service account.
+//
+// Isto é necessário mesmo assim: NEXT_PUBLIC_FIREBASE_API_KEY está no bundle
+// JavaScript, visível para qualquer visitante. Com ela, qualquer um pode
+// instanciar o SDK client do Firestore apontado para este projeto. Sem esta
+// regra em deny-all, o "test mode" padrão deixaria o banco inteiro aberto
+// para leitura e escrita pública. Publicar isto ANTES de existir qualquer
+// dado (Fase 0), não depois.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+[
+  {
+    "origin": ["https://www.escolaterra.com.br", "http://localhost:3000"],
+    "method": ["PUT", "GET"],
+    "responseHeader": ["Content-Type", "x-goog-content-length-range"],
+    "maxAgeSeconds": 3600
+  }
+]

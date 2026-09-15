@@ -1,4 +1,15 @@
-export type BlogPost = {
+/**
+ * Conteúdo editorial dos 14 posts publicados antes da migração para o
+ * Firestore (lib/blog-posts.ts original). Fonte única do script de migração
+ * (scripts/migrate-blog-posts.ts) e rede de segurança de rollback — se a
+ * migração precisar ser revertida, o conteúdo está aqui, não só no
+ * histórico do git.
+ *
+ * Tipado localmente, DE PROPÓSITO não contra lib/blog/types.ts: este arquivo
+ * descreve um formato histórico e congelado. Fazê-lo depender do schema
+ * atual faria qualquer evolução do schema novo quebrar este seed antigo.
+ */
+export type LegacyBlogPost = {
   id: string
   slug: string
   title: string
@@ -7,15 +18,15 @@ export type BlogPost = {
   categoria: string
   imagem: string
   imagemOrientation?: "landscape" | "portrait"
-  content: ContentBlock[]
+  content: LegacyContentBlock[]
 }
 
-export type ContentBlock =
+export type LegacyContentBlock =
   | { type: "paragraph"; text: string }
   | { type: "heading"; text: string }
   | { type: "image"; url: string; alt: string }
 
-export const blogPosts: BlogPost[] = [
+export const legacyBlogPosts: LegacyBlogPost[] = [
   {
     id: "sergio-merli-entrevista",
     slug: "sergio-merli-fala-sobre-literatura-infancia-e-experiencias-para-alem-das-telas",
@@ -896,7 +907,3 @@ export const blogPosts: BlogPost[] = [
     ],
   },
 ]
-
-export function getPostBySlug(slug: string): BlogPost | undefined {
-  return blogPosts.find((p) => p.slug === slug || p.id === slug)
-}

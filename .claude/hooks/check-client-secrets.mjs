@@ -76,8 +76,11 @@ if (isServerRoute && /htmlContent\s*:/.test(src)) {
   }
 }
 
-// 4. HTML injetado no DOM.
-if (/dangerouslySetInnerHTML/.test(src) && !/sanitiz/i.test(src)) {
+// 4. HTML injetado no DOM. `\s*=` de propósito: exige a atribuição JSX real
+// (`dangerouslySetInnerHTML={{...}}`), não só a palavra aparecendo em
+// prosa — um comentário explicando "isto não usa dangerouslySetInnerHTML"
+// não pode disparar o próprio aviso que está negando.
+if (/dangerouslySetInnerHTML\s*=/.test(src) && !/sanitiz/i.test(src)) {
   problems.push(`${rel} usa dangerouslySetInnerHTML sem sanitização visível. Renderize o conteúdo como texto ou sanitize antes.`)
 }
 

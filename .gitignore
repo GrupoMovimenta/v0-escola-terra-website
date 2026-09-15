@@ -11,6 +11,11 @@ __v0_jsx-dev-runtime.ts
 .env
 !.env.example
 
+# Firebase — nunca commitar a service account nem artefatos do emulador
+*-service-account*.json
+firebase-debug.log
+.emulator-data/
+
 # Claude Code — a config versionada fica em .claude/; o override local, não
 .claude/settings.local.json
 

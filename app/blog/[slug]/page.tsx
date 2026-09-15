@@ -2,23 +2,48 @@ import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { Calendar, ArrowLeft } from "lucide-react"
+import { draftMode } from "next/headers"
+import { Calendar, ArrowLeft, ArrowRight } from "lucide-react"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { CtaSection } from "@/components/home/cta-section"
-import { blogPosts, getPostBySlug } from "@/lib/blog-posts"
+import { ContentBlocks } from "@/components/blog/content-blocks"
+import {
+  getPublishedPostBySlug,
+  getPublishedPostSlugs,
+  getPostBySlugAnyStatus,
+  getAdjacentPosts,
+  getRelatedPosts,
+} from "@/lib/blog/queries"
+import type { BlogPost } from "@/lib/blog/types"
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.escolaterra.com.br"
 
 type Props = {
   params: Promise<{ slug: string }>
 }
 
+export const revalidate = 3600
+export const dynamicParams = true
+
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }))
+  try {
+    const slugs = await getPublishedPostSlugs()
+    return slugs.map((slug) => ({ slug }))
+  } catch (err) {
+    console.error("[build] Firestore indisponível em generateStaticParams do blog:", err)
+    return []
+  }
+}
+
+async function resolvePost(slug: string): Promise<BlogPost | null> {
+  const { isEnabled } = await draftMode()
+  return isEnabled ? getPostBySlugAnyStatus(slug) : getPublishedPostBySlug(slug)
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const post = getPostBySlug(slug)
+  const post = await resolvePost(slug)
 
   if (!post) {
     return { title: "Post não encontrado" }
@@ -27,31 +52,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.title,
     description: post.excerpt,
-    keywords: [
-      post.categoria,
-      'educação infantil',
-      'Escola Terra Terrinha',
-      'pedagogia construtivista',
-      'Vinhedo SP',
-    ],
-    alternates: { canonical: `https://www.escolaterra.com.br/blog/${post.slug}` },
+    keywords: [post.categoria, "educação infantil", "Escola Terra Terrinha", "pedagogia construtivista", "Vinhedo SP"],
+    alternates: { canonical: `${SITE_URL}/blog/${post.slug}` },
+    robots: post.status === "draft" ? { index: false, follow: false } : undefined,
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      url: `https://www.escolaterra.com.br/blog/${post.slug}`,
+      url: `${SITE_URL}/blog/${post.slug}`,
       type: "article",
-      publishedTime: post.date,
-      images: [
-        {
-          url: post.imagem,
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        },
-      ],
+      publishedTime: post.publishedAt ?? undefined,
+      modifiedTime: post.updatedAt,
+      authors: [post.authorName],
+      images: [{ url: post.imagem, width: 1200, height: 630, alt: post.title }],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
       images: [post.imagem],
@@ -61,15 +76,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params
-  const post = getPostBySlug(slug)
+  const post = await resolvePost(slug)
 
   if (!post) notFound()
+
+  const [{ newer, older }, related] = await Promise.all([getAdjacentPosts(post), getRelatedPosts(post)])
 
   return (
     <>
       <Header />
       <main>
-        {/* Breadcrumb + Hero */}
+        {post.status === "draft" && (
+          <div className="bg-amber-500 text-amber-950 text-center text-sm font-medium py-2 px-4 flex items-center justify-center gap-3">
+            <span>Visualizando rascunho — este post ainda não foi publicado.</span>
+            <Link href="/api/admin/preview/sair" className="underline underline-offset-2">
+              Sair da pré-visualização
+            </Link>
+          </div>
+        )}
+
         <section className="bg-primary pt-12 pb-10">
           <div className="container mx-auto px-4 max-w-3xl">
             <Link
@@ -86,7 +111,7 @@ export default async function BlogPostPage({ params }: Props) {
               </span>
               <span className="flex items-center gap-1 text-primary-foreground/70 text-sm">
                 <Calendar className="h-4 w-4" />
-                {post.date}
+                <time dateTime={post.publishedAt ?? undefined}>{post.dateLabel}</time>
               </span>
             </div>
 
@@ -96,7 +121,6 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </section>
 
-        {/* Featured image */}
         <div className="container mx-auto px-4 max-w-3xl mt-8">
           {post.imagemOrientation === "landscape" ? (
             <div className="relative w-full aspect-video overflow-hidden rounded-2xl shadow-lg">
@@ -125,48 +149,60 @@ export default async function BlogPostPage({ params }: Props) {
           )}
         </div>
 
-        {/* Article content */}
         <article className="container mx-auto px-4 max-w-3xl py-12">
           <div className="prose-custom">
-            {post.content.map((block, index) => {
-              if (block.type === "heading") {
-                return (
-                  <h2
-                    key={index}
-                    className="text-2xl md:text-3xl font-bold text-foreground mt-10 mb-4 text-balance"
-                  >
-                    {block.text}
-                  </h2>
-                )
-              }
-              if (block.type === "image") {
-                if (!block.url) {
-                  return null
-                }
-
-                return (
-                  <figure key={index} className="mb-6 overflow-hidden rounded-xl">
-                    <Image
-                      src={block.url}
-                      alt={block.alt ?? ""}
-                      width={1200}
-                      height={675}
-                      className="h-auto w-full object-cover"
-                    />
-                  </figure>
-                )
-              }
-              return (
-                <p
-                  key={index}
-                  className="text-foreground/80 leading-relaxed text-base md:text-lg mb-6"
-                >
-                  {block.text}
-                </p>
-              )
-            })}
+            <ContentBlocks blocks={post.content} />
           </div>
         </article>
+
+        {(newer || older) && (
+          <nav className="container mx-auto px-4 max-w-3xl pb-12 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {newer && (
+              <Link
+                href={`/blog/${newer.slug}`}
+                className="group rounded-xl border p-4 hover:border-primary transition-colors"
+              >
+                <span className="text-xs text-muted-foreground">Post mais recente</span>
+                <p className="font-medium line-clamp-2 group-hover:text-primary">{newer.title}</p>
+              </Link>
+            )}
+            {older && (
+              <Link
+                href={`/blog/${older.slug}`}
+                className="group rounded-xl border p-4 hover:border-primary transition-colors sm:text-right sm:col-start-2"
+              >
+                <span className="text-xs text-muted-foreground inline-flex items-center gap-1 sm:flex-row-reverse">
+                  Post anterior <ArrowRight className="h-3 w-3 sm:rotate-180" />
+                </span>
+                <p className="font-medium line-clamp-2 group-hover:text-primary">{older.title}</p>
+              </Link>
+            )}
+          </nav>
+        )}
+
+        {related.length > 0 && (
+          <section className="bg-muted/30 py-16">
+            <div className="container mx-auto px-4 max-w-5xl">
+              <h2 className="text-2xl font-bold text-foreground mb-8">Você também pode gostar</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {related.map((r) => (
+                  <Link
+                    key={r.id}
+                    href={`/blog/${r.slug}`}
+                    className="bg-background rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
+                  >
+                    <div className="aspect-video relative overflow-hidden">
+                      <Image src={r.imagem} alt={r.title} fill className="object-cover object-center" sizes="33vw" />
+                    </div>
+                    <div className="p-4">
+                      <p className="font-medium text-sm line-clamp-2">{r.title}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         <CtaSection />
       </main>
