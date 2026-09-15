@@ -2,6 +2,8 @@ import { applicationDefault, cert, getApps, initializeApp, type App, type Creden
 import { getAuth } from "firebase-admin/auth"
 import { getFirestore } from "firebase-admin/firestore"
 import { getStorage } from "firebase-admin/storage"
+import { getVercelOidcToken } from "@vercel/oidc"
+import { ExternalAccountClient } from "google-auth-library"
 
 // Sem `import "server-only"`: scripts CLI (tsx/Node puro) importam este
 // arquivo diretamente, e `server-only` sempre lança fora do bundler Next.js.
@@ -47,13 +49,52 @@ function loadServiceAccountFromB64(raw: string) {
   }
 }
 
+// Credencial via Workload Identity Federation: a Vercel injeta VERCEL_OIDC_TOKEN
+// (lido por getVercelOidcToken) quando "OIDC Federation" está habilitada no
+// projeto; trocamos esse token por um access token do service account
+// `vercel@escola-terra-terrinha.iam.gserviceaccount.com` via STS + impersonation.
+// Ver GCP_* em .env.example para a configuração do pool/provider.
+function resolveVercelOidcCredential(): Credential | null {
+  const projectNumber = process.env.GCP_PROJECT_NUMBER
+  const poolId = process.env.GCP_WORKLOAD_IDENTITY_POOL_ID
+  const providerId = process.env.GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID
+  const serviceAccountEmail = process.env.GCP_SERVICE_ACCOUNT_EMAIL
+  if (!projectNumber || !poolId || !providerId || !serviceAccountEmail) return null
+
+  const providerPath = `projects/${projectNumber}/locations/global/workloadIdentityPools/${poolId}/providers/${providerId}`
+  const audience = `https://iam.googleapis.com/${providerPath}`
+
+  const authClient = ExternalAccountClient.fromJSON({
+    type: "external_account",
+    audience: `//iam.googleapis.com/${providerPath}`,
+    subject_token_type: "urn:ietf:params:oauth:token-type:jwt",
+    token_url: "https://sts.googleapis.com/v1/token",
+    service_account_impersonation_url: `https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/${serviceAccountEmail}:generateAccessToken`,
+    subject_token_supplier: {
+      getSubjectToken: () => getVercelOidcToken({ audience }),
+    },
+  })
+  if (!authClient) return null
+
+  return {
+    async getAccessToken() {
+      const { token } = await authClient.getAccessToken()
+      if (!token) throw new Error("[firebase-admin] Falha ao trocar o token OIDC da Vercel por um access token (WIF).")
+      const expiryDate = authClient.credentials.expiry_date
+      const expires_in = expiryDate ? Math.max(60, Math.floor((expiryDate - Date.now()) / 1000)) : 3600
+      return { access_token: token, expires_in }
+    },
+  }
+}
+
 // FIREBASE_SERVICE_ACCOUNT_B64 é opcional: a política da organização
 // (`iam.disableServiceAccountKeyCreation`) impede gerar chave JSON para a
-// service account. Sem ela, cai para applicationDefault() (gcloud ADC local,
-// ou credencial via Workload Identity Federation na Vercel).
+// service account. Sem ela, tenta Workload Identity Federation (Vercel) e,
+// por fim, applicationDefault() (gcloud ADC local).
 function resolveCredential(): Credential {
   const raw = process.env.FIREBASE_SERVICE_ACCOUNT_B64
-  return raw ? cert(loadServiceAccountFromB64(raw)) : applicationDefault()
+  if (raw) return cert(loadServiceAccountFromB64(raw))
+  return resolveVercelOidcCredential() ?? applicationDefault()
 }
 
 function getAdminApp(): App {
