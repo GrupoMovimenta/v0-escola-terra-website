@@ -167,8 +167,10 @@ export function PostEditorForm({ mode, postId, initialValues, initialStatus }: P
 
       if (intent === "preview") {
         window.open(`/api/admin/preview?slug=${encodeURIComponent(form.getValues("slug"))}`, "_blank")
+      } else if (intent === "publicar") {
+        toast.success("Post publicado.")
       } else {
-        toast.success(intent === "publicar" ? "Post publicado." : "Rascunho salvo.")
+        toast.success(mode === "criar" ? "Rascunho salvo." : "Alterações salvas.")
       }
 
       router.refresh()
@@ -181,12 +183,27 @@ export function PostEditorForm({ mode, postId, initialValues, initialStatus }: P
 
   async function handleUnpublish() {
     if (!id) return
+
+    const valid = await form.trigger()
+    if (!valid) {
+      toast.error("Corrija os campos destacados antes de despublicar.")
+      return
+    }
+
     setSaving("rascunho")
     try {
+      // Salva as edições pendentes antes de despublicar — senão elas ficam
+      // só no formulário e se perdem se o usuário sair da página.
+      await persist()
+
       const res = await fetch(`/api/admin/posts/${id}/publish`, { method: "DELETE" })
       const body = await res.json().catch(() => ({ error: "Erro ao despublicar." }))
       if (!res.ok) throw new Error(body.error ?? "Erro ao despublicar.")
+
       setStatus("draft")
+      form.reset(form.getValues())
+      clearBackup()
+      setRestoreBanner(null)
       toast.success("Post despublicado.")
       router.refresh()
     } catch (err) {
@@ -403,7 +420,7 @@ export function PostEditorForm({ mode, postId, initialValues, initialStatus }: P
           </Button>
           <Button type="button" variant="secondary" disabled={saving !== null} onClick={() => handleSave("rascunho")}>
             {saving === "rascunho" && <Loader2 className="size-4 animate-spin" />}
-            Salvar rascunho
+            {mode === "criar" ? "Salvar rascunho" : "Salvar alterações"}
           </Button>
           {status === "published" ? (
             <Button type="button" variant="destructive" disabled={saving !== null} onClick={handleUnpublish}>

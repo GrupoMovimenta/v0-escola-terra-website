@@ -9,6 +9,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import {
   Pagination,
@@ -61,6 +62,8 @@ export function PostsTable({ results }: { results: AdminParseResult[] }) {
   const [deleting, setDeleting] = useState<string | null>(null)
   const [confirmId, setConfirmId] = useState<string | null>(null)
 
+  const [confirmTitle, setConfirmTitle] = useState("")
+
   const [search, setSearch] = useState("")
   const [categoriaFiltro, setCategoriaFiltro] = useState<string>("todas")
   const [statusFiltro, setStatusFiltro] = useState<string>("todos")
@@ -68,6 +71,7 @@ export function PostsTable({ results }: { results: AdminParseResult[] }) {
 
   const corrupted = results.filter((r) => !r.ok)
   const validPosts = useMemo(() => results.filter((r) => r.ok).map((r) => r.post), [results])
+  const confirmPost = useMemo(() => validPosts.find((p) => p.id === confirmId) ?? null, [validPosts, confirmId])
 
   const filtered = useMemo(() => {
     const termo = search.trim().toLowerCase()
@@ -108,6 +112,7 @@ export function PostsTable({ results }: { results: AdminParseResult[] }) {
     } finally {
       setDeleting(null)
       setConfirmId(null)
+      setConfirmTitle("")
     }
   }
 
@@ -229,7 +234,10 @@ export function PostsTable({ results }: { results: AdminParseResult[] }) {
                       size="icon"
                       className="group hover:bg-destructive"
                       disabled={deleting === post.id}
-                      onClick={() => setConfirmId(post.id)}
+                      onClick={() => {
+                        setConfirmId(post.id)
+                        setConfirmTitle("")
+                      }}
                       aria-label="Remover post"
                     >
                       <Trash2 className="size-4 text-destructive group-hover:text-white" />
@@ -293,7 +301,15 @@ export function PostsTable({ results }: { results: AdminParseResult[] }) {
         </>
       )}
 
-      <AlertDialog open={confirmId !== null} onOpenChange={(open) => !open && setConfirmId(null)}>
+      <AlertDialog
+        open={confirmId !== null}
+        onOpenChange={(open) => {
+          if (!open) {
+            setConfirmId(null)
+            setConfirmTitle("")
+          }
+        }}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Remover este post?</AlertDialogTitle>
@@ -302,9 +318,29 @@ export function PostsTable({ results }: { results: AdminParseResult[] }) {
               imediatamente. Não pode ser desfeito.
             </AlertDialogDescription>
           </AlertDialogHeader>
+
+          {confirmPost && (
+            <div className="space-y-1">
+              <Label htmlFor="confirm-title">
+                Digite <strong>{confirmPost.title}</strong> para confirmar
+              </Label>
+              <Input
+                id="confirm-title"
+                value={confirmTitle}
+                onChange={(e) => setConfirmTitle(e.target.value)}
+                autoComplete="off"
+              />
+            </div>
+          )}
+
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={() => confirmId && handleDelete(confirmId)}>Remover</AlertDialogAction>
+            <AlertDialogAction
+              disabled={!confirmPost || confirmTitle !== confirmPost.title || deleting === confirmId}
+              onClick={() => confirmId && handleDelete(confirmId)}
+            >
+              Remover
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
