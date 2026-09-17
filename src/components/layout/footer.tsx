@@ -143,17 +143,6 @@ export function Footer() {
           <p className="text-xs text-primary-foreground/40 mt-2">
             Integrante do Grupo Movimenta
           </p>
-          <p className="text-xs text-primary-foreground/30 mt-2">
-            Site desenvolvido por:{" "}
-            <a
-              href="https://klicksaudavel.com.br/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-primary-foreground/50 transition-colors underline underline-offset-2"
-            >
-              Klick Saudável
-            </a>
-          </p>
           <p className="text-xs text-primary-foreground/25 mt-2">
             Este site é protegido pelo reCAPTCHA e pela{" "}
             <a
