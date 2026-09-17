@@ -4,6 +4,7 @@ allowBuilds:
   esbuild: true
   protobufjs: true
   sharp: true
+  re2: true
 
 # jwks-rsa@4 pede jose@^6, que é ESM puro. firebase-admin/auth é carregado por
 # require() na função da Vercel (o Next externaliza o pacote), e ali o require
