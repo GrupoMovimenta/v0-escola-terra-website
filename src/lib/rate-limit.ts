@@ -65,3 +65,25 @@ export function getClientIp(req: Request): string {
   const forwarded = req.headers.get("x-forwarded-for")
   return forwarded?.split(",")[0]?.trim() ?? "unknown"
 }
+
+/**
+ * Versão para as rotas PÚBLICAS de formulário. Se o Firestore estiver
+ * indisponível, libera a requisição em vez de derrubar o formulário de
+ * contato de uma escola — o reCAPTCHA continua sendo a barreira principal e
+ * a falha fica registrada no log do servidor.
+ *
+ * Nas rotas do painel (`/api/admin/**`) usamos `checkRateLimit` direto: ali
+ * falhar fechado é o comportamento certo.
+ */
+export async function checkRateLimitFailOpen(opts: {
+  keyParts: string[]
+  limit: number
+  windowMs: number
+}): Promise<RateLimitResult> {
+  try {
+    return await checkRateLimit(opts)
+  } catch (err) {
+    console.error("[rate-limit] Indisponível, liberando a requisição:", err)
+    return { allowed: true, remaining: opts.limit }
+  }
+}

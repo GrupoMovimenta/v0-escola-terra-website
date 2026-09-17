@@ -1,12 +1,25 @@
 .git
 .gitignore
+.github
 .next
 node_modules
 npm-debug.log*
+
+# Segredos — nunca entram na imagem. `.env.example` também não é necessário
+# em runtime, então fica de fora junto.
 .env
 .env.*
-!.env.example
+
+# Ferramental que não participa do build
+.claude
+.v0
+eslint.config.mjs
 README.md
+CLAUDE.md
 Dockerfile
 docker-compose.yml
 .dockerignore
+firebase.json
+.firebaserc
+firebase/
+scripts/

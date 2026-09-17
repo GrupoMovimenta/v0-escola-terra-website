@@ -1,7 +1,6 @@
-import { MetadataRoute } from "next"
+import type { MetadataRoute } from "next"
 import { getPublishedPostsWithDates } from "@/lib/blog/queries"
-
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.escolaterra.com.br"
+import { SITE_URL as BASE_URL } from "@/lib/seo/structured-data"
 
 export const revalidate = 3600
 

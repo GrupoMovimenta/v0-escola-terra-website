@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { AlertTriangle, Search, Trash2 } from "lucide-react"
@@ -85,19 +85,24 @@ export function PostsTable({ results }: { results: AdminParseResult[] }) {
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
 
-  // Muda o filtro → volta pra página 1, senão dá pra sobrar numa página
-  // vazia se o conjunto filtrado encolher.
-  useEffect(() => {
+  // Muda o filtro → volta pra página 1, senão dá pra sobrar numa página vazia
+  // quando o conjunto filtrado encolhe. Ajustar o estado DURANTE a
+  // renderização (comparando com o valor anterior) é o padrão recomendado pelo
+  // React para estado derivado; o `useEffect` que fazia isso antes causava um
+  // render extra a cada tecla digitada na busca.
+  const filtrosKey = `${search}|${categoriaFiltro}|${statusFiltro}`
+  const [filtrosKeyAnterior, setFiltrosKeyAnterior] = useState(filtrosKey)
+  if (filtrosKey !== filtrosKeyAnterior) {
+    setFiltrosKeyAnterior(filtrosKey)
     setPage(1)
-  }, [search, categoriaFiltro, statusFiltro])
+  }
 
-  // Se o total de páginas encolher (ex.: post removido) e a página atual
-  // ficar fora do intervalo, recua para a última válida.
-  useEffect(() => {
-    if (page > totalPages) setPage(totalPages)
-  }, [page, totalPages])
+  // Se o total de páginas encolher (ex.: post removido), `page` pode ficar
+  // fora do intervalo. Derivar a página efetiva é mais barato — e mais
+  // correto — do que corrigir o estado num efeito depois da renderização.
+  const paginaAtual = Math.min(page, totalPages)
 
-  const pageItems = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+  const pageItems = filtered.slice((paginaAtual - 1) * PAGE_SIZE, paginaAtual * PAGE_SIZE)
 
   async function handleDelete(id: string) {
     setDeleting(id)
@@ -254,16 +259,16 @@ export function PostsTable({ results }: { results: AdminParseResult[] }) {
                 <PaginationItem>
                   <PaginationPrevious
                     href="#"
-                    aria-disabled={page === 1}
-                    className={page === 1 ? "pointer-events-none opacity-50" : undefined}
+                    aria-disabled={paginaAtual === 1}
+                    className={paginaAtual === 1 ? "pointer-events-none opacity-50" : undefined}
                     onClick={(e) => {
                       e.preventDefault()
-                      setPage((p) => Math.max(1, p - 1))
+                      setPage(Math.max(1, paginaAtual - 1))
                     }}
                   />
                 </PaginationItem>
 
-                {paginationWindow(page, totalPages).map((item, i) =>
+                {paginationWindow(paginaAtual, totalPages).map((item, i) =>
                   item === "ellipsis" ? (
                     <PaginationItem key={`ellipsis-${i}`}>
                       <PaginationEllipsis />
@@ -272,7 +277,7 @@ export function PostsTable({ results }: { results: AdminParseResult[] }) {
                     <PaginationItem key={item}>
                       <PaginationLink
                         href="#"
-                        isActive={item === page}
+                        isActive={item === paginaAtual}
                         onClick={(e) => {
                           e.preventDefault()
                           setPage(item)
@@ -287,11 +292,11 @@ export function PostsTable({ results }: { results: AdminParseResult[] }) {
                 <PaginationItem>
                   <PaginationNext
                     href="#"
-                    aria-disabled={page === totalPages}
-                    className={page === totalPages ? "pointer-events-none opacity-50" : undefined}
+                    aria-disabled={paginaAtual === totalPages}
+                    className={paginaAtual === totalPages ? "pointer-events-none opacity-50" : undefined}
                     onClick={(e) => {
                       e.preventDefault()
-                      setPage((p) => Math.min(totalPages, p + 1))
+                      setPage(Math.min(totalPages, paginaAtual + 1))
                     }}
                   />
                 </PaginationItem>

@@ -19,21 +19,22 @@ mensagens de erro e commits nesse idioma.
 ```bash
 pnpm install          # pnpm é o gerenciador oficial (pnpm-lock.yaml)
 pnpm dev              # dev server em http://localhost:3000
-pnpm build            # build de produção
+pnpm build            # build de produção — falha por erro de tipo
 pnpm start            # serve o build
-npx tsc --noEmit      # checagem de tipos (o build NÃO falha por erro de tipo)
+pnpm typecheck        # tsc --noEmit
+pnpm lint             # ESLint 9 (flat config, next/core-web-vitals + a11y)
+pnpm verificar        # typecheck + lint + build — o portão antes de concluir
 ```
 
-> `next.config.mjs` tem `typescript.ignoreBuildErrors: true`. Um build verde
-> **não** significa tipos corretos — rode `npx tsc --noEmit` antes de concluir
-> qualquer alteração em TypeScript.
+> `typescript.ignoreBuildErrors` foi **removido** do `next.config.mjs`: o build
+> agora falha com erro de tipo, como deve. Não o traga de volta.
+
+> O `tsconfig.json` usa `noUncheckedIndexedAccess`. Acesso a índice de array
+> devolve `T | undefined` — trate o caso em vez de silenciar com `!`, exceto
+> quando uma checagem imediatamente acima já provou que o valor existe.
 
 > O único lockfile é o `pnpm-lock.yaml` (usado pelo `Dockerfile`). Não gere
 > `package-lock.json` nem rode `npm install` neste repositório.
-
-> O script `pnpm lint` chama `eslint`, mas não há ESLint instalado nem
-> configurado. Não confie nele; se precisar de lint, proponha a instalação
-> antes de usar.
 
 ## Estrutura
 
@@ -45,9 +46,10 @@ src/
     api/              route handlers públicos (contato, newsletter, trabalhe-conosco)
     api/admin/        route handlers do painel — exigem requireEditorApi()
     admin/            painel de edição do blog — exige requireEditor()
-    layout.tsx        metadata global de SEO, fontes, providers
-    globals.css       Tailwind v4 + tokens de tema (único CSS global)
+    layout.tsx        metadata global de SEO, fonte, JSON-LD, GTM, skip link
+    globals.css       Tailwind v4, tokens de tema e o CSS das faixas da home
     sitemap.ts        sitemap gerado
+    robots.ts         robots.txt gerado
   components/
     ui/               shadcn/ui — componentes gerados, evite editar à mão
     forms/            formulários públicos (client components)
@@ -55,11 +57,13 @@ src/
     layout/           header e footer
     admin/            UI do painel
     blog/             renderização dos blocos de conteúdo
-  hooks/              hooks de UI (use-toast, use-mobile)
+    seo/              <script type="application/ld+json">
   lib/
     firebase/         admin SDK (server) e client SDK
     auth/             sessão e guardas de editor
     blog/             schema, queries, mutations e tipos dos posts
+    email/            cliente da Brevo + escape de HTML de e-mail
+    seo/              dados estruturados (schema.org)
     http/             helpers de resposta e origem
     utils.ts, rate-limit.ts, verify-recaptcha.ts, formatter.tsx
   proxy.ts            proxy do Next 16 (ex-middleware) — só UX, não autoriza nada
@@ -89,8 +93,9 @@ apenas o conteúdo antigo usado pela migração (`pnpm blog:migrar`).
 
 ## Regras de segurança (obrigatórias)
 
-Estas regras existem porque o código atual já falha em algumas delas — ao tocar
-em uma rota, corrija-a no caminho.
+As rotas públicas já foram corrigidas para atender a todas elas (auditoria de
+2026-09-17). Ao criar uma rota nova, siga o padrão de
+`src/app/api/contato/route.ts`.
 
 1. **Nunca leia, escreva, exiba ou commite `.env.local`** ou qualquer segredo.
    `BREVO_API_KEY` e `RECAPTCHA_SECRET_KEY` são segredos de servidor e não podem
@@ -100,20 +105,25 @@ em uma rota, corrija-a no caminho.
 3. **Valide toda entrada com Zod** na rota de API antes de usá-la. Não confie na
    validação do formulário. Defina o schema no topo do arquivo da rota e use
    `safeParse`; em falha, responda `400` com mensagem genérica.
-4. **Escape todo dado do usuário interpolado em HTML de e-mail.** As rotas de
-   contato, newsletter e trabalhe-conosco injetam `nome`, `mensagem` etc.
-   diretamente em `htmlContent` — isso é injeção de HTML no e-mail recebido.
-   Use um helper de escape (`&`, `<`, `>`, `"`, `'`) antes de interpolar.
+4. **Escape todo dado do usuário interpolado em HTML de e-mail.** Use
+   `escapeHtml` / `escapeHtmlMultiline` / `linhaHtml` de
+   `src/lib/email/brevo.ts` — nunca interpole direto no `htmlContent`.
 5. **Não vaze erro de terceiros para o cliente.** Nunca repasse `err.message`
    vindo da Brevo na resposta HTTP; logue no servidor e devolva texto genérico.
-6. **Toda rota pública mutante exige reCAPTCHA v3 + rate limiting.** O reCAPTCHA
-   já existe; rate limiting por IP ainda não — ao criar uma rota nova, inclua.
-7. **Encode valores em query/body de URL** (`encodeURIComponent`) —
-   `src/lib/verify-recaptcha.ts` interpola o token cru no corpo do `siteverify`.
+   `enviarEmailTransacional` devolve `boolean` justamente para isso.
+6. **Toda rota pública mutante exige reCAPTCHA v3 + rate limiting.** Use
+   `checkRateLimitFailOpen` (público) ou `checkRateLimit` (painel), e passe a
+   `action` esperada para `verifyRecaptcha` — sem ela, um token de qualquer
+   formulário vale para todos.
+7. **Encode valores em query/body de URL.** `URLSearchParams` ou
+   `encodeURIComponent`; nunca concatene valor cru em corpo urlencoded.
 8. **Não desabilite checagens de segurança** para "fazer passar": não adicione
    `ignoreBuildErrors`, `eslint-disable`, `@ts-ignore` nem `dangerouslySetInnerHTML`
    sem sanitização.
-9. **Não altere headers de segurança, CSP ou CORS** sem pedir confirmação.
+9. **Não altere headers de segurança, CSP ou CORS** sem pedir confirmação. Os
+   headers atuais (HSTS, nosniff, X-Frame-Options, Referrer-Policy,
+   Permissions-Policy) ficam em `securityHeaders`, no `next.config.mjs`. Ainda
+   **não há CSP** — adicioná-la exige nonce para o snippet inline do GTM.
 10. **Dependências:** não adicione pacote novo sem necessidade real e sem avisar.
     Nunca rode scripts de instalação de fontes não confiáveis.
 
@@ -126,6 +136,7 @@ que precisa acompanhar qualquer mudança.
 
 ## Ao terminar uma tarefa
 
-1. `npx tsc --noEmit` limpo.
-2. `pnpm build` passando, se tocou em rota, config ou dependência.
-3. Sem segredo, e-mail pessoal ou chave em diff.
+1. `pnpm verificar` limpo (typecheck + lint + build).
+2. Sem segredo, e-mail pessoal ou chave no diff.
+3. Se mexeu em `NEXT_PUBLIC_*`, confira que ela também está declarada como
+   `ARG`/`ENV` no `Dockerfile` — senão o build Docker sai com ela indefinida.

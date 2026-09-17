@@ -42,6 +42,7 @@ const galeria = {
 }
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/fotos' },
   title: "Fotos | Escola Terra Terrinha",
   description: "Galeria de fotos da Escola Terra Terrinha: ambientes, projetos, eventos e atividades.",
 }
@@ -63,7 +64,7 @@ export default function FotosPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="conteudo">
         {/* Hero */}
         <section className="relative py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4">

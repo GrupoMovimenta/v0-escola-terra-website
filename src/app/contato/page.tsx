@@ -14,11 +14,11 @@ export const metadata: Metadata = {
     'endereço Escola Terra Terrinha',
     'matrícula escola Vinhedo',
   ],
-  alternates: { canonical: 'https://www.escolaterra.com.br/contato' },
+  alternates: { canonical: '/contato' },
   openGraph: {
     title: 'Contato | Escola Terra Terrinha',
     description: 'Fale com a Escola Terra Terrinha em Vinhedo-SP. Telefone, WhatsApp, e-mail e formulário de contato.',
-    url: 'https://www.escolaterra.com.br/contato',
+    url: '/contato',
     images: [{ url: '/images/og-image.png', width: 1200, height: 630, alt: 'Contato - Escola Terra Terrinha' }],
   },
 }
@@ -27,7 +27,7 @@ export default function ContatoPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="conteudo">
         {/* Hero */}
         <section className="relative py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4">

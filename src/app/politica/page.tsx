@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Política de Privacidade",
   description: "Política de Privacidade da Escola Terra Terrinha. Informações sobre coleta, uso, armazenamento e proteção de dados pessoais conforme a LGPD (Lei 13.709/18).",
   robots: { index: false, follow: false },
-  alternates: { canonical: 'https://www.escolaterra.com.br/politica' },
+  alternates: { canonical: '/politica' },
 }
 
 const sections = [
@@ -119,7 +119,7 @@ export default function PoliticaPrivacidadePage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="conteudo">
         {/* Hero */}
         <section className="bg-primary text-primary-foreground py-16 md:py-24">
           <div className="container mx-auto px-4 max-w-3xl">

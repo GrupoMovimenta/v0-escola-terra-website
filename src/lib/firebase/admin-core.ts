@@ -138,7 +138,7 @@ function getAdminApp(): App {
 
   if (globalThis.__firebaseAdminApp) return globalThis.__firebaseAdminApp
   if (getApps().length > 0) {
-    globalThis.__firebaseAdminApp = getApps()[0]
+    globalThis.__firebaseAdminApp = getApps()[0]!
     return globalThis.__firebaseAdminApp
   }
 

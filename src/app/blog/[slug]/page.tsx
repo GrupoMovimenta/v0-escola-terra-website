@@ -16,8 +16,8 @@ import {
   getRelatedPosts,
 } from "@/lib/blog/queries"
 import type { BlogPost } from "@/lib/blog/types"
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.escolaterra.com.br"
+import { JsonLd } from "@/components/seo/json-ld"
+import { blogPostingJsonLd, breadcrumbJsonLd, SITE_URL } from "@/lib/seo/structured-data"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -53,12 +53,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: post.title,
     description: post.excerpt,
     keywords: [post.categoria, "educação infantil", "Escola Terra Terrinha", "pedagogia construtivista", "Vinhedo SP"],
-    alternates: { canonical: `${SITE_URL}/blog/${post.slug}` },
+    alternates: { canonical: `/blog/${post.slug}` },
     robots: post.status === "draft" ? { index: false, follow: false } : undefined,
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      url: `${SITE_URL}/blog/${post.slug}`,
+      url: `/blog/${post.slug}`,
       type: "article",
       publishedTime: post.publishedAt ?? undefined,
       modifiedTime: post.updatedAt,
@@ -85,7 +85,23 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <>
       <Header />
-      <main>
+      <main id="conteudo">
+        {/* Dado estruturado: é o que permite ao Google exibir o post como
+            artigo (autor, data, imagem) em vez de um resultado azul comum.
+            Só para post publicado — rascunho não deve entrar em índice. */}
+        {post.status === "published" && (
+          <>
+            <JsonLd data={blogPostingJsonLd(post)} />
+            <JsonLd
+              data={breadcrumbJsonLd([
+                { nome: "Início", url: SITE_URL },
+                { nome: "Blog", url: `${SITE_URL}/blog` },
+                { nome: post.title, url: `${SITE_URL}/blog/${post.slug}` },
+              ])}
+            />
+          </>
+        )}
+
         {post.status === "draft" && (
           <div className="bg-amber-500 text-amber-950 text-center text-sm font-medium py-2 px-4 flex items-center justify-center gap-3">
             <span>Visualizando rascunho — este post ainda não foi publicado.</span>
@@ -150,9 +166,7 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
 
         <article className="container mx-auto px-4 max-w-3xl py-12">
-          <div className="prose-custom">
-            <ContentBlocks blocks={post.content} />
-          </div>
+          <ContentBlocks blocks={post.content} />
         </article>
 
         {(newer || older) && (

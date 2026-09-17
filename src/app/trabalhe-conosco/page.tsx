@@ -15,11 +15,11 @@ export const metadata: Metadata = {
     'educador construtivista vaga',
     'Escola Terra Terrinha vagas',
   ],
-  alternates: { canonical: 'https://www.escolaterra.com.br/trabalhe-conosco' },
+  alternates: { canonical: '/trabalhe-conosco' },
   openGraph: {
     title: 'Trabalhe Conosco | Escola Terra Terrinha',
     description: 'Junte-se à equipe da Escola Terra Terrinha em Vinhedo-SP. Buscamos educadores apaixonados por educação humanizada e construtivista.',
-    url: 'https://www.escolaterra.com.br/trabalhe-conosco',
+    url: '/trabalhe-conosco',
     images: [{ url: '/images/og-image.png', width: 1200, height: 630, alt: 'Trabalhe Conosco - Escola Terra Terrinha' }],
   },
 }
@@ -28,7 +28,7 @@ export default function TrabalheConoscoPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="conteudo">
         {/* Hero */}
         <section className="relative py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4">
@@ -68,10 +68,10 @@ export default function TrabalheConoscoPage() {
                   <Image
                     src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-ambiente-fachada-da-escola-1a-cYeD0aK89GUR9dH6D0jcBTg3gUVJtP.jpg"
                     alt="Fachada da Escola Terra Terrinha"
-                    width={800}
-                    height={600}
+                    width={700}
+                    height={560}
+                    sizes="(max-width: 768px) 100vw, 700px"
                     className="w-full h-auto rounded-xl object-cover"
-                    unoptimized
                   />
                 </div>
               </div>

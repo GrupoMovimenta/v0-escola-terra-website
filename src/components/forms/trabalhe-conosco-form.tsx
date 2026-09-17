@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
+import { AvisoRecaptcha, ErroFormulario } from "./avisos"
 
 export function TrabalheConoscoForm() {
   const router = useRouter()
@@ -216,17 +217,22 @@ export function TrabalheConoscoForm() {
             </label>
           </div>
 
-          {status === "error" && (
-            <p className="text-sm text-red-600">{errorMsg}</p>
-          )}
+          {status === "error" && <ErroFormulario id="trabalhe-erro">{errorMsg}</ErroFormulario>}
 
           <button
             type="submit"
             disabled={status === "loading"}
+            aria-describedby={status === "error" ? "trabalhe-erro" : undefined}
             className="w-full px-6 py-4 bg-accent text-accent-foreground font-semibold rounded-lg hover:bg-accent/90 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {status === "loading" ? "Enviando..." : "Enviar candidatura"}
           </button>
+
+          {/* O consentimento de dados já existe acima, como checkbox
+              obrigatório; aqui falta só a atribuição do reCAPTCHA. */}
+          <div className="pt-2">
+            <AvisoRecaptcha />
+          </div>
         </form>
     </div>
   )

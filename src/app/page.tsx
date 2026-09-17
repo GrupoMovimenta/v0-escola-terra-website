@@ -5,7 +5,6 @@ import { HomeSections } from "@/components/home/home-sections"
 import { DiferenciaisSection } from "@/components/home/diferenciais-section"
 import { CtaSection } from "@/components/home/cta-section"
 import { ValoresSection } from "@/components/home/valores-section"
-import { EquipeSection } from "@/components/home/equipe-section"
 
 export const metadata: Metadata = {
   title: "Escola Terra Terrinha | Educação Infantil em Vinhedo-SP",
@@ -20,11 +19,11 @@ export const metadata: Metadata = {
     'escola natureza infância',
     'melhor escola Vinhedo',
   ],
-  alternates: { canonical: 'https://www.escolaterra.com.br' },
+  alternates: { canonical: '/' },
   openGraph: {
     title: 'Escola Terra Terrinha | Educação Infantil em Vinhedo-SP',
     description: 'Educação construtivista, inglês diário e conexão com a natureza. Uma escola que respeita a infância em Vinhedo-SP desde 1998.',
-    url: 'https://www.escolaterra.com.br',
+    url: '/',
     images: [{ url: '/images/og-image.png', width: 1200, height: 630, alt: 'Escola Terra Terrinha - Educação Infantil em Vinhedo SP' }],
   },
 }
@@ -33,12 +32,12 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="conteudo">
         <HomeSections />
         <ValoresSection />
         <DiferenciaisSection />
         {/* Seção Equipe Pedagógica temporariamente oculta */}
-        {/* <EquipeSection /> */}
+        {/* <EquipeSection /> — reativar importando de "@/components/home/equipe-section" */}
         <CtaSection />
       </main>
       <Footer />

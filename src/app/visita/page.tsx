@@ -14,11 +14,11 @@ export const metadata: Metadata = {
     'matrícula educação infantil Vinhedo',
     'escola infantil perto de mim Vinhedo',
   ],
-  alternates: { canonical: 'https://www.escolaterra.com.br/visita' },
+  alternates: { canonical: '/visita' },
   openGraph: {
     title: 'Agende uma Visita | Escola Terra Terrinha',
     description: 'Venha conhecer a Escola Terra Terrinha em Vinhedo-SP. Estrutura completa, metodologia construtivista e equipe apaixonada por educação.',
-    url: 'https://www.escolaterra.com.br/visita',
+    url: '/visita',
     images: [{ url: '/images/og-image.png', width: 1200, height: 630, alt: 'Agende uma Visita - Escola Terra Terrinha' }],
   },
 }
@@ -35,7 +35,7 @@ export default function VisitaPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="conteudo">
         {/* Hero */}
         <section className="relative py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4">
@@ -114,8 +114,9 @@ export default function VisitaPage() {
                   <Image
                     src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/visitas-X7mNOtE9l2RvP2euafgCl9CLVi5loG.jpg"
                     alt="Entrada da Escola Terra Terrinha"
-                    width={700}
-                    height={525}
+                    width={525}
+                    height={700}
+                    sizes="(max-width: 768px) 100vw, 525px"
                     className="rounded-xl object-cover w-full h-auto"
                   />
                 </div>

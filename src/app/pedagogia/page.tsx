@@ -2,18 +2,7 @@ import { Metadata } from "next"
 import Image from "next/image"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
-import {
-  Lightbulb,
-  BookOpen,
-  Globe,
-  Sparkles,
-  GraduationCap,
-  Leaf,
-  Brain,
-  Heart,
-  Users,
-  Target
-} from "lucide-react"
+import { Lightbulb, BookOpen, Globe, Sparkles, GraduationCap } from "lucide-react"
 import { renderFormattedContent } from "@/lib/formatter"
 
 export const metadata: Metadata = {
@@ -28,41 +17,14 @@ export const metadata: Metadata = {
     'formação professores educação infantil',
     'pedagogia Escola Terra Terrinha',
   ],
-  alternates: { canonical: 'https://www.escolaterra.com.br/pedagogia' },
+  alternates: { canonical: '/pedagogia' },
   openGraph: {
     title: 'Nossa Pedagogia | Escola Terra Terrinha',
     description: 'Metodologia construtivista, inglês diário e projetos especiais. Uma educação que respeita o ritmo e o protagonismo de cada criança.',
-    url: 'https://www.escolaterra.com.br/pedagogia',
+    url: '/pedagogia',
     images: [{ url: '/images/og-image.png', width: 1200, height: 630, alt: 'Pedagogia - Escola Terra Terrinha' }],
   },
 }
-
-const propostaPedagogica = [
-  {
-    icon: Leaf,
-    text: "Valoriza o contato diário com a natureza como um território potente de descobertas"
-  },
-  {
-    icon: Sparkles,
-    text: "Incentiva a curiosidade e o desejo de aprender"
-  },
-  {
-    icon: Lightbulb,
-    text: "Utiliza princípios da educação construtivista, respeitando ritmos e percursos individuais"
-  },
-  {
-    icon: Heart,
-    text: "Desenvolve habilidades socioemocionais, integradas ao mundo contemporâneo"
-  },
-  {
-    icon: Target,
-    text: "Desperta senso de pertencimento, responsabilidade e preservação do planeta"
-  },
-  {
-    icon: Users,
-    text: "Promove vivências que ampliam repertórios, fortalecem vínculos e formam cidadãos conscientes"
-  },
-]
 
 const secoes = [
   {
@@ -142,7 +104,7 @@ export default function PedagogiaPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="conteudo">
         {/* Hero */}
         <section className="relative py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4">

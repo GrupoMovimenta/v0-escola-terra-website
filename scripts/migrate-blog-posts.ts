@@ -48,6 +48,9 @@ export function parseDateLabel(dateLabel: string): { year: number; month: number
     throw new Error(`Data em formato inesperado: "${dateLabel}" (esperado "Mês de AAAA")`)
   }
   const [, mesNome, anoStr] = match
+  if (!mesNome || !anoStr) {
+    throw new Error(`Data em formato inesperado: "${dateLabel}" (esperado "Mês de AAAA")`)
+  }
   const mes = MESES_PT[mesNome.toLowerCase()]
   if (mes === undefined) {
     throw new Error(`Mês não reconhecido: "${mesNome}" (em "${dateLabel}")`)

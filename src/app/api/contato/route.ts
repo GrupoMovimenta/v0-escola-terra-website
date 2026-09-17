@@ -1,58 +1,77 @@
-import { NextResponse } from "next/server"
+import { z } from "zod"
 import { verifyRecaptcha } from "@/lib/verify-recaptcha"
+import { ok, errorResponse, handleApiError } from "@/lib/http/responses"
+import { checkRateLimitFailOpen, getClientIp } from "@/lib/rate-limit"
+import { enviarEmailTransacional, escapeHtmlMultiline, linhaHtml } from "@/lib/email/brevo"
 
-const BREVO_API_KEY = process.env.BREVO_API_KEY!
-const DESTINO = "contato@escolaterra.com.br"
+export const runtime = "nodejs"
+export const dynamic = "force-dynamic"
+
+const RECAPTCHA_ACTION = "contato"
+
+/** Limite por IP. Uma família manda uma mensagem, não cinco por minuto — o
+ * teto é generoso o bastante para retentativa legítima e baixo o bastante
+ * para não virar relay de spam. */
+const RATE_LIMIT = { limit: 5, windowMs: 10 * 60 * 1000 }
+
+const bodySchema = z.object({
+  nome: z.string().trim().min(2).max(120),
+  email: z.string().trim().email().max(200),
+  telefone: z.string().trim().max(40).optional().or(z.literal("")),
+  assunto: z.string().trim().max(150).optional().or(z.literal("")),
+  mensagem: z.string().trim().min(10).max(5000),
+  recaptchaToken: z.string().min(1).max(4096),
+})
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json()
-    const { nome, email, telefone, assunto, mensagem, recaptchaToken } = body
-
-    if (!nome || !email || !mensagem) {
-      return NextResponse.json({ error: "Campos obrigatórios ausentes." }, { status: 400 })
+    const json = await req.json().catch(() => null)
+    const parsed = bodySchema.safeParse(json)
+    if (!parsed.success) {
+      // Mensagem genérica de propósito: detalhar qual campo falhou no servidor
+      // só ajuda quem está sondando a rota. O formulário já valida no cliente.
+      return errorResponse(400, "Confira os campos obrigatórios e tente novamente.")
     }
 
-    if (!recaptchaToken) {
-      return NextResponse.json({ error: "Token de segurança ausente." }, { status: 400 })
+    const { nome, email, telefone, assunto, mensagem, recaptchaToken } = parsed.data
+
+    const { allowed } = await checkRateLimitFailOpen({
+      keyParts: ["contato", getClientIp(req)],
+      ...RATE_LIMIT,
+    })
+    if (!allowed) {
+      return errorResponse(429, "Muitas mensagens enviadas. Aguarde alguns minutos.")
     }
 
-    const isHuman = await verifyRecaptcha(recaptchaToken)
+    const isHuman = await verifyRecaptcha(recaptchaToken, RECAPTCHA_ACTION)
     if (!isHuman) {
-      return NextResponse.json({ error: "Verificação de segurança falhou. Tente novamente." }, { status: 403 })
+      return errorResponse(403, "Verificação de segurança falhou. Tente novamente.")
     }
 
-    const res = await fetch("https://api.brevo.com/v3/smtp/email", {
-      method: "POST",
-      headers: {
-        "api-key": BREVO_API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        sender: { name: "Site Escola Terra Terrinha", email: "no-reply@escolaterra.com.br" },
-        to: [{ email: DESTINO, name: "Escola Terra Terrinha" }],
+    const enviado = await enviarEmailTransacional(
+      {
+        subject: `[Contato] ${assunto?.trim() ? assunto.trim() : "Mensagem via site"}`,
         replyTo: { email, name: nome },
-        subject: `[Contato] ${assunto || "Mensagem via site"}`,
         htmlContent: `
           <h2>Nova mensagem de contato</h2>
-          <p><strong>Nome:</strong> ${nome}</p>
-          <p><strong>E-mail:</strong> ${email}</p>
-          <p><strong>Telefone:</strong> ${telefone || "Não informado"}</p>
-          <p><strong>Assunto:</strong> ${assunto || "Não informado"}</p>
+          ${linhaHtml("Nome", nome)}
+          ${linhaHtml("E-mail", email)}
+          ${linhaHtml("Telefone", telefone)}
+          ${linhaHtml("Assunto", assunto)}
           <hr />
           <p><strong>Mensagem:</strong></p>
-          <p>${mensagem.replace(/\n/g, "<br/>")}</p>
+          <p>${escapeHtmlMultiline(mensagem)}</p>
         `,
-      }),
-    })
+      },
+      "api/contato:POST",
+    )
 
-    if (!res.ok) {
-      const err = await res.json()
-      return NextResponse.json({ error: err.message || "Erro ao enviar e-mail." }, { status: 500 })
+    if (!enviado) {
+      return errorResponse(502, "Não foi possível enviar sua mensagem agora. Tente novamente em instantes.")
     }
 
-    return NextResponse.json({ success: true })
+    return ok()
   } catch (err) {
-    return NextResponse.json({ error: "Erro interno no servidor." }, { status: 500 })
+    return handleApiError(err, "api/contato:POST")
   }
 }

@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
+import { AvisoLgpd, AvisoRecaptcha } from "./avisos"
 
 export function NewsletterForm() {
   const router = useRouter()
@@ -53,10 +54,16 @@ export function NewsletterForm() {
             Cadastre-se para receber artigos, dicas e novidades sobre educação e família.
           </p>
           <form onSubmit={handleSubmit} className="mt-8 flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <label htmlFor="newsletter-email" className="sr-only">
+              Seu e-mail
+            </label>
             <input
               type="email"
+              id="newsletter-email"
               name="email"
               required
+              autoComplete="email"
+              aria-describedby={status === "error" ? "newsletter-erro" : undefined}
               placeholder="Seu melhor e-mail"
               className="flex-1 px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             />
@@ -69,8 +76,16 @@ export function NewsletterForm() {
             </button>
           </form>
           {status === "error" && (
-            <p className="mt-3 text-sm text-red-200">{errorMsg}</p>
+            <p id="newsletter-erro" role="alert" className="mt-3 text-sm font-medium text-red-100">
+              {errorMsg}
+            </p>
           )}
+
+          {/* `text-background` porque esta seção tem fundo laranja sólido. */}
+          <div className="mt-4 space-y-2 [&_p]:text-background/80 [&_a]:text-background">
+            <AvisoLgpd finalidade="enviar conteúdos e novidades da escola" />
+            <AvisoRecaptcha />
+          </div>
         </div>
       </div>
     </section>

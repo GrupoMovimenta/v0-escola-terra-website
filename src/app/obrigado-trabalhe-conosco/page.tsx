@@ -4,6 +4,9 @@ import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 
 export const metadata: Metadata = {
+  // Página de confirmação: nada a indexar, e sem `canonical: null` ela
+  // herdaria a canônica da home declarada no layout raiz.
+  alternates: { canonical: null },
   title: "Candidatura enviada",
   robots: { index: false, follow: false },
 }
@@ -12,7 +15,7 @@ export default function ObrigadoTrabalheConoscoPage() {
   return (
     <>
       <Header />
-      <main className="min-h-[60vh] flex items-center justify-center py-24 bg-background">
+      <main id="conteudo" className="min-h-[60vh] flex items-center justify-center py-24 bg-background">
         <div className="container mx-auto px-4 text-center max-w-lg">
           <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
             <svg className="h-10 w-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">

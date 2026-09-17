@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
+import { AvisoLgpd, AvisoRecaptcha, ErroFormulario } from "./avisos"
 
 export function ContatoForm() {
   const router = useRouter()
@@ -126,17 +127,21 @@ export function ContatoForm() {
             />
           </div>
 
-          {status === "error" && (
-            <p className="text-sm text-red-600">{errorMsg}</p>
-          )}
+          {status === "error" && <ErroFormulario id="contato-erro">{errorMsg}</ErroFormulario>}
 
           <button
             type="submit"
             disabled={status === "loading"}
+            aria-describedby={status === "error" ? "contato-erro" : undefined}
             className="w-full px-6 py-4 bg-accent text-accent-foreground font-semibold rounded-lg hover:bg-accent/90 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {status === "loading" ? "Enviando..." : "Enviar mensagem"}
           </button>
+
+          <div className="space-y-2 pt-2">
+            <AvisoLgpd finalidade="responder ao seu contato" />
+            <AvisoRecaptcha />
+          </div>
         </form>
     </div>
   )

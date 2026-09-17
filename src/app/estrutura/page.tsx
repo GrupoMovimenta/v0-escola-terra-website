@@ -15,11 +15,11 @@ export const metadata: Metadata = {
     'quadra escola Vinhedo',
     'escola bem estruturada Vinhedo',
   ],
-  alternates: { canonical: 'https://www.escolaterra.com.br/estrutura' },
+  alternates: { canonical: '/estrutura' },
   openGraph: {
     title: 'Nossa Estrutura | Escola Terra Terrinha',
     description: 'Biblioteca, ateliê, refeitório, quadra e espaços naturais. Uma estrutura completa pensada para o desenvolvimento integral das crianças em Vinhedo-SP.',
-    url: 'https://www.escolaterra.com.br/estrutura',
+    url: '/estrutura',
     images: [{ url: '/images/og-image.png', width: 1200, height: 630, alt: 'Estrutura - Escola Terra Terrinha' }],
   },
 }
@@ -111,7 +111,7 @@ export default function EstruturaPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="conteudo">
         <section className="relative py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl">

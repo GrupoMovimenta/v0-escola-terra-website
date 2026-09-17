@@ -1,52 +1,62 @@
-import { NextResponse } from "next/server"
+import { z } from "zod"
 import { verifyRecaptcha } from "@/lib/verify-recaptcha"
+import { ok, errorResponse, handleApiError } from "@/lib/http/responses"
+import { checkRateLimitFailOpen, getClientIp } from "@/lib/rate-limit"
+import { enviarEmailTransacional, linhaHtml } from "@/lib/email/brevo"
 
-const BREVO_API_KEY = process.env.BREVO_API_KEY!
-const DESTINO = "contato@escolaterra.com.br"
+export const runtime = "nodejs"
+export const dynamic = "force-dynamic"
+
+const RECAPTCHA_ACTION = "newsletter"
+
+const RATE_LIMIT = { limit: 5, windowMs: 10 * 60 * 1000 }
+
+const bodySchema = z.object({
+  email: z.string().trim().email().max(200),
+  recaptchaToken: z.string().min(1).max(4096),
+})
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json()
-    const { email, recaptchaToken } = body
-
-    if (!email) {
-      return NextResponse.json({ error: "E-mail obrigatório." }, { status: 400 })
+    const json = await req.json().catch(() => null)
+    const parsed = bodySchema.safeParse(json)
+    if (!parsed.success) {
+      return errorResponse(400, "Informe um e-mail válido.")
     }
 
-    if (!recaptchaToken) {
-      return NextResponse.json({ error: "Token de segurança ausente." }, { status: 400 })
+    const { email, recaptchaToken } = parsed.data
+
+    const { allowed } = await checkRateLimitFailOpen({
+      keyParts: ["newsletter", getClientIp(req)],
+      ...RATE_LIMIT,
+    })
+    if (!allowed) {
+      return errorResponse(429, "Muitos cadastros. Aguarde alguns minutos.")
     }
 
-    const isHuman = await verifyRecaptcha(recaptchaToken)
+    const isHuman = await verifyRecaptcha(recaptchaToken, RECAPTCHA_ACTION)
     if (!isHuman) {
-      return NextResponse.json({ error: "Verificação de segurança falhou. Tente novamente." }, { status: 403 })
+      return errorResponse(403, "Verificação de segurança falhou. Tente novamente.")
     }
 
-    const res = await fetch("https://api.brevo.com/v3/smtp/email", {
-      method: "POST",
-      headers: {
-        "api-key": BREVO_API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        sender: { name: "Site Escola Terra Terrinha", email: "no-reply@escolaterra.com.br" },
-        to: [{ email: DESTINO, name: "Escola Terra Terrinha" }],
-        replyTo: { email },
+    const enviado = await enviarEmailTransacional(
+      {
         subject: "[Newsletter] Novo cadastro via site",
+        replyTo: { email },
         htmlContent: `
           <h2>Novo cadastro na newsletter</h2>
-          <p><strong>E-mail:</strong> ${email}</p>
+          ${linhaHtml("E-mail", email)}
         `,
-      }),
-    })
+      },
+      "api/newsletter:POST",
+    )
 
-    if (!res.ok) {
-      const err = await res.json()
-      return NextResponse.json({ error: err.message || "Erro ao cadastrar." }, { status: 500 })
+    if (!enviado) {
+      return errorResponse(502, "Não foi possível concluir o cadastro agora. Tente novamente em instantes.")
     }
 
-    return NextResponse.json({ success: true })
-  } catch {
-    return NextResponse.json({ error: "Erro interno no servidor." }, { status: 500 })
+    return ok()
+  } catch (err) {
+    return handleApiError(err, "api/newsletter:POST")
   }
 }

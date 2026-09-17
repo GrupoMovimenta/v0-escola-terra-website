@@ -7,7 +7,7 @@ export default function NotFound() {
   return (
     <>
       <Header />
-      <main className="min-h-[70vh] flex flex-col items-center justify-center px-4 py-20 text-center">
+      <main id="conteudo" className="min-h-[70vh] flex flex-col items-center justify-center px-4 py-20 text-center">
         <div className="max-w-lg mx-auto flex flex-col items-center gap-6">
           <Image
             src="/images/logo-escola-terra.png"

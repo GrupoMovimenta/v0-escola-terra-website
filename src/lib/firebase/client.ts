@@ -26,7 +26,6 @@ export const clientAuth = getAuth(app)
 // hot reload (connectAuthEmulator lança se chamado duas vezes na mesma
 // instância de Auth).
 declare global {
-  // eslint-disable-next-line no-var
   var __authEmulatorConnected: boolean | undefined
 }
 

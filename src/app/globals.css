@@ -31,24 +31,26 @@
     animation-timing-function: ease-out !important;
   }
 
-  /* Classes de animação por delay para efeito escalonado */
-  .delay-100 {
+  /* Escalonamento das animações de entrada. Nome com prefixo próprio: as
+     classes `delay-*` do Tailwind já existem e valem para transition-delay —
+     as duas na mesma classe davam resultado dependente da ordem do CSS. */
+  .anim-delay-100 {
     animation-delay: 100ms;
   }
 
-  .delay-200 {
+  .anim-delay-200 {
     animation-delay: 200ms;
   }
 
-  .delay-300 {
+  .anim-delay-300 {
     animation-delay: 300ms;
   }
 
-  .delay-400 {
+  .anim-delay-400 {
     animation-delay: 400ms;
   }
 
-  .delay-500 {
+  .anim-delay-500 {
     animation-delay: 500ms;
   }
 }
@@ -156,8 +158,10 @@
 }
 
 @theme inline {
-  --font-sans: 'Questrial', 'Questrial Fallback', sans-serif;
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  /* `--font-questrial` vem do next/font (classe aplicada no <html> em
+     app/layout.tsx). Antes aqui havia a string literal 'Questrial', que o
+     next/font nunca declara — o site renderizava na fonte de sistema. */
+  --font-sans: var(--font-questrial), ui-sans-serif, system-ui, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -211,4 +215,255 @@
   visibility: hidden !important;
   opacity: 0 !important;
   pointer-events: none !important;
+}
+
+/* WCAG 2.3.3: quem configurou "reduzir movimento" no sistema não recebe as
+   animações de entrada, que aqui duram 1,2s e cobrem a página inteira. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Faixas da home (components/home/home-sections.tsx).
+
+   Este CSS vivia num <style> dentro do componente de seção, ou seja, quatro
+   cópias idênticas no HTML da home, e o resto do layout vinha em `style=`
+   inline em cada elemento. Centralizar aqui tira peso do HTML e deixa o
+   componente ser Server Component.
+   --------------------------------------------------------------------------- */
+
+.home-sections {
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+  line-height: 0;
+}
+
+.home-section-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+.home-section-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.home-section-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 4%;
+}
+
+.home-section-overlay.is-right {
+  justify-content: flex-end;
+}
+
+.home-section-overlay.is-left {
+  justify-content: flex-start;
+}
+
+.home-section-content {
+  width: 50%;
+  padding: 40px 36px;
+  color: #fff;
+  /* Visível por padrão. O estado "escondido" da animação nunca sai do
+     servidor: quem esconde é o CSS abaixo (caminho nativo) ou a classe que o
+     RevelarNaRolagem aplica (caminho JS). Sem isso, um erro de hidratação
+     deixaria a faixa inteira invisível. */
+  opacity: 1;
+}
+
+/* Caminho preferido: animação guiada pela rolagem, feita pelo navegador, sem
+   JavaScript nenhum. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .home-section-content {
+      animation: home-section-entrada linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 30%;
+    }
+  }
+}
+
+/* Caminho de fallback, para navegador sem `animation-timeline`. As duas
+   classes abaixo só existem se o RevelarNaRolagem as aplicar — ou seja, só com
+   JavaScript ativo e só depois de confirmar que o caminho nativo não existe. */
+.home-section-content.precisa-revelar {
+  opacity: 0;
+  transform: translateY(32px);
+}
+
+.home-section-content.precisa-revelar.revelado {
+  animation: home-section-entrada 1.2s ease-out forwards;
+}
+
+.home-section-overlay.is-right .home-section-content {
+  text-align: right;
+  background: linear-gradient(
+    to left,
+    rgba(198, 93, 42, 0.75) 0%,
+    rgba(198, 93, 42, 0.65) 35%,
+    rgba(198, 93, 42, 0.45) 60%,
+    rgba(198, 93, 42, 0.2) 80%,
+    rgba(198, 93, 42, 0) 100%
+  );
+}
+
+.home-section-overlay.is-left .home-section-content {
+  text-align: left;
+  background: linear-gradient(
+    to right,
+    rgba(198, 93, 42, 0.75) 0%,
+    rgba(198, 93, 42, 0.65) 35%,
+    rgba(198, 93, 42, 0.45) 60%,
+    rgba(198, 93, 42, 0.2) 80%,
+    rgba(198, 93, 42, 0) 100%
+  );
+}
+
+@keyframes home-section-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-section-title {
+  margin: 0;
+  font-size: clamp(2.2rem, 4.5vw, 3.84rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: #fff;
+}
+
+.home-section-text {
+  margin-top: 20px;
+}
+
+.home-section-text p {
+  margin: 12px 0 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #fff;
+}
+
+.home-section-text p:first-child {
+  margin-top: 0;
+}
+
+.home-section-buttons {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 16px;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.home-section-overlay.is-right .home-section-buttons {
+  justify-content: flex-end;
+}
+
+.home-section-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: filter 0.2s ease;
+}
+
+.home-section-btn:hover {
+  filter: brightness(0.92);
+}
+
+.home-section-btn.is-accent {
+  background: #e75722;
+}
+
+.home-section-btn.is-primary {
+  background: #365931;
+}
+
+@media (max-width: 767px) {
+  /* No mobile a faixa vira tela cheia com a imagem de fundo, e a <img> some —
+     por isso ela é decorativa (alt=""): nada de informativo se perde. */
+  .home-section-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100svh;
+    background-image: var(--section-bg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    line-height: normal;
+  }
+
+  .home-section-img {
+    display: none;
+  }
+
+  .home-section-overlay {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    min-height: 100svh;
+    justify-content: center;
+    padding: 40px 5%;
+  }
+
+  .home-section-content,
+  .home-section-overlay.is-right .home-section-content,
+  .home-section-overlay.is-left .home-section-content {
+    width: 90%;
+    padding: 32px 24px;
+    text-align: center;
+    background: linear-gradient(
+      to bottom,
+      rgba(198, 93, 42, 0.75) 0%,
+      rgba(198, 93, 42, 0.55) 60%,
+      rgba(198, 93, 42, 0.35) 100%
+    );
+  }
+
+  .home-section-title {
+    font-size: 2.8rem;
+  }
+
+  .home-section-text p {
+    font-size: 0.9rem;
+  }
+
+  .home-section-buttons,
+  .home-section-overlay.is-right .home-section-buttons {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 }

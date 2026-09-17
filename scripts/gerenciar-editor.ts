@@ -107,12 +107,24 @@ async function main() {
   const [, , comando, ...args] = process.argv
 
   switch (comando) {
-    case "criar":
-      await criar(args[0], args[1])
+    case "criar": {
+      const [email, nome] = args
+      if (!email || !nome) {
+        console.error("Uso: pnpm editor:criar <email> <nome>")
+        process.exit(1)
+      }
+      await criar(email, nome)
       break
-    case "revogar":
-      await revogar(args[0])
+    }
+    case "revogar": {
+      const [email] = args
+      if (!email) {
+        console.error("Uso: pnpm editor:revogar <email>")
+        process.exit(1)
+      }
+      await revogar(email)
       break
+    }
     case "listar":
       await listar()
       break

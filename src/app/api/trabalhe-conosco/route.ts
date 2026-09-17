@@ -1,64 +1,92 @@
-import { NextResponse } from "next/server"
+import { z } from "zod"
 import { verifyRecaptcha } from "@/lib/verify-recaptcha"
+import { ok, errorResponse, handleApiError } from "@/lib/http/responses"
+import { checkRateLimitFailOpen, getClientIp } from "@/lib/rate-limit"
+import { enviarEmailTransacional, escapeHtmlMultiline, linhaHtml } from "@/lib/email/brevo"
 
-const BREVO_API_KEY = process.env.BREVO_API_KEY!
-const DESTINO = "contato@escolaterra.com.br"
+export const runtime = "nodejs"
+export const dynamic = "force-dynamic"
+
+const RECAPTCHA_ACTION = "trabalhe_conosco"
+
+const RATE_LIMIT = { limit: 3, windowMs: 30 * 60 * 1000 }
+
+const opcional = (max: number) => z.string().trim().max(max).optional().or(z.literal(""))
+
+const bodySchema = z.object({
+  nome: z.string().trim().min(2).max(120),
+  email: z.string().trim().email().max(200),
+  telefone: z.string().trim().min(8).max(40),
+  cidade: opcional(120),
+  area: opcional(120),
+  formacao: opcional(200),
+  instituicao: opcional(200),
+  ano: opcional(10),
+  motivacao: opcional(5000),
+  // Texto livre de propósito: muita gente digita "linkedin.com/in/fulano" sem
+  // esquema, e recusar a candidatura inteira por isso seria pior. O valor vai
+  // para o e-mail escapado e SEM virar `<a href>`, então um `javascript:`
+  // aqui é só texto.
+  portfolio: opcional(500),
+  recaptchaToken: z.string().min(1).max(4096),
+})
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json()
-    const { nome, email, telefone, cidade, area, formacao, instituicao, ano, motivacao, portfolio, recaptchaToken } = body
-
-    if (!nome || !email || !telefone) {
-      return NextResponse.json({ error: "Campos obrigatórios ausentes." }, { status: 400 })
+    const json = await req.json().catch(() => null)
+    const parsed = bodySchema.safeParse(json)
+    if (!parsed.success) {
+      return errorResponse(400, "Confira os campos obrigatórios e tente novamente.")
     }
 
-    if (!recaptchaToken) {
-      return NextResponse.json({ error: "Token de segurança ausente." }, { status: 400 })
+    const { nome, email, telefone, cidade, area, formacao, instituicao, ano, motivacao, portfolio, recaptchaToken } =
+      parsed.data
+
+    const { allowed } = await checkRateLimitFailOpen({
+      keyParts: ["trabalhe-conosco", getClientIp(req)],
+      ...RATE_LIMIT,
+    })
+    if (!allowed) {
+      return errorResponse(429, "Muitas candidaturas enviadas. Aguarde alguns minutos.")
     }
 
-    const isHuman = await verifyRecaptcha(recaptchaToken)
+    const isHuman = await verifyRecaptcha(recaptchaToken, RECAPTCHA_ACTION)
     if (!isHuman) {
-      return NextResponse.json({ error: "Verificação de segurança falhou. Tente novamente." }, { status: 403 })
+      return errorResponse(403, "Verificação de segurança falhou. Tente novamente.")
     }
 
-    const res = await fetch("https://api.brevo.com/v3/smtp/email", {
-      method: "POST",
-      headers: {
-        "api-key": BREVO_API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        sender: { name: "Site Escola Terra Terrinha", email: "no-reply@escolaterra.com.br" },
-        to: [{ email: DESTINO, name: "Escola Terra Terrinha" }],
+    const enviado = await enviarEmailTransacional(
+      {
+        // `nome` também é escapado no assunto: a Brevo reflete o subject num
+        // cabeçalho do e-mail.
+        subject: `[Trabalhe Conosco] Candidatura de ${nome.replace(/[\r\n]/g, " ")}`,
         replyTo: { email, name: nome },
-        subject: `[Trabalhe Conosco] Candidatura de ${nome}`,
         htmlContent: `
           <h2>Nova candidatura recebida</h2>
-          <p><strong>Nome:</strong> ${nome}</p>
-          <p><strong>E-mail:</strong> ${email}</p>
-          <p><strong>Telefone:</strong> ${telefone}</p>
-          <p><strong>Cidade/Estado:</strong> ${cidade || "Não informado"}</p>
+          ${linhaHtml("Nome", nome)}
+          ${linhaHtml("E-mail", email)}
+          ${linhaHtml("Telefone", telefone)}
+          ${linhaHtml("Cidade/Estado", cidade)}
           <hr />
-          <p><strong>Área de interesse:</strong> ${area || "Não informada"}</p>
-          <p><strong>Formação:</strong> ${formacao || "Não informada"}</p>
-          <p><strong>Instituição de ensino:</strong> ${instituicao || "Não informada"}</p>
-          <p><strong>Ano de conclusão:</strong> ${ano || "Não informado"}</p>
+          ${linhaHtml("Área de interesse", area, "Não informada")}
+          ${linhaHtml("Formação", formacao, "Não informada")}
+          ${linhaHtml("Instituição de ensino", instituicao, "Não informada")}
+          ${linhaHtml("Ano de conclusão", ano)}
           <hr />
           <p><strong>Motivação:</strong></p>
-          <p>${motivacao ? motivacao.replace(/\n/g, "<br/>") : "Não informada"}</p>
-          <p><strong>Portfólio/Link:</strong> ${portfolio || "Não informado"}</p>
+          <p>${motivacao?.trim() ? escapeHtmlMultiline(motivacao) : "Não informada"}</p>
+          ${linhaHtml("Portfólio/Link", portfolio)}
         `,
-      }),
-    })
+      },
+      "api/trabalhe-conosco:POST",
+    )
 
-    if (!res.ok) {
-      const err = await res.json()
-      return NextResponse.json({ error: err.message || "Erro ao enviar e-mail." }, { status: 500 })
+    if (!enviado) {
+      return errorResponse(502, "Não foi possível enviar sua candidatura agora. Tente novamente em instantes.")
     }
 
-    return NextResponse.json({ success: true })
+    return ok()
   } catch (err) {
-    return NextResponse.json({ error: "Erro interno no servidor." }, { status: 500 })
+    return handleApiError(err, "api/trabalhe-conosco:POST")
   }
 }

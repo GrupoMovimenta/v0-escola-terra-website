@@ -10,7 +10,7 @@ export function ValoresSection() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry?.isIntersecting) {
           setIsVisible(true)
           observer.disconnect()
         }
@@ -42,9 +42,10 @@ export function ValoresSection() {
           <Image
             src="/images/valores-wordcloud.png"
             alt="Nuvem de palavras com os valores da Escola Terra Terrinha"
-            width={1280}
-            height={480}
+            width={1920}
+            height={780}
             className="w-full max-w-6xl lg:max-w-5xl h-auto mx-0 mt-[-30px]"
+            sizes="(max-width: 1024px) 100vw, 1024px"
             quality={100}
             priority
           />

@@ -1,20 +1,46 @@
-import React from "react"
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Questrial } from 'next/font/google'
+import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/next'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 import { RecaptchaProvider } from '@/components/recaptcha-provider'
+import { JsonLd } from '@/components/seo/json-ld'
+import { escolaJsonLd, websiteJsonLd, SITE_URL } from '@/lib/seo/structured-data'
 import './globals.css'
 
-const _questrial = Questrial({ weight: "400", subsets: ["latin"], variable: "--font-questrial" });
+/**
+ * `variable` expõe a família gerada pelo next/font como `--font-questrial`, e
+ * a classe precisa estar num ancestral para a variável existir no CSS. Antes
+ * a fonte era carregada e descartada: a constante ficava sem uso e o
+ * `--font-sans` do globals.css apontava para a string `'Questrial'`, que o
+ * next/font nunca declara (ele emite um nome com hash). Na prática o site
+ * inteiro renderizava na fonte de sistema.
+ */
+const questrial = Questrial({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-questrial',
+  display: 'swap',
+})
+
+const GTM_ID = 'GTM-WVCSKSZ5'
+
+const DESCRICAO =
+  'Escola de Educação Infantil e Ensino Fundamental I em Vinhedo-SP. Metodologia construtivista, inglês diário, conexão com a natureza e desenvolvimento integral da criança desde 1998.'
+
+export const viewport: Viewport = {
+  themeColor: '#365931',
+  colorScheme: 'light',
+}
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.escolaterra.com.br'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Escola Terra Terrinha | Educação Infantil em Vinhedo-SP',
     template: '%s | Escola Terra Terrinha',
   },
-  description: 'Escola de Educação Infantil e Ensino Fundamental I em Vinhedo-SP. Metodologia construtivista, inglês diário, conexão com a natureza e desenvolvimento integral da criança desde 1998.',
+  description: DESCRICAO,
+  applicationName: 'Escola Terra Terrinha',
   keywords: [
     'Escola Terra Terrinha',
     'educação infantil Vinhedo',
@@ -43,10 +69,10 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
-    url: 'https://www.escolaterra.com.br',
+    url: SITE_URL,
     siteName: 'Escola Terra Terrinha',
     title: 'Escola Terra Terrinha | Educação Infantil em Vinhedo-SP',
-    description: 'Escola de Educação Infantil e Ensino Fundamental I em Vinhedo-SP. Metodologia construtivista, inglês diário e desenvolvimento integral da criança desde 1998.',
+    description: DESCRICAO,
     images: [
       {
         url: '/images/og-image.png',
@@ -59,18 +85,19 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Escola Terra Terrinha | Educação Infantil em Vinhedo-SP',
-    description: 'Escola de Educação Infantil e Ensino Fundamental I em Vinhedo-SP. Metodologia construtivista, inglês diário e desenvolvimento integral da criança desde 1998.',
+    description: DESCRICAO,
     images: ['/images/og-image.png'],
   },
-  alternates: {
-    canonical: 'https://www.escolaterra.com.br',
-  },
-  generator: 'Next.js',
+  // NÃO declarar `alternates.canonical` aqui: metadata de layout é herdada
+  // pelas páginas que não a sobrescrevem, e a home como canônica de todas
+  // elas dizia ao Google que /fotos e as páginas de obrigado são duplicatas
+  // da home. Cada página define a própria canônica (relativa à metadataBase).
   icons: {
     icon: [
-      { url: '/favicon.png', type: 'image/png' },
+      { url: '/favicon.png', type: 'image/png', sizes: '150x150' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
     ],
-    apple: '/favicon.png',
+    apple: '/apple-icon.png',
   },
 }
 
@@ -80,31 +107,41 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" className={questrial.variable}>
       <head>
-        {/* Google Tag Manager */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        <JsonLd data={escolaJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
+      </head>
+      <body className="font-sans antialiased">
+        {/* O snippet do GTM saiu do <head> como <script> inline (que bloqueia o
+            parse do HTML) e passou para o next/script com `afterInteractive`:
+            o Next o injeta depois que a página fica interativa. O conteúdo é
+            uma constante do repositório — nenhum dado de usuário entra aqui. */}
+        <Script id="gtm" strategy="afterInteractive">
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WVCSKSZ5');`,
-          }}
-        />
-        {/* End Google Tag Manager */}
-      </head>
-      <body className={`font-sans antialiased`}>
-        {/* Google Tag Manager (noscript) */}
+})(window,document,'script','dataLayer','${GTM_ID}');`}
+        </Script>
         <noscript>
           <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-WVCSKSZ5"
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
             height="0"
             width="0"
-            style={{ display: "none", visibility: "hidden" }}
+            style={{ display: 'none', visibility: 'hidden' }}
+            title="Google Tag Manager"
           />
         </noscript>
-        {/* End Google Tag Manager (noscript) */}
+
+        {/* Primeiro elemento focável da página: permite a quem navega por
+            teclado pular o menu e ir direto ao conteúdo (WCAG 2.4.1). */}
+        <a
+          href="#conteudo"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+        >
+          Pular para o conteúdo
+        </a>
         <RecaptchaProvider>
           {children}
           <WhatsAppButton />

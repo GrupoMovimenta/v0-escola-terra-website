@@ -21,11 +21,11 @@ export const metadata: Metadata = {
     'dicas educação filhos',
     'Escola Terra Terrinha blog',
   ],
-  alternates: { canonical: 'https://www.escolaterra.com.br/blog' },
+  alternates: { canonical: '/blog' },
   openGraph: {
     title: 'Blog | Escola Terra Terrinha',
     description: 'Artigos e reflexões sobre educação infantil, metodologia construtivista e desenvolvimento da criança.',
-    url: 'https://www.escolaterra.com.br/blog',
+    url: '/blog',
     images: [{ url: '/images/og-image.png', width: 1200, height: 630, alt: 'Blog - Escola Terra Terrinha' }],
   },
 }
@@ -41,7 +41,7 @@ export default async function BlogPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="conteudo">
         <section className="relative py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl">
