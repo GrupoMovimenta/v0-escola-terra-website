@@ -36,8 +36,8 @@ export function AvisoRecaptcha() {
 
 /**
  * Aviso de tratamento de dados pessoais (LGPD, art. 9º: informação clara sobre
- * a finalidade antes da coleta). Os formulários coletavam nome, e-mail,
- * telefone e currículo sem nenhuma menção à política de privacidade, que já
+ * a finalidade antes da coleta). Os formulários coletavam dados pessoais
+ * sem nenhuma menção à política de privacidade, que já
  * existia em /politica mas só era alcançável pelo rodapé.
  *
  * Não adiciona nenhum campo de dado novo — só torna visível o uso do que já

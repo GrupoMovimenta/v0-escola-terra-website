@@ -1,0 +1,6 @@
+---
+description: Mapa e convenções essenciais do site Escola Terra Terrinha
+alwaysApply: true
+---
+
+Siga `AGENTS.md`. O projeto tem site público e painel editorial em `src/`, Next.js App Router, TypeScript strict e Tailwind CSS 4. Consulte `.agents/skills/terra-context/references/task-map.md` para localizar o fluxo e carregue apenas a referência correspondente. Preserve conteúdo e interface em português brasileiro. Para operações sensíveis, leia a seção pertinente de `CLAUDE.md`.

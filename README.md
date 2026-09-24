@@ -68,7 +68,7 @@ Todo o código fica em `src/`; a raiz guarda só configuração.
 ```
 src/
   app/                 rotas do App Router (uma pasta por página, em português)
-    api/               rotas públicas: contato, newsletter, trabalhe-conosco
+    api/               rotas públicas: contato, newsletter
     api/admin/         rotas do painel — cada uma chama requireEditorApi()
     admin/             painel de edição do blog — exige requireEditor()
     layout.tsx         metadata global, fonte, JSON-LD, GTM, skip link
@@ -131,7 +131,7 @@ código, não só para assistentes. O resumo:
 
 ## LGPD
 
-Os formulários coletam dados pessoais (nome, e-mail, telefone, currículo). A
+Os formulários coletam dados pessoais (nome, e-mail, telefone). A
 política está em `/politica` e é referenciada nos próprios formulários. Não
 adicione campo de dado pessoal, tracker ou pixel de terceiro sem atualizar a
 política junto.

@@ -1,0 +1,7 @@
+---
+description: Páginas públicas, leitura do blog, SEO, imagens e estilo
+globs: "src/app/page.tsx,src/app/layout.tsx,src/app/not-found.tsx,src/app/blog/**/*.tsx,src/app/contato/**/*.tsx,src/app/estrutura/**/*.tsx,src/app/fotos/**/*.tsx,src/app/pedagogia/**/*.tsx,src/app/politica/**/*.tsx,src/app/visita/**/*.tsx,src/app/trabalhe-conosco/**/*.tsx,src/app/obrigado-*/**/*.tsx,src/app/sitemap.ts,src/app/robots.ts,src/components/home/**/*.tsx,src/components/layout/**/*.tsx,src/components/blog/**/*.tsx,src/components/seo/**/*.tsx,src/lib/seo/**/*.ts,src/app/globals.css"
+alwaysApply: false
+---
+
+Para páginas e blog público, consulte `.agents/skills/terra-context/references/content-and-routes.md` quando necessário. Posts publicados vêm do Firestore; confira consultas, cache, metadata, JSON-LD, sitemap e robots no alcance da mudança. Reuse componentes locais e preserve links, imagens, acessibilidade e responsividade. Páginas são Server Components salvo necessidade de interação.
