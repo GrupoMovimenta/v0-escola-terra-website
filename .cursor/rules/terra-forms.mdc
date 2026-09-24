@@ -1,0 +1,7 @@
+---
+description: Formulários públicos, endpoints, reCAPTCHA, rate limit e Brevo
+globs: "src/components/forms/**/*.tsx,src/app/api/contato/route.ts,src/app/api/newsletter/route.ts,src/lib/verify-recaptcha.ts,src/lib/rate-limit.ts,src/lib/email/**/*.ts,src/components/recaptcha-provider.tsx"
+alwaysApply: false
+---
+
+Leia `.agents/skills/terra-context/references/forms-and-integrations.md` quando alterar estes fluxos. Confira cliente, schema Zod, rate limit, reCAPTCHA com action, helper da Brevo e página de agradecimento. Preserve escape de HTML, respostas genéricas e separação entre chave pública e segredos. Não registre dados pessoais ou tokens.

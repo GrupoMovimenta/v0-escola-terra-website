@@ -43,7 +43,7 @@ Todo o código da aplicação vive em `src/`; a raiz guarda só configuração.
 ```
 src/
   app/                rotas do App Router (uma pasta por página, em português)
-    api/              route handlers públicos (contato, newsletter, trabalhe-conosco)
+    api/              route handlers públicos (contato, newsletter)
     api/admin/        route handlers do painel — exigem requireEditorApi()
     admin/            painel de edição do blog — exige requireEditor()
     layout.tsx        metadata global de SEO, fonte, JSON-LD, GTM, skip link
@@ -129,7 +129,7 @@ As rotas públicas já foram corrigidas para atender a todas elas (auditoria de
 
 ## LGPD
 
-Os formulários coletam dados pessoais (nome, e-mail, telefone, currículo).
+Os formulários coletam dados pessoais (nome, e-mail, telefone).
 Não adicione novos campos de dado pessoal, trackers ou pixels de terceiros sem
 pedir confirmação explícita — há política de privacidade em [src/app/politica/](src/app/politica/)
 que precisa acompanhar qualquer mudança.

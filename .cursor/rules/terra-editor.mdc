@@ -1,0 +1,7 @@
+---
+description: Painel editorial, autenticação, Firestore, uploads e publicação do blog
+globs: "src/app/admin/**/*.tsx,src/app/api/admin/**/route.ts,src/components/admin/**/*.tsx,src/lib/auth/**/*.ts,src/lib/blog/**/*.ts,src/lib/firebase/**/*.ts,src/lib/http/**/*.ts,src/proxy.ts,firebase/**"
+alwaysApply: false
+---
+
+Para mudanças no painel, consulte `.agents/skills/terra-context/references/editor-and-firebase.md`. Preserve autorização real por `requireEditor()` nas páginas e `requireEditorApi()` nas APIs; `src/proxy.ts` só melhora a navegação. Em mutações, confira origem, validação, cache, preview e revalidação. Mantenha Admin SDK no servidor e Firebase client restrito ao login. Não execute scripts de migração, gestão de usuários ou deploy como teste.

@@ -2,7 +2,6 @@ import { Metadata } from "next"
 import Image from "next/image"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
-import { TrabalheConoscoForm } from "@/components/forms/trabalhe-conosco-form"
 
 export const metadata: Metadata = {
   title: "Trabalhe Conosco",
@@ -45,39 +44,38 @@ export default function TrabalheConoscoPage() {
 
         {/* Content */}
         <section className="py-16 lg:py-24 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Info */}
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-primary">
-                  Faça parte da nossa equipe
-                </h2>
-                <div className="space-y-4 text-muted-foreground leading-relaxed">
-                  <p>
-                    Se você se identifica com uma educação humanizada, com o contato diário com a 
-                    natureza e com uma prática pedagógica sensível e construtivista, envie seu currículo 
-                    e venha crescer com a gente!
-                  </p>
-                  <p>
-                    Buscamos profissionais comprometidos, criativos e apaixonados por educação, que 
-                    queiram fazer parte de uma equipe que acredita no poder transformador da escola.
-                  </p>
-                </div>
+          <div className="container mx-auto px-4 max-w-5xl">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-primary">
+              Faça parte da nossa equipe
+            </h2>
+            <div className="space-y-4 text-muted-foreground leading-relaxed">
+              <p>
+                Se você se identifica com uma educação humanizada, valoriza o contato diário com a natureza e acredita em uma prática pedagógica sensível, construtivista e centrada no desenvolvimento integral das crianças, queremos conhecer você.
+              </p>
+              <p>
+                Buscamos profissionais comprometidos, criativos e apaixonados por educação, que desejem fazer parte de uma equipe que acredita no poder transformador da escola e na construção de experiências significativas de aprendizagem.
+              </p>
+              <p className="font-semibold text-foreground">
+                Envie seu currículo para{" "}
+                <a
+                  href="mailto:vagas@escolaterra.com.br"
+                  className="text-primary underline underline-offset-2 hover:text-accent transition-colors break-words"
+                >
+                  vagas@escolaterra.com.br
+                </a>{" "}
+                e venha crescer com a gente!
+              </p>
+            </div>
 
-                <div className="mt-8">
-                  <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-ambiente-fachada-da-escola-1a-cYeD0aK89GUR9dH6D0jcBTg3gUVJtP.jpg"
-                    alt="Fachada da Escola Terra Terrinha"
-                    width={700}
-                    height={560}
-                    sizes="(max-width: 768px) 100vw, 700px"
-                    className="w-full h-auto rounded-xl object-cover"
-                  />
-                </div>
-              </div>
-
-              {/* Form */}
-              <TrabalheConoscoForm />
+            <div className="mt-8">
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/escola-terra-terrinha-ambiente-fachada-da-escola-1a-cYeD0aK89GUR9dH6D0jcBTg3gUVJtP.jpg"
+                alt="Fachada da Escola Terra Terrinha"
+                width={700}
+                height={560}
+                sizes="(max-width: 1024px) calc(100vw - 2rem), 1024px"
+                className="w-full h-auto rounded-xl"
+              />
             </div>
           </div>
         </section>

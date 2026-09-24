@@ -1,7 +1,7 @@
 import "server-only"
 
 /**
- * Cliente único da Brevo para as três rotas públicas de formulário.
+ * Cliente único da Brevo para as rotas públicas de contato e newsletter.
  *
  * Duas responsabilidades que ANTES estavam duplicadas (e erradas) em cada
  * rota:
